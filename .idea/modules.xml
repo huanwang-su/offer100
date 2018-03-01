@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/offer100.iml" filepath="$PROJECT_DIR$/offer100.iml" />
       <module fileurl="file://$PROJECT_DIR$/offer100-webmvc/offer100-webmvc.iml" filepath="$PROJECT_DIR$/offer100-webmvc/offer100-webmvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/offer100-webmvc/offer100-webmvc.iml" filepath="$PROJECT_DIR$/offer100-webmvc/offer100-webmvc.iml" />
     </modules>
   </component>
 </project>
