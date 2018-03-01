@@ -1,0 +1,41 @@
+server:
+  port: 8081
+
+#spring:
+#  mail:
+#    host: smtp.exmail.qq.com
+#    username: 用户名
+#    password: 密码
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
+
+
+
+spring.datasource.driverClassName: com.mysql.jdbc.Driver
+spring.datasource.url: jdbc:mysql://47.93.20.40:3306/offer100?useUnicode=true&characterEncoding=utf8&useSSL=false&rewriteBatchedStatements=true&zeroDateTimeBehavior=convertToNull
+spring.datasource.username:  root
+spring.datasource.password:  root
+spring.datasource.max-active: 20
+spring.datasource.max-idle: 8
+spring.datasource.min-idle: 8
+spring.datasource.initial-size: 8
+
+mybatis.type-aliases-package: com.yiguo.bean
+mybatis.config-locations: classpath:mybatis-config.xml
+mybatis.mapper-locations: classpath:com/yiguo/dao/mapper/*.xml
+mybatis.configuration.mapUnderscoreToCamelCase: true
+spring.mail.host: smtp.163.com
+spring.mail.port: 465
+spring.mail.username: 15337100703@163.com
+spring.mail.password: qwe753123
+spring.mail.auth: true
+spring.mail.timeout: 250000
+spring.mail.starttls.enable: true
+spring.mail.starttls.required: true  #添加
+spring.mail.socketFactory.fallback: false
+
