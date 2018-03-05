@@ -25,7 +25,8 @@ public class UserController {
     public List<User> getUserList() {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
-        List<User> r = new ArrayList<User>(users.values());
+        //List<User> r = new ArrayList<User>(users.values());
+        List<User> r = userService.query();
         return r;
     }
 
@@ -58,19 +59,19 @@ public class UserController {
     @ApiOperation(value="更新用户详细信息", notes="根据url的id来指定更新对象，并根据传过来的user信息来更新用户详细信息")
    @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putUser(@PathVariable Integer id, @ModelAttribute User user) {
+    public Integer putUser(@PathVariable Integer id, @ModelAttribute User user) {
         // 处理"/users/{id}"的PUT请求，用来更新User信息
-        user.setId(id);
-        userService.updateByPrimaryKeySelective(user);
-        return "success";
+        //user.setId(id);
+        int num = userService.updateByPrimaryKeySelective(user);
+        return num;
     }
 
     @ApiOperation(value="删除用户", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String deleteUser(@PathVariable Integer id) {
+    public int  deleteUser(@PathVariable Integer id) {
         // 处理"/users/{id}"的DELETE请求，用来删除User
-        userService.deleteByPrimaryKey(id);
-        return "success";
+        int num = userService.deleteByPrimaryKey(id);
+        return num;
     }
 }

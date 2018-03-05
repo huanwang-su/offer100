@@ -180,6 +180,7 @@
     -->
     update user
     <set >
+
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
