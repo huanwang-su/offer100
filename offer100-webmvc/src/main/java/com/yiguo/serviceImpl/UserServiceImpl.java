@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
+
 @Service("User")
 @Transactional
 public class UserServiceImpl extends AbstractBaseServiceImpl<Integer, User> implements UserService {
@@ -56,6 +58,11 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<Integer, User> impl
 
 		userlist.put("user", userinfo);
 		return userlist;
+	}
+
+	@Override
+	public List<User> query() {
+		return dao.query();
 	}
 
 	@Override

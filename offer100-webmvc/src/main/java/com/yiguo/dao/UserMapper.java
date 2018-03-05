@@ -26,6 +26,6 @@ public interface UserMapper extends BaseMapper<Integer, User> {
 
 	List<String> selectidbytea(Integer id);
 
-	List<User> query(User User);
+	List<User> query();
 
 }

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import  com.yiguo.bean.User;
 import java.util.*;
 
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
+
 @RestController
 @Api(value = "API - UserController", description = "User详情")
 @RequestMapping(value="/users")     // 通过这里配置使下面的映射都在/users下
@@ -25,7 +28,8 @@ public class UserController {
     public List<User> getUserList() {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
-        List<User> r = new ArrayList<User>(users.values());
+        //List<User> r = new ArrayList<User>(users.values());
+        List<User> r = userService.query();
         return r;
     }
 
@@ -35,12 +39,13 @@ public class UserController {
     public String postUser(@RequestBody User user) {
         // 处理"/users/"的POST请求，用来创建User
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
-        String f="false";
+        String f=FAILURE;
         Integer count=  userService.selectByName(user.getName());
         if(count==0) {
             userService.insert(user);
-        f="true";
+        f=SUCCESS;
         }
+        //System.out.println(f);
         return f;
     }
 
@@ -60,17 +65,23 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String putUser(@PathVariable Integer id, @ModelAttribute User user) {
         // 处理"/users/{id}"的PUT请求，用来更新User信息
-        user.setId(id);
-        userService.updateByPrimaryKeySelective(user);
-        return "success";
+        //user.setId(id);
+        int num = userService.updateByPrimaryKeySelective(user);
+        if(num > 0) {
+            return SUCCESS;
+        }else
+            return FAILURE;
     }
 
     @ApiOperation(value="删除用户", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String deleteUser(@PathVariable Integer id) {
+    public String  deleteUser(@PathVariable Integer id) {
         // 处理"/users/{id}"的DELETE请求，用来删除User
-        userService.deleteByPrimaryKey(id);
-        return "success";
+        int num = userService.deleteByPrimaryKey(id);
+        if(num > 0) {
+            return SUCCESS;
+        }else
+            return FAILURE;
     }
 }

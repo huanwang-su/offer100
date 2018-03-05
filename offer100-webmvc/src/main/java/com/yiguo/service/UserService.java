@@ -16,5 +16,5 @@ public interface UserService extends BaseService<Integer, User> {
 
 	HashMap<String, Object> getuserdetail(Integer id);
 
-	List<User> query(User User);
+	List<User> query();
 }

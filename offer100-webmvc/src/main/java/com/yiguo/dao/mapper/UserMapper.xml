@@ -62,10 +62,8 @@
     FROM user
     WHERE
         name = #{name,jdbcType=VARCHAR}
-
-
-
   </select>
+
    <!-- 删除数据 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
@@ -180,6 +178,7 @@
     -->
     update user
     <set >
+
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
