@@ -6,6 +6,7 @@ import com.yiguo.service.MainPageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +37,7 @@ public class MainPageController {
 	@ApiOperation(value = "首页获取热门岗位", produces = "application/json")
 	@ResponseBody
 	@RequestMapping(value = "/hotJob", method = { RequestMethod.GET })
+	@Cacheable(cacheNames = "offer100", keyGenerator = "cacheKeyGenerator")
 	public List<JobVO> getHotJob() throws IOException, IllegalAccessException, InvocationTargetException {
 		// TODO 获取配置的id
 		List<JobVO> jobvo = mainpageService.getHotJob();
