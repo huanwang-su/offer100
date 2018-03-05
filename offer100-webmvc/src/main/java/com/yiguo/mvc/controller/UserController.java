@@ -36,12 +36,13 @@ public class UserController {
     public String postUser(@RequestBody User user) {
         // 处理"/users/"的POST请求，用来创建User
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
-        String f="false";
+        String f="创建失败";
         Integer count=  userService.selectByName(user.getName());
         if(count==0) {
             userService.insert(user);
-        f="true";
+        f="创建成功";
         }
+        //System.out.println(f);
         return f;
     }
 
@@ -59,19 +60,25 @@ public class UserController {
     @ApiOperation(value="更新用户详细信息", notes="根据url的id来指定更新对象，并根据传过来的user信息来更新用户详细信息")
    @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Integer putUser(@PathVariable Integer id, @ModelAttribute User user) {
+    public String putUser(@PathVariable Integer id, @ModelAttribute User user) {
         // 处理"/users/{id}"的PUT请求，用来更新User信息
         //user.setId(id);
         int num = userService.updateByPrimaryKeySelective(user);
-        return num;
+        if(num > 0) {
+            return "更新成功";
+        }else
+            return "更新失败";
     }
 
     @ApiOperation(value="删除用户", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public int  deleteUser(@PathVariable Integer id) {
+    public String  deleteUser(@PathVariable Integer id) {
         // 处理"/users/{id}"的DELETE请求，用来删除User
         int num = userService.deleteByPrimaryKey(id);
-        return num;
+        if(num > 0) {
+            return "删除成功";
+        }else
+            return "删除失败";
     }
 }

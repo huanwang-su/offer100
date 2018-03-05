@@ -16,5 +16,7 @@ public interface ConfigurationService extends BaseService<Integer, Configuration
     //按类型删除
     int deleteByType(String type);
 
+    int FindByType(String  type);
+
 
 }
