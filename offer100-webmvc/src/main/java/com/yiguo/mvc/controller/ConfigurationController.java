@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 
 @RestController
 @Api(value = "API - ConfigurationController", description = "Configuration详情")
@@ -41,11 +43,11 @@ public class ConfigurationController {
 
 
 
-        String f="fail";
+        String f=FAILURE;
         Integer count=  configurationService.FindByType(configuration.getType());
         if(count==0) {
             configurationService.insert(configuration);
-            f="success";
+            f=SUCCESS;
         }
         //System.out.println(f);
         return f;
@@ -82,20 +84,20 @@ public class ConfigurationController {
         //user.setId(id);
         int num = configurationService.updateByPrimaryKeySelective(configuration);
         if(num > 0) {
-            return "更新成功";
+            return SUCCESS;
         }else
-            return "更新失败";
+            return FAILURE;
     }
 
     @ApiOperation(value="删除配置信息", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String  deleteConfiguration(@PathVariable Integer id) {
+    public String deleteConfiguration(@PathVariable Integer id) {
         // 处理"/configuration/{id}"的DELETE请求，用来删除Configuration
         int num = configurationService.deleteByPrimaryKey(id);
         if(num > 0) {
-            return "删除成功";
+            return SUCCESS;
         }else
-            return "删除失败";
+            return FAILURE;
     }
 }

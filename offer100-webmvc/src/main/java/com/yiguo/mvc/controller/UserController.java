@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import  com.yiguo.bean.User;
 import java.util.*;
 
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
+
 @RestController
 @Api(value = "API - UserController", description = "User详情")
 @RequestMapping(value="/users")     // 通过这里配置使下面的映射都在/users下
@@ -36,11 +39,11 @@ public class UserController {
     public String postUser(@RequestBody User user) {
         // 处理"/users/"的POST请求，用来创建User
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
-        String f="创建失败";
+        String f=FAILURE;
         Integer count=  userService.selectByName(user.getName());
         if(count==0) {
             userService.insert(user);
-        f="创建成功";
+        f=SUCCESS;
         }
         //System.out.println(f);
         return f;
@@ -65,9 +68,9 @@ public class UserController {
         //user.setId(id);
         int num = userService.updateByPrimaryKeySelective(user);
         if(num > 0) {
-            return "更新成功";
+            return SUCCESS;
         }else
-            return "更新失败";
+            return FAILURE;
     }
 
     @ApiOperation(value="删除用户", notes="根据url的id来指定删除对象")
@@ -77,8 +80,8 @@ public class UserController {
         // 处理"/users/{id}"的DELETE请求，用来删除User
         int num = userService.deleteByPrimaryKey(id);
         if(num > 0) {
-            return "删除成功";
+            return SUCCESS;
         }else
-            return "删除失败";
+            return FAILURE;
     }
 }
