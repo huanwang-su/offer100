@@ -52,11 +52,17 @@ public class MainPageService {
 				float resumeHanderRate = 0;
 				int resumeNum = 0;
 				int resumeNum1 = 0;
-				// 获取简历数量
-					resumeNum = resumeNum + resume_post_recordService.selectjob(enterpriseIds.get(i));
+
+				for (int j = 0; j < job.size(); j++) {
+
+					// 获取岗位id
+					int jobid = job.get(j).getId();
+					// 获取简历数量
+					resumeNum = resumeNum + resume_post_recordService.selectjob(jobid);
 					// 获取简历数量，且state为1
-					resumeNum1 = resumeNum1 + resume_post_recordService.selectjob1(enterpriseIds.get(i));
+					resumeNum1 = resumeNum1 + resume_post_recordService.selectjob1(jobid);
 					// 计算简历处理率
+				}
 				if (resumeNum != 0)
 					resumeHanderRate = (resumeNum - resumeNum1) / resumeNum;
 
