@@ -41,10 +41,13 @@ public class IndustryServiceImpl extends AbstractBaseServiceImpl<Integer, Indust
         try {
             BeanUtils.copyProperties(vo, src);
         } catch (Exception e) {}
+        if(vo.getLevel()>=3)
+            return vo;
         List<Industry> chird = getByParentId(src.getId());
         if(chird.size()==0)
             return vo;
         List<IndustryVO> chirdVO = new ArrayList<IndustryVO>();
+        vo.setChird(chirdVO);
         chird.forEach(c -> chirdVO.add(parseIndustrieToVo(c)));
         return vo;
     }
