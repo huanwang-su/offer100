@@ -23,8 +23,9 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParser;
@@ -44,7 +45,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
  * @author <a href="mailto:1360527082@qq.com">王焕</a> 2017年6月10日
  */
 public class UtilJson {
-	protected static final Logger logger = LogManager.getLogger(UtilJson.class);
+	protected static final Logger logger = (Logger) LoggerFactory.getLogger(UtilJson.class);
 	public static final ObjectMapper mapper0 = newObjectMapper0(), mapper = newObjectMapper(), webMapper = mapper;
 
 	private static ObjectMapper newObjectMapper0() {
