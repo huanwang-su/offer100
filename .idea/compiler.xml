@@ -2,15 +2,18 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="offer100-search" />
         <module name="offer100-webmvc" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="offer100" target="1.8" />
+      <module name="offer100-search" target="1.8" />
       <module name="offer100-webmvc" target="1.8" />
     </bytecodeTargetLevel>
   </component>

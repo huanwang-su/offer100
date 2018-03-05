@@ -20,7 +20,7 @@ import javax.servlet.Filter;
 import java.io.IOException;
 
 @Configuration
-@ComponentScan(basePackages = {"com.yiguo"})
+@ComponentScan(basePackages = {"com.yiguo","com.yiguo.offer100.search"})
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableCaching

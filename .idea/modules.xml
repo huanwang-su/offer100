@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/offer100.iml" filepath="$PROJECT_DIR$/offer100.iml" />
+      <module fileurl="file://$PROJECT_DIR$/offer100-search/offer100-search.iml" filepath="$PROJECT_DIR$/offer100-search/offer100-search.iml" />
       <module fileurl="file://$PROJECT_DIR$/offer100-webmvc/offer100-webmvc.iml" filepath="$PROJECT_DIR$/offer100-webmvc/offer100-webmvc.iml" />
       <module fileurl="file://F:\workspaces\java\offer100\offer100-webmvc\offer100-webmvc.iml" filepath="F:\workspaces\java\offer100\offer100-webmvc\offer100-webmvc.iml" />
     </modules>
