@@ -24,6 +24,7 @@ public class MainPageController {
 	@Autowired
 	private MainPageService mainpageService;
 
+	@Cacheable(cacheNames = "offer100", keyGenerator = "cacheKeyGenerator")
 	@ApiOperation(value = "首页获取热门公司", produces = "application/json")
 	@ResponseBody
 	@RequestMapping(value = "/hotEnterprise", method = { RequestMethod.GET })
