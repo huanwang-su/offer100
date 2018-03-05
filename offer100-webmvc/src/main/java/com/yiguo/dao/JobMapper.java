@@ -9,5 +9,5 @@ import java.util.List;
 @Mapper
 public interface JobMapper extends BaseMapper<Integer, Job> {
 	List<Job> querySearch(Integer enterpriseId);
-
+	int selectByIds(Job job);
 }

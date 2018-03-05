@@ -20,4 +20,9 @@ public class EnterpriseServiceImpl extends AbstractBaseServiceImpl<Integer, Ente
 		return dao;
 	}
 
+
+	@Override
+	public Enterprise selectByIds(String userName, String userPassword) {
+		return dao.selectByIds(userName,userPassword);
+	}
 }

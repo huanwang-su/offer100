@@ -13,7 +13,7 @@ import java.time.LocalTime;
  * @create 2018-03-01 
  **/
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes= Offer100WebmvcApplication.class)
+@SpringBootTest(classes=Offer100WebmvcApplication.class )
 public class BaseServiceTest {
     protected ThreadLocal<LocalTime> times = new ThreadLocal<>();
     protected void getAndOutputTime(){

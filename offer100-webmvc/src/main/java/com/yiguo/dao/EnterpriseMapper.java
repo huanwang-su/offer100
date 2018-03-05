@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface EnterpriseMapper extends BaseMapper<Integer, Enterprise> {
-
+    Enterprise selectByIds(String userName,String userPassword);
 }

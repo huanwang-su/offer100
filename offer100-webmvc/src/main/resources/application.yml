@@ -39,17 +39,24 @@ spring:
     filters: stat,wall,log4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
+  mail:
+    host: smtp.163.com
+    port: 465
+    username: 15337100703@163.com
+    password: qwe753123
+    auth: true
+    timeout: 250000
+    starttls.enable: true
+    starttls.required: true  #添加
+    socketFactory.fallback: false
+
+  cache:
+    type: guava
+    cache-names: offer100
+
 mybatis.type-aliases-package: com.yiguo.bean
 mybatis.config-locations: classpath:mybatis-config.xml
 mybatis.mapper-locations: classpath:com/yiguo/dao/mapper/*.xml
 mybatis.configuration.mapUnderscoreToCamelCase: true
-spring.mail.host: smtp.163.com
-spring.mail.port: 465
-spring.mail.username: 15337100703@163.com
-spring.mail.password: qwe753123
-spring.mail.auth: true
-spring.mail.timeout: 250000
-spring.mail.starttls.enable: true
-spring.mail.starttls.required: true  #添加
-spring.mail.socketFactory.fallback: false
+
 

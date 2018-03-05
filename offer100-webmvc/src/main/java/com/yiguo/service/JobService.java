@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface JobService extends BaseService<Integer, Job> {
 	List<Job> querySearch(Integer enterpriseId);
+	int selectByIds(Job job);
 }

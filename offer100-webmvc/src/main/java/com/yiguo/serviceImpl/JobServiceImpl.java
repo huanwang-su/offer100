@@ -28,4 +28,9 @@ public class JobServiceImpl extends AbstractBaseServiceImpl<Integer, Job> implem
 		return dao.querySearch(enterpriseId);
 	}
 
+	@Override
+	public int selectByIds(Job job) {
+		return dao.selectByIds(job);
+	}
+
 }

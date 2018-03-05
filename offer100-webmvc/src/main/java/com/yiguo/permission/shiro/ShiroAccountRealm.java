@@ -3,8 +3,9 @@ package com.yiguo.permission.shiro;
 import com.yiguo.bean.User;
 import com.yiguo.service.RoleService;
 import com.yiguo.service.UserService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationException;
@@ -22,7 +23,7 @@ import java.util.Set;
  * 用户认证
  */
 public class ShiroAccountRealm extends AuthorizingRealm {
-	public Logger logger = LogManager.getLogger(getClass());
+	public Logger logger = (Logger) LoggerFactory.getLogger(getClass());
     @Autowired
 	private UserService userService;
     @Autowired

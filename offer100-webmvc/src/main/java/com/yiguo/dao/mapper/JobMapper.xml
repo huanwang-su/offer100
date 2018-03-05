@@ -29,14 +29,14 @@
 	</resultMap>
 	<!-- sql语句，调用now函数 -->
 	<sql id="insert">
-		insert into job (id, enterprise_id, title,
+		insert into job ( enterprise_id, title,
 		nature, industry_id, zone_id,
 		address, effective_time, expiration_time,
 		wage, people_number, education,
 		service_year, description, welfare,
 		email, creat_time, update_time
 		)
-		values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER},
+		values ( #{enterpriseId,jdbcType=INTEGER},
 		#{title,jdbcType=VARCHAR},
 		#{nature,jdbcType=VARCHAR}, #{industryId,jdbcType=INTEGER}, #{zoneId,jdbcType=INTEGER},
 		#{address,jdbcType=VARCHAR}, #{effectiveTime,jdbcType=TIMESTAMP},
@@ -101,6 +101,17 @@
 		</if>
 
 	</select>
+
+	<select id="selectByIds" parameterType="com.yiguo.bean.Job" resultType="Integer">
+		SELECT count(*)
+		FROM job
+		WHERE
+		title = #{title,jdbcType=VARCHAR}
+		AND
+	    enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+
+	</select>
+
 <select id="querySearch" parameterType="com.yiguo.bean.Job"
         resultMap="BaseResultMap">
         select *

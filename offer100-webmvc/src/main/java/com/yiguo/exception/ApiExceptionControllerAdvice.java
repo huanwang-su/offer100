@@ -15,11 +15,11 @@
  */
 package com.yiguo.exception;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import org.slf4j.LoggerFactory;
 import com.yiguo.utils.UtilJson;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -48,7 +48,7 @@ public class ApiExceptionControllerAdvice {
 	private @Value("${api.error.debug:false}") boolean debug;
 	protected Set<String> exKeys = new HashSet<>(
 			Arrays.asList(StringUtils.split("Exception,SQL,java.,.java:,com.", ",")));
-	private static Logger logger = LogManager.getLogger(ApiExceptionControllerAdvice.class);
+	private static Logger logger = (Logger) LoggerFactory.getLogger(ApiExceptionControllerAdvice.class);
 	private static Level level = logger.getLevel();
 
 	@ExceptionHandler(Exception.class)

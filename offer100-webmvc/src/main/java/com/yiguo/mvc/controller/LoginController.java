@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -42,7 +43,7 @@ import com.yiguo.utils.UtilJson;
  */
 @Controller
 public class LoginController {
-	public static Logger logger = LogManager.getLogger(LoginController.class);
+	public static Logger logger = (Logger) LoggerFactory.getLogger(LoginController.class);
 	private static @Autowired RoleService roleService;
 
 	@ResponseBody

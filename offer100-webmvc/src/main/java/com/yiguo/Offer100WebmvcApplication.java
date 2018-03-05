@@ -5,6 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -22,6 +23,7 @@ import java.io.IOException;
 @ComponentScan(basePackages = {"com.yiguo"})
 @SpringBootApplication
 @EnableTransactionManagement
+@EnableCaching
 @MapperScan("com.yiguo.dao")
 public class Offer100WebmvcApplication implements Runnable{
 
