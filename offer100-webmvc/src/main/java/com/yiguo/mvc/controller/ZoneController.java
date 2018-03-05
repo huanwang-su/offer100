@@ -17,13 +17,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@Api(value = "API - ZoneController", description = "Zone详情")
+@Api(value = "API - ZoneController", description = "地区详情")
 @RequestMapping("/zone")
 public class ZoneController {
     @Autowired
     ZoneService zoneService;
-    // 创建线程安全的Map
-    static Map<Integer, Zone> zones = Collections.synchronizedMap(new HashMap<Integer, Zone>());
+
 
 
     @ApiOperation(value = "创建地区",notes = "根据Zone对象创建Zone")
@@ -69,10 +68,10 @@ public class ZoneController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteZone(@PathVariable Integer id) {
         // 处理"/Zones/{id}"的DELETE请求，用来删除Zone
-      String f="true";
+      String f="删除成功";
         zoneService.deleteByPrimaryKey(id);
         if(zoneService.selectByPrimaryKey(id)!=null)
-            f="false";
+            f="删除失败";
         return f;
     }
 }
