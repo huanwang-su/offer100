@@ -14,10 +14,9 @@ public class AnswerServiceImpl extends AbstractBaseServiceImpl<Integer, Answer> 
     @Autowired
 	private AnswerMapper dao;
 
+
 	@Override
 	public BaseMapper<Integer, Answer> getDao() {
-		// TODO Auto-generated method stub
 		return dao;
 	}
-
 }

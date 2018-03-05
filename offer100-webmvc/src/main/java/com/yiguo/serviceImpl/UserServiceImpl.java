@@ -22,6 +22,9 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<Integer, User> impl
 		return dao.selectUserbyId(id);
 	}
 
+
+
+
 	@Override
 	public void resetpassword(Integer id) {
 		// TODO Auto-generated method stub
@@ -60,4 +63,6 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<Integer, User> impl
 		// TODO Auto-generated method stub
 		return dao;
 	}
+
+
 }

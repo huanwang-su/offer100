@@ -20,4 +20,8 @@ public class EducationServiceImpl extends AbstractBaseServiceImpl<Integer, Educa
 		return dao;
 	}
 
+	@Override
+	public int selectByIds(Integer userId) {
+		return dao.selectByIds(userId);
+	}
 }

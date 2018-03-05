@@ -15,10 +15,10 @@
   </resultMap>
     <!-- sql语句，调用now函数 -->
    <sql id="insert">
-  insert into zone (id, name, parent_id, 
+  insert into zone (name, parent_id,
       level, create_time, update_time
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+    values ( #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER},
       #{level,jdbcType=TINYINT}, now(), now()
       )
 
@@ -58,6 +58,15 @@
     <include refid="Base_Column_List" />
     from zone
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByName" parameterType="com.yiguo.bean.Zone" resultType="Integer">
+    SELECT count(*)
+    FROM zone
+    WHERE
+    name = #{name,jdbcType=VARCHAR}
+
+
+
   </select>
   <!-- 删除数据 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

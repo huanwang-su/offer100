@@ -38,4 +38,6 @@ public interface BaseService<ID, T> {
 
 	// 分页查询处理
 	List<T> select(T record, Page page);
+
+	int selectByName(String name);
 }

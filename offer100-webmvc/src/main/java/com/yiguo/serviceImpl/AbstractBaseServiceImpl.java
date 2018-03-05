@@ -51,7 +51,7 @@ public abstract class AbstractBaseServiceImpl<ID, T> {
 
 	// 通过实体类进行部分更新处理
 	public int updateByPrimaryKeySelective(T record) {
-		return getDao().updateByPrimaryKey(record);
+		return getDao().updateByPrimaryKeySelective(record);
 	}
 
 	// 通过实体类对象进行全部更新处理
@@ -74,5 +74,10 @@ public abstract class AbstractBaseServiceImpl<ID, T> {
 	public int deleteByPrimaryKey(ID id) {
 
 		return getDao().deleteByPrimaryKey(id);
+	}
+
+	//根据名字查询数据是否存在
+	public int selectByName(String name) {
+		return getDao().selectByName(name);
 	}
 }

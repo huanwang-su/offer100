@@ -22,15 +22,15 @@
   </resultMap>
     <!-- sql语句，调用now函数 -->
    <sql id="insert">
-  insert into user (id, name, username, 
+  insert into user (id, name, username,
       password, sex, email, 
       phone, school_id, major_id, 
-      education, create_time, update_time,age
+      education, age,create_time, update_time
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
       #{password,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{schoolId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, 
-      #{education,jdbcType=TINYINT},#{age,jdbcType=TINYINT} now(), now()
+      #{education,jdbcType=TINYINT},#{age,jdbcType=TINYINT} ,now(), now()
       )
 
 </sql> 
@@ -54,6 +54,17 @@
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!--姓名查询-->
+
+  <select id="selectByName" parameterType="com.yiguo.bean.User" resultType="Integer">
+    SELECT count(*)
+    FROM user
+    WHERE
+        name = #{name,jdbcType=VARCHAR}
+
+
+
   </select>
    <!-- 删除数据 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -225,7 +236,7 @@
       major_id = #{majorId,jdbcType=INTEGER},
       education = #{education,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
       age=#{age,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>

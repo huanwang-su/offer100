@@ -14,10 +14,10 @@
 	</resultMap>
 	<!-- 通过sql语句调用now函数，传入时间 -->
 	<sql id="insert">
-		insert into answer (id, question_id, context,
+		insert into answer ( question_id, context,
 		user_id, time, create_time,
 		update_time)
-		values (#{id,jdbcType=INTEGER}, #{questionId,jdbcType=INTEGER},
+		values ( #{questionId,jdbcType=INTEGER},
 		#{context,jdbcType=VARCHAR},
 		#{userId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, now(),now())
 

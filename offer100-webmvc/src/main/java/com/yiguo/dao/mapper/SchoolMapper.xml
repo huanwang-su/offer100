@@ -16,10 +16,10 @@
   </resultMap>
     <!-- sql语句，调用now函数 -->
    <sql id="insert">
-   insert into school (id, name, zone_id, 
+   insert into school ( name, zone_id,
       type, properties, create_time, 
       update_time)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{zoneId,jdbcType=INTEGER}, 
+    values (#{name,jdbcType=VARCHAR}, #{zoneId,jdbcType=INTEGER},
       #{type,jdbcType=CHAR}, #{properties,jdbcType=CHAR}, now(),now())
 </sql> 
 <!-- 查询数据 -->
@@ -41,6 +41,14 @@
     </if>
  
   
+
+  </select>
+
+  <select id="selectByName" parameterType="com.yiguo.bean.School" resultType="Integer">
+    SELECT count(*)
+    FROM school
+    WHERE
+    name = #{name,jdbcType=VARCHAR}
 
   </select>
   <sql id="Base_Column_List" >
