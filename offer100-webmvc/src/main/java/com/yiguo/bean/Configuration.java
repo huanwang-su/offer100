@@ -7,7 +7,7 @@ public class Configuration implements Serializable {
 
     private Integer id;
 
-    private String key;
+    private String type;
 
     private String value;
 
@@ -23,12 +23,12 @@ public class Configuration implements Serializable {
         this.id = id;
     }
 
-    public String getKey() {
-        return key;
+    public String getType() {
+        return type;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getValue() {
@@ -55,12 +55,11 @@ public class Configuration implements Serializable {
         this.updateTime = updateTime;
     }
 
-
     @Override
     public String toString() {
         return "Configuration{" +
                 "id=" + id +
-                ", key='" + key + '\'' +
+                ", type='" + type + '\'' +
                 ", value='" + value + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
