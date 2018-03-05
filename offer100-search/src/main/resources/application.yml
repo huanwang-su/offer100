@@ -1,0 +1,7 @@
+
+app:
+  name: offer100-search
+  solr:
+    job.url: http://47.93.20.40:8983/solr/offer100-job
+    talent.url: http://47.93.20.40:8983/solr/offer100-talent
+    connectionTimeout: 500
