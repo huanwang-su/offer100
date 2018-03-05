@@ -38,4 +38,6 @@ public interface BaseMapper<ID, T> {
 
 	// 进行分页处理
 	List<T> select(Map map);
+
+	int selectByName(String name);
 }

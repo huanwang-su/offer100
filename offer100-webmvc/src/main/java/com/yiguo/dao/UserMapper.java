@@ -16,8 +16,6 @@ import java.util.List;
 public interface UserMapper extends BaseMapper<Integer, User> {
 	User selectById(Integer Id);
 
-	User selectByUser(User user);
-
 	User selectUserbyId(Integer id);
 
 	void resetpassword(User user);

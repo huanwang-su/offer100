@@ -187,19 +187,17 @@
   <select id="selectjob" parameterType="com.yiguo.bean.Resume_post_record" resultType="Integer">
     SELECT count(*)
     FROM resume_post_record
-    WHERE 
-        job_id = #{jobId,jdbcType=INTEGER}
+     WHERE job_id IN
+       (SELECT id jid FROM job WHERE enterprise_id = #{enterpriseId,jdbcType=INTEGER})
     
   </select>
   
   <!-- 查詢job数量 且状态为1 -->
   <select id="selectjob1" parameterType="com.yiguo.bean.Resume_post_record" resultType="Integer">
-    SELECT count(*)
+   SELECT count(*)
     FROM resume_post_record
-    WHERE 
-  
-      
-        job_id = #{jobId,jdbcType=INTEGER}
+     WHERE job_id IN
+       (SELECT id jid FROM job WHERE enterprise_id = #{enterpriseId,jdbcType=INTEGER})
      and
         state = 1
     

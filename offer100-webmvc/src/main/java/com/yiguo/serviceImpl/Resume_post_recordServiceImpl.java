@@ -22,15 +22,15 @@ public class Resume_post_recordServiceImpl extends AbstractBaseServiceImpl<Integ
 	}
 
 	@Override
-	public int selectjob(Integer jobId) {
+	public int selectjob(Integer enterpriseId) {
 		// TODO Auto-generated method stub
-		return dao.selectjob(jobId);
+		return dao.selectjob(enterpriseId);
 	}
 
 	@Override
-	public int selectjob1(Integer jobId) {
+	public int selectjob1(Integer enterpriseId) {
 		// TODO Auto-generated method stub
-		return dao.selectjob1(jobId);
+		return dao.selectjob1(enterpriseId);
 	}
 
 }

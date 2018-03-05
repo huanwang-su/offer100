@@ -2,15 +2,17 @@ package com.yiguo.mvc.intercepter;
 
 import com.yiguo.permission.shiro.ShiroSessionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * 头部处理拦截器
- *
+ *\
  * @author wanghuan
  * @date 2018-01-06
  */

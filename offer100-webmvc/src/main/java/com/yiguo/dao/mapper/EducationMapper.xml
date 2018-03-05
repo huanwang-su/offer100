@@ -15,10 +15,10 @@
 	</resultMap>
 	<!-- sql语句，调用now函数 -->
 	<sql id="insert">
-		insert into education (id, user_id, user_name,
+		insert into education ( user_id, user_name,
 		start_time, end_time, school_title,
 		creat_time, update_time)
-		values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+		values ( #{userId,jdbcType=INTEGER},
 		#{userName,jdbcType=VARCHAR},
 		#{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{schoolTitle,jdbcType=VARCHAR},
 		now(), now())
@@ -65,6 +65,13 @@
 		<include refid="Base_Column_List" />
 		from education
 		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectByIds" parameterType="com.yiguo.bean.Education" resultType="Integer">
+		SELECT count(*)
+		FROM education
+		WHERE
+		user_id = #{userId,jdbcType=INTEGER}
 	</select>
 	<!-- 删除数据 -->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
