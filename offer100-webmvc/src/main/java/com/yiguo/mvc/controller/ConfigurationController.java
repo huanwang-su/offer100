@@ -33,6 +33,7 @@ public class ConfigurationController {
 
     @ApiOperation(value = "创建配置信息",notes = "根据configuration对象创建configuration")
     @ResponseBody
+    
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String postUser(@RequestBody Configuration configuration) {
         // 处理"/configuration/"的POST请求，用来创建Configuration
