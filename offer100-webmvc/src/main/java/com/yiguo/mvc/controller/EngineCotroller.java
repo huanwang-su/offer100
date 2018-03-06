@@ -76,7 +76,7 @@ public class EngineCotroller {
     }
     @ApiOperation(value = "用户点击找回密码链接",notes = "")
     @ResponseBody
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/resetPasswordLink", method = RequestMethod.GET)
     public void getLink(@PathVariable  String link) throws Exception {
 
 

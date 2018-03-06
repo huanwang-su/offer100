@@ -1,5 +1,6 @@
 package com.yiguo.offer100.search;
 
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.offer100.search.bean.Talent;
 import com.yiguo.offer100.search.service.JobSearchService;
 import com.yiguo.offer100.search.service.TalentSearchService;
@@ -20,7 +21,7 @@ public class Offer100SearchApplicationTests {
 
 	@Test
 	public void contextLoads() {
-//		System.out.println(jobSearchService.search(null,0,11));
+		System.out.println(jobSearchService.search(null,new PageInfo<>()));
 //		System.out.println(talentSearchService.search(null,0,11));
 	}
 

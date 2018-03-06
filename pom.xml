@@ -12,6 +12,7 @@
     <modules>
         <module>offer100-webmvc</module>
         <module>offer100-search</module>
+        <module>offer100-common</module>
     </modules>
 
     <name>offer100</name>

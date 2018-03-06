@@ -6,13 +6,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Consumer;
+
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.offer100.search.bean.Job;
 import com.yiguo.offer100.search.util.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,16 +36,16 @@ public class JobSearchRepository {
     public void save(List<Job> jobs) throws SolrServerException, IOException {
         // 添加多个
         Collection<SolrInputDocument> docs = new ArrayList<>();
-        jobs.forEach(job->{
-                SolrInputDocument doc = new SolrInputDocument();
-                Map<String, Object> map = BeanUtils.objectToMap(job);
-                map.forEach((t, u) -> {
-                    if (u != null && !StringUtils.equals(t, "key")) {
-                        doc.addField(t, u);
-                    }
-                });
-                docs.add(doc);
+        jobs.forEach(job -> {
+            SolrInputDocument doc = new SolrInputDocument();
+            Map<String, Object> map = BeanUtils.objectToMap(job);
+            map.forEach((t, u) -> {
+                if (u != null && !StringUtils.equals(t, "key")) {
+                    doc.addField(t, u);
+                }
             });
+            docs.add(doc);
+        });
         httpSolrClient.add(docs);
         httpSolrClient.commit();
 
@@ -71,7 +73,7 @@ public class JobSearchRepository {
         httpSolrClient.commit();
     }
 
-    public List<Job> search(Job job, Integer start, Integer size) throws SolrServerException, IOException {
+    public PageInfo<Job> search(Job job, PageInfo<Job> pageInfo) throws SolrServerException, IOException {
         SolrQuery query = new SolrQuery();
         StringBuilder queryStringBuilder = new StringBuilder("*:*");
         Map<String, Object> map = BeanUtils.objectToMap(job);
@@ -79,20 +81,21 @@ public class JobSearchRepository {
             Optional.ofNullable(u).ifPresent(v -> {
                 if (v instanceof List) {
                     List<String> list = (List<String>) v;
-                    if(!StringUtils.equals(t, "key")) {
+                    if (!StringUtils.equals(t, "key")) {
                         list.forEach(l -> queryStringBuilder.append(" AND ").append(t).append(":").append(l));
-                    }else {
+                    } else {
                         list.forEach(l -> queryStringBuilder.append(" AND ").append("all_text_pinyin").append(":").append(l));
                     }
                 } else {
-                    if(StringUtils.equalsAny(t, "title", "enterprise")) {
+                    if (StringUtils.equalsAny(t, "title", "enterprise")) {
                         queryStringBuilder.append(" AND ").append(t).append("_pinyin").append(":").append(v);
-                    }else {
+                    } else {
                         queryStringBuilder.append(" AND ").append(t).append(":").append(v);
                     }
                 }
             });
         });
+
         // q 查询字符串，如果查询所有*:*
         query.set("q", queryStringBuilder.toString());
         // fq 过滤条件，过滤是基于查询结果中的过滤
@@ -100,18 +103,18 @@ public class JobSearchRepository {
         // fq 此过滤条件可以同时搜索出奔驰和宝马两款车型，但是需要给catalogname配置相应的分词器
         // query.set("fq", "catalogname:奔驰宝马");
         // sort 排序，请注意，如果一个字段没有被索引，那么它是无法排序的
-        query.set("sort", "rank desc");
-        // start row 分页信息，与mysql的limit的两个参数一致效果
-        if (start != null && size != null)
-
-        {
-            query.setStart(start);
-            query.setRows(size);
-        }
-
+        //query.setParam("stats=true&stats.field=id")
+        //query.set("sort", "rank desc");
+        query.setSort("rank", SolrQuery.ORDER.desc);
+        query.setStart(pageInfo.getStart()).setRows(pageInfo.getPageSize());
+        query.setParam("stats",true);
+        query.setParam("stats.field","id");
         // fl 指定返回那些字段内容，用逗号或空格分隔多个
-        query.set("fl", "id,enterprise,title,nature,zone,category,wage,education,rank");
-        return httpSolrClient.query(query).getBeans(Job.class);
+        query.setFields("id","enterprise","title","nature","zone","category","wage","enterpriseLogo","education","rank");
+        QueryResponse response = httpSolrClient.query(query);
+        pageInfo.setRows(response.getBeans(Job.class));
+        pageInfo.setTotal(response.getFieldStatsInfo().get("id").getCount().intValue());
+        return pageInfo;
     }
 
 }

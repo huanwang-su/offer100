@@ -2,6 +2,7 @@ package com.yiguo.offer100.search.serviceImpl;
 
 import java.util.List;
 
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.offer100.search.bean.Job;
 import com.yiguo.offer100.search.repository.JobSearchRepository;
 import com.yiguo.offer100.search.service.JobSearchService;
@@ -25,9 +26,9 @@ public class JobSearchServiceImpl implements JobSearchService {
     }
 
     @Override
-    public List<Job> search(Job job, int start, int size) {
+    public PageInfo<Job> search(Job job, PageInfo<Job> pageInfo) {
         try {
-            return searchJobRepository.search(job, start, size);
+            return searchJobRepository.search(job, pageInfo);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

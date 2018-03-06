@@ -1,5 +1,6 @@
 package com.yiguo.offer100.search.service;
 
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.offer100.search.bean.Job;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public interface JobSearchService {
      * @param start
      * @param size
      */
-    List<Job> search(Job job, int start, int size);
+    PageInfo<Job> search(Job job, PageInfo<Job> pageInfo);
     
     /**
      * 删除岗位
