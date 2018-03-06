@@ -3,15 +3,27 @@ package com.yiguo.mvc.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.qiniu.common.QiniuException;
+import com.google.gson.Gson;
+import com.qiniu.common.Zone;
+import com.qiniu.http.Response;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
+import com.qiniu.util.Auth;
+import com.yiguo.bean.Enterprise;
+import com.yiguo.service.EnterpriseService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,7 +51,8 @@ import com.yiguo.bean.User;
 @RequestMapping("/templete")
 @Controller
 public class TemplateController {
-
+	@Autowired
+	private EnterpriseService enterpriseService;
 	private static Logger logger = (Logger) LoggerFactory.getLogger(TemplateController.class);
 
 	/**
@@ -141,17 +154,27 @@ public class TemplateController {
 	 * @return
 	 */
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+	@ResponseBody
 	public String doUploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
 
-		if (!file.isEmpty()) {
+
 			try {
 				String fileLocation = request.getServletContext().getRealPath("/") + "static/file/"
 						+ System.currentTimeMillis() + file.getOriginalFilename();
 				logger.info(" uploadfile on {} ${} ${0} ${1}", fileLocation);
 				FileUtils.copyInputStreamToFile(file.getInputStream(), new File(fileLocation));
+
+			} catch (QiniuException ex) {
+				Response r = ex.response;
+				System.err.println(r.toString());
+				try {
+					System.err.println(r.bodyString());
+				} catch (QiniuException ex2) {
+					//ignore
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+
 		}
 		return "/templete";
 

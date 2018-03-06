@@ -128,7 +128,6 @@ public class MainPageService {
 			jobvos.setZoneName(zone.getName());
 			jobVo.add(jobvos);
 		}
-		
 		return jobVo;
 	}
 }

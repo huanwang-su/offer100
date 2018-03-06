@@ -33,16 +33,8 @@ spring:
     filters: stat,wall,log4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
-  mail:
-    host: smtp.163.com
-    port: 465
-    username: 15337100703@163.com
-    password: qwe753123
-    auth: true
-    timeout: 250000
-    starttls.enable: true
-    starttls.required: true  #添加
-    socketFactory.fallback: false
+
+
 
   cache:
     type: guava

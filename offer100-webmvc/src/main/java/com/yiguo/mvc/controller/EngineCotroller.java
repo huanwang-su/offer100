@@ -1,24 +1,32 @@
-package com.yiguo.service;
+package com.yiguo.mvc.controller;
 
+import com.sun.javafx.fxml.expression.Expression;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.tomcat.util.bcel.classfile.Constant;
-import org.apache.tomcat.util.security.MD5Encoder;
-import org.junit.Test;
+import org.omg.IOP.Encoding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-import sun.security.provider.MD5;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by liyue on 2018/3/5.
  */
-public class MailTest extends BaseServiceTest {
-
+@Controller
+@Api(value = "API - EngineController", description = "找回密码接口")
+public class EngineCotroller {
     @Value("${spring.mail.username}")
     private String Sender;
     @Autowired
@@ -51,18 +59,29 @@ public class MailTest extends BaseServiceTest {
             return null;
         }
     }
-
-    @Test
-    public void sendSimpleMail() throws Exception {
-        String emailencode=MD5("286311613@qq.com")+"&";
-        String url="Https://yiguo.com/password/reset?";
+    @ApiOperation(value = "用户找回密码",notes = "")
+    @ResponseBody
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public void sendEnterpriseSimpleMail(@PathVariable  String email) throws Exception {
         SimpleMailMessage message = new SimpleMailMessage();
+        String url="Https://yiguo.com/password/reset?";
+         String emailencode=MD5(email);
         message.setFrom("15337100703@163.com");
-        message.setTo("286311613@qq.com");
+        message.setTo(email);
         message.setSubject("主题：找回密码邮件");
-        message.setText(url+emailencode+"email="+"286311613@qq.com");
+        message.setText(url+emailencode+"email="+email+"&"+"time="+new Date());
 
         mailSender.send(message);
+
+    }
+    @ApiOperation(value = "用户点击找回密码链接",notes = "")
+    @ResponseBody
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public void getLink(@PathVariable  String link) throws Exception {
+
+
+
+
     }
 
 }
