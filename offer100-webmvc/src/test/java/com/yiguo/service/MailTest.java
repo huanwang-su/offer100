@@ -12,6 +12,7 @@ import sun.security.provider.MD5;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.util.Date;
 
 
 /**
