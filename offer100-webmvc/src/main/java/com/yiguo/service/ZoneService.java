@@ -12,6 +12,6 @@ public interface ZoneService extends BaseService<Integer, Zone> {
      * @return
      */
     Zone getLevelZone(int zoneId, int level);
-    List<Zone> selects(Integer parentId, Page page);
+    List<Zone> qu(Zone zone, Page page);
 
 }

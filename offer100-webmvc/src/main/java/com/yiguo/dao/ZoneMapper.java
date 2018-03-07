@@ -12,5 +12,5 @@ import java.util.Map;
 @Repository
 @Mapper
 public interface ZoneMapper extends BaseMapper<Integer, Zone> {
-    List<Zone> selects(Integer parentId, Page page);
+    List<Zone> qu(Zone zone, Page page);
 }
