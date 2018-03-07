@@ -34,6 +34,8 @@ public class ConfigurationServiceImpl extends AbstractBaseServiceImpl<Integer, C
 		return dao.deleteByType(type);
 	}*/
 
+
+
 	@Override
 	public int FindByType(String type) { return dao.findByType(type); }
 
