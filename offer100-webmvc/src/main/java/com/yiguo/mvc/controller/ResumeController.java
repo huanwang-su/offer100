@@ -1,33 +1,84 @@
 package com.yiguo.mvc.controller;
 
-import com.yiguo.bean.Job;
-import com.yiguo.bean.Page;
 import com.yiguo.bean.Resume;
 import com.yiguo.service.ResumeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@Api(value = "API - ResumeController", description = "简历详情")
-@RequestMapping("/resume")
-public class ResumeController {
-@Autowired
-    ResumeService resumeService;
-    @ApiOperation(value = "jobid",notes = "企业管理自己的简历")
-    @ResponseBody
-    @RequestMapping(value = "/{id}", method ={RequestMethod.GET})
-    public Resume selectResume(@PathVariable Integer id) {
-        // 处理"/users/"的GET请求，用来获取用户列表
-        // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 
-        return    resumeService.selectByPrimaryKey(id);
+@Controller
+@RestController
+@Api(value = "API - ResumeController", description = "Resume详情")
+@RequestMapping(value="/resume")     // 通过这里配置使下面的映射都在/resume下
+public class ResumeController {
+
+    @Autowired
+    ResumeService resumeService;
+    @ApiOperation(value = "获取简历列表",notes = "")
+    @ResponseBody
+    @RequestMapping(value = "", method = RequestMethod.GET)
+
+    public List<Resume> getResumeList() {
+        //List<User> r = new ArrayList<User>(users.values());
+        List<Resume> r = resumeService.getAll();
+        return r;
     }
+
+    @ApiOperation(value = "创建简历信息",notes = "根据resume对象创建resume")
+    @ResponseBody
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public String postResume(@RequestBody Resume resume) {
+
+         //数据库对多数字段有长度限制，超出长度应提示错误（）
+        // String f=FAILURE;
+        Integer count=  resumeService.insert(resume);
+        if(count > 0) {
+            return SUCCESS;
+        }
+        //System.out.println(f);
+        return FAILURE;
+    }
+
+
+    @ApiOperation(value="根据id获取简历详细信息", notes="根据url的id来获取简历详细信息")
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Resume getResume(@PathVariable Integer id) {
+        Resume resume=new Resume();
+        resume=resumeService.selectByPrimaryKey(id);
+        return resume;
+    }
+
+
+    @ApiOperation(value="更新简历详细信息", notes="根据url的id来指定更新对象，并根据传过来的resume信息来更新简历详细信息")
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public String putResume(@PathVariable Integer id, @ModelAttribute Resume resume) {
+
+        int num = resumeService.updateByPrimaryKeySelective(resume);
+        if(num > 0) {
+            return SUCCESS;
+        }else
+            return FAILURE;
+    }
+
+    @ApiOperation(value="删除简历信息", notes="根据url的id来指定删除对象")
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public String deleteResume(@PathVariable Integer id) {
+
+        int num = resumeService.deleteByPrimaryKey(id);
+        if(num > 0) {
+            return SUCCESS;
+        }else
+            return FAILURE;
+    }
+
 }

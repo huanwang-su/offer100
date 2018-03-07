@@ -65,16 +65,18 @@ public class ConfigurationController {
         return configuration;
     }
 
-    @ApiOperation(value="根据type获取配置详细信息", notes="根据url的type来获取配置详细信息")
+   
+/*    @ApiOperation(value="根据type获取配置详细信息", notes="根据url的type来获取配置详细信息")
     @ResponseBody
     @RequestMapping(value = "/{type}", method = RequestMethod.GET)
-    public Configuration getConfigurationByType(@PathVariable String  type) {
-        // 处理"/configuration/{id}"的GET请求，用来获取url中id值的Configuration信息
+    public Configuration getConfigurationByType(@PathVariable String type){
+        // 处理"/configuration/{type}"的GET请求，用来获取url中id值的Configuration信息
         // url中的id可通过@PathVariable绑定到函数的参数中
         Configuration configuration=new Configuration();
-        configuration=configurationService.findByType(type);
+        configuration=configurationService.selectByType(type);
+        System.out.println(configuration.getValue());
         return configuration;
-    }
+    }*/
 
     @ApiOperation(value="更新配置详细信息", notes="根据url的id来指定更新对象，并根据传过来的configuration信息来更新用户详细信息")
     @ResponseBody
@@ -89,7 +91,7 @@ public class ConfigurationController {
             return FAILURE;
     }
 
-    @ApiOperation(value="删除配置信息", notes="根据url的id来指定删除对象")
+    @ApiOperation(value="根据id删除配置信息", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteConfiguration(@PathVariable Integer id) {
@@ -100,4 +102,16 @@ public class ConfigurationController {
         }else
             return FAILURE;
     }
+
+   /* @ApiOperation(value="根据type删除配置信息", notes="根据url的type来指定删除对象")
+    @ResponseBody
+    @RequestMapping(value = "/{type}", method = RequestMethod.DELETE)
+    public String deleteConfiguration(@PathVariable String type) {
+        // 处理"/configuration/{id}"的DELETE请求，用来删除Configuration
+        int num = configurationService.deleteByType(type);
+        if(num > 0) {
+            return SUCCESS;
+        }else
+            return FAILURE;
+    }*/
 }

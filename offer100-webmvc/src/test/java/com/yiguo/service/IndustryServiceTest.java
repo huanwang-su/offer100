@@ -27,19 +27,19 @@ public class IndustryServiceTest extends BaseServiceTest {
         Industry industry=new Industry();
         industry.setParentId(1);
         System.out.println(service.query(industry));
-        getAndOutputTime();
+       // getAndOutputTime();
     }
 
     @Test
     public void getAllIndustry() {
         System.out.println(service.getAllIndustry(1942));
-        getAndOutputTime();
+      //  getAndOutputTime();
         System.out.println(service.getAllIndustry(1927));
-        getAndOutputTime();
+     //   getAndOutputTime();
         System.out.println(service.getAllIndustry(1));
-        getAndOutputTime();
+      //  getAndOutputTime();
         System.out.println(service.getAllIndustry(0));
-        getAndOutputTime();
+       // getAndOutputTime();
     }
 
 }

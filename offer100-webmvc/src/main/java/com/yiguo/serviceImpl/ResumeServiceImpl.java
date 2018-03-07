@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("Resume")
 @Transactional
 public class ResumeServiceImpl extends AbstractBaseServiceImpl<Integer, Resume> implements ResumeService {
@@ -20,4 +22,8 @@ public class ResumeServiceImpl extends AbstractBaseServiceImpl<Integer, Resume> 
 		return dao;
 	}
 
+	@Override
+	public List<Resume> getAll() {
+		return dao.query();
+	}
 }

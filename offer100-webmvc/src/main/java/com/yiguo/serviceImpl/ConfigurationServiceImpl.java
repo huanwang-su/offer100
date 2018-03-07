@@ -26,16 +26,13 @@ public class ConfigurationServiceImpl extends AbstractBaseServiceImpl<Integer, C
 		return dao.query();
 	}
 
-	@Override
-	public Configuration findByType(String type) {
-		return dao.selectByType(type);
-	}
+	/*@Override
+	public Configuration selectByType(String type) { return dao.selectByType(type); }*/
 
-
-	@Override
+	/*@Override
 	public int deleteByType(String type) {
 		return dao.deleteByType(type);
-	}
+	}*/
 
 	@Override
 	public int FindByType(String type) { return dao.findByType(type); }

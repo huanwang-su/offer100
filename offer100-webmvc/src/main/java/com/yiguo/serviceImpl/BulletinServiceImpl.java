@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("Bulletin")
 @Transactional
 public class BulletinServiceImpl extends AbstractBaseServiceImpl<Integer, Bulletin> implements BulletinService {
@@ -18,6 +20,12 @@ public class BulletinServiceImpl extends AbstractBaseServiceImpl<Integer, Bullet
 	public BaseMapper<Integer, Bulletin> getDao() {
 		// TODO Auto-generated method stub
 		return dao;
+	}
+
+
+	@Override
+	public List<Bulletin> getAll() {
+		return dao.query();
 	}
 
 }

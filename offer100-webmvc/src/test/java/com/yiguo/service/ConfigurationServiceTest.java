@@ -31,7 +31,7 @@ public class ConfigurationServiceTest extends BaseServiceTest {
     @Ignore
     public void findByType(){
 
-        Configuration con = service.findByType("小标题");
+        Configuration con = service.selectByType("小标题");
         System.out.print(con);
 
     }

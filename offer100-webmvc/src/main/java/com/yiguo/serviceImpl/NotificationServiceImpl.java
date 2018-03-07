@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("Notification")
 @Transactional
 public class NotificationServiceImpl extends AbstractBaseServiceImpl<Integer, Notification>
@@ -19,6 +21,12 @@ public class NotificationServiceImpl extends AbstractBaseServiceImpl<Integer, No
 	public BaseMapper<Integer, Notification> getDao() {
 		// TODO Auto-generated method stub
 		return dao;
+	}
+
+
+	@Override
+	public List<Notification> getAll() {
+		return dao.query();
 	}
 
 }
