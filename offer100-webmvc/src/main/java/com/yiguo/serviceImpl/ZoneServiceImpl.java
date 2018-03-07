@@ -40,8 +40,8 @@ public class ZoneServiceImpl extends AbstractBaseServiceImpl<Integer, Zone> impl
     }
 
     @Override
-    public List<Zone> selects(Integer parentId, Page page) {
-        return dao.selects(parentId,page);
+    public List<Zone> qu(Zone zone, Page page) {
+        return dao.qu(zone,page);
     }
 
 

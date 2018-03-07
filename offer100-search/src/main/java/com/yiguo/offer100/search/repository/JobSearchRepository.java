@@ -84,7 +84,7 @@ public class JobSearchRepository {
                     if (!StringUtils.equals(t, "key")) {
                         list.forEach(l -> queryStringBuilder.append(" AND ").append(t).append(":").append(l));
                     } else {
-                        list.forEach(l -> queryStringBuilder.append(" AND ").append("all_text_pinyin").append(":").append(l));
+                        list.forEach(l -> queryStringBuilder.append(" AND ").append("all_text").append(":").append(l));
                     }
                 } else {
                     if (StringUtils.equalsAny(t, "title", "enterprise")) {

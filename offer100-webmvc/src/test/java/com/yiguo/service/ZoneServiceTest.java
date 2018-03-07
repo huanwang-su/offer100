@@ -56,17 +56,14 @@ System.out.print(        zoneService.selectByPrimaryKey(3437));
 
 
         Page page=new Page();
-        page.setStart(1);
-        page.setPageSize(10);
-Zone zone=new Zone();
-        int pageNumber = 2, pageSize = 8;
-        page.setPageNumber(pageNumber);
-        page.setPageSize(pageSize);
 
-        List<Zone> zones= zoneService.select(zone,page);
-        for(int i=0;i<zones.size();i++){
-            System.out.println(zones.get(i));
-        }
+Zone zone =new Zone();
+zone.setParentId(3);
+
+        List<Zone> zones= zoneService.select(zone, page);
+        System.out.println(zones.size());
+  for(int i=0;i<zones.size();i++)
+      System.out.println(zones.get(i));
     }
 
 }
