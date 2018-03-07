@@ -10,10 +10,10 @@ public interface ConfigurationService extends BaseService<Integer, Configuration
     //查询所有记录
     List<Configuration> getAll();
 
-    /*Configuration selectByType(String type);*/
+    Configuration selectByType(String type);
 
     //按类型删除
-   /* int deleteByType(String type);*/
+   int deleteByType(String type);
 
     int FindByType(String  type);
 

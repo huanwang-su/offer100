@@ -20,27 +20,25 @@ public class ConfigurationServiceTest extends BaseServiceTest {
     private ConfigurationService service;
 
     @Test
-    @Ignore
     public void getAll(){
 
         System.out.println(service.getAll());
     }
 
 
-    @Test
-    @Ignore
+   @Test
     public void findByType(){
 
-        Configuration con = service.selectByType("小标题");
-        System.out.print(con);
+        Configuration con = service.selectByType("凡凡");
+        System.out.println(con);
 
     }
 
     @Test
-    @Ignore
     public void deleteByType(){
 
-        int num = service.deleteByType("贝贝");
+        int num = service.deleteByType("凡凡");
+        System.out.println(num);
 
     }
 
