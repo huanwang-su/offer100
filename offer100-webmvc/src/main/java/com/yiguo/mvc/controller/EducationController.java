@@ -17,14 +17,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+
 @Controller
 @Api(value = "API - EducationController", description = "Education详情")
 @RequestMapping(value = "/education")
 public class EducationController {
 	@Autowired
 	EducationService educationService;
-	// 创建线程安全的Map
-	static Map<Integer, Education> Educations = Collections.synchronizedMap(new HashMap<Integer, Education>());
+
 
 
 	@ApiOperation(value = "创建教育",notes = "根据Education对象创建Education")
@@ -73,10 +75,10 @@ public class EducationController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String deleteEducation(@PathVariable Integer id) {
 		// 处理"/Educations/{id}"的DELETE请求，用来删除Education
-		String f="true";
+
 		educationService.deleteByPrimaryKey(id);
 		if(educationService.selectByPrimaryKey(id)!=null)
-		f="false";
-			return f;
+		return FAILURE;
+		return SUCCESS;
 	}
 }

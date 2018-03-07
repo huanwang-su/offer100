@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -68,10 +69,11 @@ public class ZoneController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteZone(@PathVariable Integer id) {
         // 处理"/Zones/{id}"的DELETE请求，用来删除Zone
-      String f="删除成功";
+        String f="删除成功";
         zoneService.deleteByPrimaryKey(id);
         if(zoneService.selectByPrimaryKey(id)!=null)
             f="删除失败";
         return f;
     }
+
 }

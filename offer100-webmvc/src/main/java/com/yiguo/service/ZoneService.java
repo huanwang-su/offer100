@@ -1,6 +1,10 @@
 package com.yiguo.service;
 
+import com.yiguo.bean.Page;
 import com.yiguo.bean.Zone;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ZoneService extends BaseService<Integer, Zone> {
     /**
@@ -8,4 +12,6 @@ public interface ZoneService extends BaseService<Integer, Zone> {
      * @return
      */
     Zone getLevelZone(int zoneId, int level);
+    List<Zone> selects(Integer parentId, Page page);
+
 }
