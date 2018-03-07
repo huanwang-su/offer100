@@ -1,5 +1,6 @@
 package com.yiguo.serviceImpl;
 
+import com.yiguo.bean.Page;
 import com.yiguo.bean.Zone;
 import com.yiguo.dao.BaseMapper;
 import com.yiguo.dao.ZoneMapper;
@@ -8,6 +9,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service("Zone")
 @Transactional
@@ -35,4 +38,11 @@ public class ZoneServiceImpl extends AbstractBaseServiceImpl<Integer, Zone> impl
         }
         return zone;
     }
+
+    @Override
+    public List<Zone> selects(Integer parentId, Page page) {
+        return dao.selects(parentId,page);
+    }
+
+
 }

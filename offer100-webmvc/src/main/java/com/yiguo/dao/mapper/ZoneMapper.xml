@@ -68,6 +68,7 @@
 
 
   </select>
+
   <!-- 删除数据 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
@@ -194,7 +195,7 @@
       </if>
   </select>
    <!-- 分页查詢 -->
-  <select id="select" parameterType="Map" resultMap="BaseResultMap">
+  <select id="select" parameterType="com.yiguo.bean.Zone" resultMap="BaseResultMap">
     SELECT *
     FROM zone
     WHERE 1=1
@@ -217,4 +218,5 @@
       limit #{start},#{pageSize}
     </if>
   </select>
+
 </mapper>
