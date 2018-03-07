@@ -41,20 +41,24 @@ public class JobSearchController {
                     "key:仅用于关键字查询，目前只考虑查询公司和职位的组合查询",
                     dataType = "com.yiguo.offer100.search.bean.Job",
                     paramType = "body"),
+            @ApiImplicitParam(name = "sortKey", value = "排序关键字", dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "asc", value = "是否升序", dataType = "boolean", paramType = "query"),
             @ApiImplicitParam(name = "page", value = "页码", dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "rows", value = "条数", dataType = "int", paramType = "query")
     })
     @PutMapping
     public PageInfo<Job> searchJob(@RequestBody(required = false) Job job,
-                                           @RequestParam(name = "page") Integer page,
-                                           @RequestParam(name = "rows") Integer rows) {
+                                   @RequestParam(name = "sortKey",required = false) String sortKey,
+                                   @RequestParam(name = "asc",required = false) Boolean asc,
+                                   @RequestParam(name = "page") Integer page,
+                                   @RequestParam(name = "rows") Integer rows) {
 
-        if(job==null)
-            job=new Job();
+        if (job == null)
+            job = new Job();
         PageInfo<Job> pageInfo = new PageInfo<>();
         pageInfo.setPageNum(page);
         pageInfo.setPageSize(rows);
-        return jobSearchService.search(job,pageInfo);
+        return jobSearchService.search(job, pageInfo, sortKey, asc);
     }
 
 }

@@ -10,5 +10,6 @@ public interface IndustryService extends BaseService<Integer, Industry> {
     List<Industry> getByParentId(Integer id);
 
     IndustryVO getAllIndustry(Integer id);
-    
+
+    List<Industry> getIndustryToRoot(Integer id);
 }

@@ -9,6 +9,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -90,10 +91,12 @@ public class JobServiceTest extends BaseServiceTest {
     public void testSolr() {
         Page page=new Page();
         page.setPageNumber(1);
-        page.setPageSize(111);
+        page.setPageSize(30);
         List<Job> jobs = jobService.select(new Job(),page);
+        List<com.yiguo.offer100.search.bean.Job> jobList = new ArrayList<>();
         jobs.forEach(job -> {
-            jobSearchService.saveJob(jobService.toSolrJob(job));
+            jobList.add(jobService.toSolrJob(job));
         });
+        jobSearchService.saveJobs(jobList);
     }
 }

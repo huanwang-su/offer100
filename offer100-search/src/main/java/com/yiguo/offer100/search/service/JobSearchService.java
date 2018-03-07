@@ -35,7 +35,7 @@ public interface JobSearchService {
      * @param start
      * @param size
      */
-    PageInfo<Job> search(Job job, PageInfo<Job> pageInfo);
+    PageInfo<Job> search(Job job, PageInfo<Job> pageInfo,String sortKey, Boolean asc);
     
     /**
      * 删除岗位

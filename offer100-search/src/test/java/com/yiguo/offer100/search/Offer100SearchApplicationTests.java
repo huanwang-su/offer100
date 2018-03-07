@@ -21,7 +21,7 @@ public class Offer100SearchApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		System.out.println(jobSearchService.search(null,new PageInfo<>()));
+		//System.out.println(jobSearchService.search(null,new PageInfo<>()));
 //		System.out.println(talentSearchService.search(null,0,11));
 	}
 

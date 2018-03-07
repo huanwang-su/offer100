@@ -73,7 +73,7 @@ public class JobSearchRepository {
         httpSolrClient.commit();
     }
 
-    public PageInfo<Job> search(Job job, PageInfo<Job> pageInfo) throws SolrServerException, IOException {
+    public PageInfo<Job> search(Job job, PageInfo<Job> pageInfo, String sortKey, Boolean asc) throws SolrServerException, IOException {
         SolrQuery query = new SolrQuery();
         StringBuilder queryStringBuilder = new StringBuilder("*:*");
         Map<String, Object> map = BeanUtils.objectToMap(job);
@@ -105,7 +105,11 @@ public class JobSearchRepository {
         // sort 排序，请注意，如果一个字段没有被索引，那么它是无法排序的
         //query.setParam("stats=true&stats.field=id")
         //query.set("sort", "rank desc");
-        query.setSort("rank", SolrQuery.ORDER.desc);
+        if(sortKey!=null){
+            query.setSort(sortKey, asc!=null&&!asc?SolrQuery.ORDER.desc:SolrQuery.ORDER.asc);
+        }
+        else
+            query.setSort("rank", SolrQuery.ORDER.desc);
         query.setStart(pageInfo.getStart()).setRows(pageInfo.getPageSize());
         query.setParam("stats",true);
         query.setParam("stats.field","id");

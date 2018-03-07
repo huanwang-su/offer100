@@ -36,6 +36,19 @@ public class IndustryServiceImpl extends AbstractBaseServiceImpl<Integer, Indust
         return parseIndustrieToVo(industries);
     }
 
+    @Override
+    public List<Industry> getIndustryToRoot(Integer id) {
+        List<Industry> industries=new ArrayList<>();
+        Industry industry = selectByPrimaryKey(id);
+        while (industry!=null){
+            if (industry.getLevel()==0)
+                break;
+            industries.add(industry);
+            industry = selectByPrimaryKey(industry.getParentId());
+        }
+        return industries;
+    }
+
     private IndustryVO parseIndustrieToVo(Industry src) {
         IndustryVO vo = new IndustryVO();
         try {

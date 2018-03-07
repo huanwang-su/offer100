@@ -26,9 +26,9 @@ public class JobSearchServiceImpl implements JobSearchService {
     }
 
     @Override
-    public PageInfo<Job> search(Job job, PageInfo<Job> pageInfo) {
+    public PageInfo<Job> search(Job job, PageInfo<Job> pageInfo,String sortKey, Boolean asc) {
         try {
-            return searchJobRepository.search(job, pageInfo);
+            return searchJobRepository.search(job, pageInfo, sortKey, asc);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
