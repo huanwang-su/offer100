@@ -110,7 +110,8 @@ public class JobSearchRepository {
         query.setParam("stats",true);
         query.setParam("stats.field","id");
         // fl 指定返回那些字段内容，用逗号或空格分隔多个
-        query.setFields("id","enterprise","title","nature","zone","category","wage","enterpriseLogo","education","rank");
+        query.setFields("id","enterprise","title","nature","zone","category","wage","enterpriseLogo","education",
+                "rank","publishTime","serviceYear","peopleNumber","enterpriseCategory","welfare");
         QueryResponse response = httpSolrClient.query(query);
         pageInfo.setRows(response.getBeans(Job.class));
         pageInfo.setTotal(response.getFieldStatsInfo().get("id").getCount().intValue());

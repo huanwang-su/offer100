@@ -1,15 +1,21 @@
 package com.yiguo.mvc.controller;
 
+import com.yiguo.mvc.vo.SearchJobVO;
 import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.offer100.search.bean.Job;
 import com.yiguo.offer100.search.service.JobSearchService;
 import com.yiguo.service.EnterpriseService;
+import com.yiguo.service.JobService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * ${DESCRIPTION}
@@ -24,6 +30,8 @@ public class JobSearchController {
     private EnterpriseService enterpriseService;
     @Autowired
     private JobSearchService jobSearchService;
+    @Autowired
+    private JobService jobService;
 
     @ApiOperation(value = "岗位搜索", notes = " 1. 等值查询：除了key中的字段，其他均为等值查询\n" +
             " 2. 对于list，list中的每一个字段都满足搜索引擎中的数据", produces = "application/json")
@@ -38,8 +46,8 @@ public class JobSearchController {
     })
     @PutMapping
     public PageInfo<Job> searchJob(@RequestBody(required = false) Job job,
-                                   @RequestParam(name = "page") Integer page,
-                                   @RequestParam(name = "rows") Integer rows) {
+                                           @RequestParam(name = "page") Integer page,
+                                           @RequestParam(name = "rows") Integer rows) {
 
         if(job==null)
             job=new Job();

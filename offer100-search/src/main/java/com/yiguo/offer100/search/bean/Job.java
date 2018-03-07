@@ -1,6 +1,8 @@
 package com.yiguo.offer100.search.bean;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import org.apache.solr.client.solrj.beans.Field;
@@ -40,8 +42,39 @@ public class Job implements Serializable {
      * 仅用于关键字查询，目前只考虑查询公司和职位的组合查询 不用@Field，不保存solr
      */
     private List<String> key;
+    @Field
+    private Long publishTime;
+    private String publishDaysBefore;
+    /**
+     * 工作年限
+     */
+    @Field
+    private Integer serviceYear;
 
+    @Field
+    private Integer peopleNumber;
+    @Field
+    private String enterpriseCategory;
+    @Field
+    private String welfare;
     public Job(){}
+
+    public String getPublishDaysBefore() {
+        if (publishDaysBefore==null){
+            if (publishTime!=null){
+                Period period = Period.between(LocalDate.ofEpochDay(publishTime), LocalDate.now());
+                if(period.getYears()>0)
+                    publishDaysBefore = period.getYears()+"年前";
+                else if(period.getMonths()>0)
+                    publishDaysBefore = period.getMonths()+"个月前";
+                else if(period.getDays()>0)
+                    publishDaysBefore = period.getDays()+"天前";
+                else
+                    publishDaysBefore = "今天";
+            }
+        }
+        return publishDaysBefore;
+    }
 
     private Job(Builder builder) {
         setId(builder.id);
@@ -55,6 +88,15 @@ public class Job implements Serializable {
         setEnterpriseLogo(builder.enterpriseLogo);
         setRank(builder.rank);
         setKey(builder.key);
+        setPublishTime(builder.publishTime);
+        setServiceYear(builder.serviceYear);
+        setPeopleNumber(builder.peopleNumber);
+        setEnterpriseCategory(builder.enterpriseCategory);
+        setWelfare(builder.welfare);
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public static Builder newBuilder() {
@@ -74,6 +116,11 @@ public class Job implements Serializable {
         builder.enterpriseLogo = copy.getEnterpriseLogo();
         builder.rank = copy.getRank();
         builder.key = copy.getKey();
+        builder.publishTime = copy.getPublishTime();
+        builder.serviceYear = copy.getServiceYear();
+        builder.peopleNumber = copy.getPeopleNumber();
+        builder.enterpriseCategory = copy.getEnterpriseCategory();
+        builder.welfare = copy.getWelfare();
         return builder;
     }
 
@@ -141,6 +188,14 @@ public class Job implements Serializable {
         this.education = education;
     }
 
+    public String getEnterpriseLogo() {
+        return enterpriseLogo;
+    }
+
+    public void setEnterpriseLogo(String enterpriseLogo) {
+        this.enterpriseLogo = enterpriseLogo;
+    }
+
     public Integer getRank() {
         return rank;
     }
@@ -157,18 +212,67 @@ public class Job implements Serializable {
         this.key = key;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Long getPublishTime() {
+        return publishTime;
     }
 
-    public String getEnterpriseLogo() {
-        return enterpriseLogo;
+    public void setPublishTime(Long publishTime) {
+        this.publishTime = publishTime;
     }
 
-    public void setEnterpriseLogo(String enterpriseLogo) {
-        this.enterpriseLogo = enterpriseLogo;
+    public Integer getServiceYear() {
+        return serviceYear;
     }
 
+    public void setServiceYear(Integer serviceYear) {
+        this.serviceYear = serviceYear;
+    }
+
+    public Integer getPeopleNumber() {
+        return peopleNumber;
+    }
+
+    public void setPeopleNumber(Integer peopleNumber) {
+        this.peopleNumber = peopleNumber;
+    }
+
+    public String getEnterpriseCategory() {
+        return enterpriseCategory;
+    }
+
+    public void setEnterpriseCategory(String enterpriseCategory) {
+        this.enterpriseCategory = enterpriseCategory;
+    }
+
+    public String getWelfare() {
+        return welfare;
+    }
+
+    public void setWelfare(String welfare) {
+        this.welfare = welfare;
+    }
+
+    @Override
+    public String toString() {
+        return "Job{" +
+                "id='" + id + '\'' +
+                ", enterprise='" + enterprise + '\'' +
+                ", title='" + title + '\'' +
+                ", nature='" + nature + '\'' +
+                ", zone='" + zone + '\'' +
+                ", category=" + category +
+                ", wage=" + wage +
+                ", education='" + education + '\'' +
+                ", enterpriseLogo='" + enterpriseLogo + '\'' +
+                ", rank=" + rank +
+                ", key=" + key +
+                ", publishTime=" + publishTime +
+                ", serviceYear=" + serviceYear +
+                ", peopleNumber=" + peopleNumber +
+                ", enterpriseCategory='" + enterpriseCategory + '\'' +
+                ", welfare='" + welfare + '\'' +
+                '}';
+    }
 
     public static final class Builder {
         private String id;
@@ -182,6 +286,11 @@ public class Job implements Serializable {
         private String enterpriseLogo;
         private Integer rank;
         private List<String> key;
+        private Long publishTime;
+        private Integer serviceYear;
+        private Integer peopleNumber;
+        private String enterpriseCategory;
+        private String welfare;
 
         private Builder() {
         }
@@ -238,6 +347,31 @@ public class Job implements Serializable {
 
         public Builder key(List<String> val) {
             key = val;
+            return this;
+        }
+
+        public Builder publishTime(Long val) {
+            publishTime = val;
+            return this;
+        }
+
+        public Builder serviceYear(Integer val) {
+            serviceYear = val;
+            return this;
+        }
+
+        public Builder peopleNumber(Integer val) {
+            peopleNumber = val;
+            return this;
+        }
+
+        public Builder enterpriseCategory(String val) {
+            enterpriseCategory = val;
+            return this;
+        }
+
+        public Builder welfare(String val) {
+            welfare = val;
             return this;
         }
 
