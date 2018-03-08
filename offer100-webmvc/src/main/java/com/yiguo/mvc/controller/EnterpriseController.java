@@ -30,8 +30,8 @@ public class EnterpriseController {
 
     @ApiOperation(value = "创建企业",notes = "根据Enterprise对象创建Enterprise")
     @ResponseBody
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public String postEnterprise(@RequestBody Enterprise  enterprise,@RequestParam("file") MultipartFile file) {
+    @RequestMapping(value = "/admin/enterprise", method = RequestMethod.POST)
+    public String postEnterprise(@RequestBody Enterprise  enterprise) {
         // 处理"/Zones/"的POST请求，用来创建Zone
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
         String f="注册成功";

@@ -23,7 +23,9 @@ public interface UserMapper extends BaseMapper<Integer, User> {
 	void changepassword(User user);
 
 	void updatecreorbounds(User user);
+
 	User findByUsername(String username);
+
 	List<String> selectidbytea(Integer id);
 
 	List<User> query();

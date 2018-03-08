@@ -19,4 +19,6 @@ public interface UserService extends BaseService<Integer, User>  {
 	List<User> query();
 
 	int findById(Integer id);
+
+	User findByUsername(String username);
 }

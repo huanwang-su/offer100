@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Bean
+  /*  @Bean
     UserDetailsService customUserService() {
         return new UserServiceImpl();
     }
@@ -24,17 +24,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserService());
-    }
+    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/admin").hasAnyRole("ADMIN")
+                .antMatchers("/user").hasAnyRole("USER")
                 .anyRequest()
                 .authenticated()
                 .and().formLogin()
-                .loginPage("/login")
+                .loginPage("/mianpage").permitAll()
+                .loginProcessingUrl("/login")
                 .failureUrl("/login?error")
-                .permitAll().and()
-                .logout().permitAll();
+                .defaultSuccessUrl("/me").and()
+                .logout().permitAll()
+                .and()
+                .rememberMe()
+                .tokenValiditySeconds(604800)
+                .rememberMeParameter("remeber-me")
+                .rememberMeCookieName("workspace");
+
     }
 }

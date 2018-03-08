@@ -16,10 +16,10 @@
   </resultMap>
     <!-- sql语句，调用now函数 -->
    <sql id="insert">
- insert into question (id, title, user_id, 
+ insert into question ( title, user_id,
       context, time, create_time, 
       update_time)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+    values ( #{title,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
       #{context,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP},now(),now())
 
 </sql> 
