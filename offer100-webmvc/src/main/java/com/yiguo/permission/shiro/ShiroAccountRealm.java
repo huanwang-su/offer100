@@ -3,7 +3,6 @@ package com.yiguo.permission.shiro;
 import com.yiguo.bean.User;
 import com.yiguo.service.RoleService;
 import com.yiguo.service.UserService;
-import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.shiro.SecurityUtils;

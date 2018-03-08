@@ -1,13 +1,9 @@
 package com.yiguo.service;
 
-import com.yiguo.bean.Enterprise;
 import com.yiguo.bean.User;
-import com.yiguo.mvc.controller.UserController;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 /**
  * Created by liyue on 2018/3/1.

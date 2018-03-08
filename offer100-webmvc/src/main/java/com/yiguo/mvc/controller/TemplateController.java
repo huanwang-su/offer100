@@ -3,24 +3,15 @@ package com.yiguo.mvc.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.qiniu.common.QiniuException;
-import com.google.gson.Gson;
-import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
-import com.qiniu.storage.Configuration;
-import com.qiniu.storage.UploadManager;
-import com.qiniu.storage.model.DefaultPutRet;
-import com.qiniu.util.Auth;
-import com.yiguo.bean.Enterprise;
+import com.yiguo.bean.User;
 import com.yiguo.service.EnterpriseService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-
-import com.yiguo.bean.User;
 
 /**
  * 控制器模版

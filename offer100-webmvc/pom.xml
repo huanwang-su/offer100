@@ -179,8 +179,12 @@
 			<artifactId>offer100-search</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

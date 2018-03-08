@@ -1,5 +1,7 @@
 package com.yiguo.service;
+
 import com.yiguo.bean.User;
+
 /**
  * Created by will on 2017-06-22.
  */

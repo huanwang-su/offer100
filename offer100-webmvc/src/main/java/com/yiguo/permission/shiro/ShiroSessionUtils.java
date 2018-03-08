@@ -1,10 +1,9 @@
 package com.yiguo.permission.shiro;
 
+import com.yiguo.bean.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-
-import com.yiguo.bean.User;
 
 /**
  * shiro Session工具类

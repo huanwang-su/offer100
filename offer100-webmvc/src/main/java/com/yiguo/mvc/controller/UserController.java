@@ -1,13 +1,12 @@
 package com.yiguo.mvc.controller;
 
+import com.yiguo.bean.User;
 import com.yiguo.service.UserService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import  com.yiguo.bean.User;
+
 import java.util.*;
 
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;

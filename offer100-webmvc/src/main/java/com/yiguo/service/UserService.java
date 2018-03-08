@@ -5,7 +5,7 @@ import com.yiguo.bean.User;
 import java.util.HashMap;
 import java.util.List;
 
-public interface UserService extends BaseService<Integer, User> {
+public interface UserService extends BaseService<Integer, User>  {
 	User getuserinfo(Integer id);
 
 	void resetpassword(Integer id);

@@ -1,5 +1,6 @@
 package com.yiguo.aop;
 
+import com.yiguo.bean.User;
 import org.aspectj.lang.JoinPoint;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -10,7 +11,6 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.springframework.stereotype.Component;
-import com.yiguo.bean.User;
 
 /**
  * 示例
