@@ -48,26 +48,6 @@ public class UserController {
         //System.out.println(f);
         return f;
     }
-    @ApiOperation(value = "用户登录",notes = "根据user对象创建user")
-    @ResponseBody
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public String loginUser(@PathVariable String username,@PathVariable String password) {
-        // 处理"/users/"的POST请求，用来创建User
-        // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
-        String f="登录成功";
-       User user= userService.findByUsername(username);
-       if(user!=null)
-       {
-           if(!user.getPassword().equals(password))
-                 f="用户名或者密码不对";
-           else if(user.getState()==0)
-               f="此用户已经被封，不可用";
-       }
-       else
-           f="此用户不存在，请先注册";
-        //System.out.println(f);
-        return f;
-    }
 
     @ApiOperation(value="获取用户详细信息", notes="根据url的id来获取用户详细信息")
     @ResponseBody

@@ -1,6 +1,8 @@
 package com.yiguo.mvc.controller;
 
+import com.yiguo.bean.Page;
 import com.yiguo.bean.Resume;
+import com.yiguo.bean.Resume_post_record;
 import com.yiguo.service.ResumeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -84,5 +86,18 @@ public class ResumeController {
         }
         return "this id does not exist";
     }
+    @ApiOperation(value = "resumeid",notes = "用户管理自己的简历")
+    @ResponseBody
+    @RequestMapping(value = "/maageUserResume/{id}", method ={RequestMethod.GET})
+    public List<Resume> manageUserResume(@PathVariable Integer id) {
+        // 处理"/users/"的GET请求，用来获取用户列表
+        // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
 
+        Page page=new Page();
+        Resume resume=new Resume();
+        resume.setId(id);
+     List<Resume> resumes =resumeService.select(resume,page);
+
+        return resumes;
+    }
 }

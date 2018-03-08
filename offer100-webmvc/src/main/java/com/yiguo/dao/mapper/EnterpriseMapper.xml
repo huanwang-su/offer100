@@ -42,6 +42,13 @@
 		#{stage,jdbcType=TINYINT},
 		now(), now())
 	</sql>
+	<select id="findByUsername" parameterType="java.lang.String"  resultMap="BaseResultMap">
+
+		select
+		<include refid="Base_Column_List" />
+		from enterprise
+		where user_name = #{userName,jdbcType=VARCHAR}
+	</select>
 	<!-- 查询数据 -->
 	<select id="query" parameterType="com.yiguo.bean.Enterprise"
 		resultMap="BaseResultMap">

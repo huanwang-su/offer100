@@ -87,7 +87,7 @@ public class EngineCotroller {
     @ResponseBody
     @RequestMapping(value = "/sendTemplateMail", method = RequestMethod.GET)
     public void sendTemplateMail(@PathVariable  String email){
-        String emailencode=MD5("286311613@qq.com")+"&";
+        String emailencode=MD5(email)+"&";
         String url="https://yiguo.com/password/reset?";
 
         MimeMessage message = null;
@@ -101,12 +101,74 @@ public class EngineCotroller {
             helper.setText(url+emailencode+"email="+"286311613@qq.com");
             Map<String, Object> model = new HashedMap();
             model.put("username", "尊敬的用户，");
-            model.put("text",url+emailencode+"email="+"286311613@qq.com");
+            model.put("text",url+emailencode+"email="+email);
             //修改 application.properties 文件中的读取路径
             FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
             configurer.setTemplateLoaderPath("classpath:templates");
             //读取 html 模板
             Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail.html");
+            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+            helper.setText(html, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mailSender.send(message);
+    }
+    @ApiOperation(value = "发送录取简历通知",notes = "")
+    @ResponseBody
+    @RequestMapping(value = "/sendGetMail", method = RequestMethod.GET)
+    public void sendGetMail(@PathVariable  String email){
+        String emailencode=MD5(email)+"&";
+        String url="https://yiguo.com/password/reset?";
+
+        MimeMessage message = null;
+        try {
+            message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(Sender);
+            helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
+            helper.setTo(email);
+            helper.setSubject("简历通过邮件");
+            helper.setText("恭喜您，您的简历已经通过，请等待面试通知");
+            Map<String, Object> model = new HashedMap();
+            model.put("username", "你好，");
+            model.put("text","恭喜您，您的简历已经通过，请等待面试通知");
+            //修改 application.properties 文件中的读取路径
+            FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+            configurer.setTemplateLoaderPath("classpath:templates");
+            //读取 html 模板
+            Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail1.html");
+            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+            helper.setText(html, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mailSender.send(message);
+    }
+    @ApiOperation(value = "发送打回简历通知",notes = "")
+    @ResponseBody
+    @RequestMapping(value = "/sendUpMail", method = RequestMethod.GET)
+    public void sendUpMail(@PathVariable  String email){
+        String emailencode=MD5(email)+"&";
+        String url="https://yiguo.com/password/reset?";
+
+        MimeMessage message = null;
+        try {
+            message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(Sender);
+            helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
+            helper.setTo(email);
+            helper.setSubject("简历通过邮件");
+            helper.setText("您的简历没有通过，不好意思");
+            Map<String, Object> model = new HashedMap();
+            model.put("username", "你好，");
+            model.put("text","您的简历没有通过，不好意思");
+            //修改 application.properties 文件中的读取路径
+            FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+            configurer.setTemplateLoaderPath("classpath:templates");
+            //读取 html 模板
+            Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail1.html");
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
             helper.setText(html, true);
         } catch (Exception e) {

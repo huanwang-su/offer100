@@ -29,7 +29,7 @@ public class Resume_post_recordController {
     JobService jobService;
     @Autowired
     EnterpriseService enterpriseService;
-    @ApiOperation(value = "jobid",notes = "企业管理自己的简历")
+    @ApiOperation(value = "jobid",notes = "企业管理自己的岗位")
     @ResponseBody
     @RequestMapping(value = "/manageJob/{id}", method ={RequestMethod.GET})
     public List<Job> manageJob(@PathVariable Integer id) {
@@ -47,8 +47,8 @@ public class Resume_post_recordController {
 
     @ApiOperation(value = "resumeid",notes = "企业管理自己的简历")
     @ResponseBody
-    @RequestMapping(value = "/maageResume/{id}", method ={RequestMethod.GET})
-    public List<Resume_post_record> manageResume(@PathVariable Integer id) {
+    @RequestMapping(value = "/maageEnterpriseResume/{id}", method ={RequestMethod.GET})
+    public List<Resume_post_record> manageEnterpriseResume(@PathVariable Integer id) {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
 

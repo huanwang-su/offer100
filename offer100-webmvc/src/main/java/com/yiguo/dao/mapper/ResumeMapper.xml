@@ -413,63 +413,63 @@
       </if>
   </select>
    <!-- 分页查詢 -->
-  <select id="select" parameterType="Map" resultMap="BaseResultMap">
+  <select id="select" parameterType="com.yiguo.bean.Resume" resultMap="BaseResultMap">
     SELECT *
     FROM resume
     WHERE 1=1
    <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+       and user_id = #{userId,jdbcType=INTEGER}
       </if>
       <if test="userName != null" >
-        user_name = #{userName,jdbcType=VARCHAR},
+        and user_name = #{userName,jdbcType=VARCHAR}
       </if>
       <if test="sex != null" >
-        sex = #{sex,jdbcType=TINYINT},
+       and sex = #{sex,jdbcType=TINYINT}
       </if>
       <if test="telephone != null" >
-        telephone = #{telephone,jdbcType=INTEGER},
+        and telephone = #{telephone,jdbcType=INTEGER}
       </if>
       <if test="nativePlace != null" >
-        native_place = #{nativePlace,jdbcType=VARCHAR},
+        and native_place = #{nativePlace,jdbcType=VARCHAR}
       </if>
       <if test="personPhoto != null" >
-        person_photo = #{personPhoto,jdbcType=VARCHAR},
+        and person_photo = #{personPhoto,jdbcType=VARCHAR}
       </if>
       <if test="communicationAddress != null" >
-        communication_address = #{communicationAddress,jdbcType=VARCHAR},
+        and communication_address = #{communicationAddress,jdbcType=VARCHAR}
       </if>
       <if test="email != null" >
-        email = #{email,jdbcType=VARCHAR},
+        and email = #{email,jdbcType=VARCHAR}
       </if>
       <if test="graduatedSchool != null" >
-        graduated_school = #{graduatedSchool,jdbcType=VARCHAR},
+        and graduated_school = #{graduatedSchool,jdbcType=VARCHAR}
       </if>
       <if test="profession != null" >
-        profession = #{profession,jdbcType=VARCHAR},
+        and profession = #{profession,jdbcType=VARCHAR}
       </if>
       <if test="education != null" >
-        education = #{education,jdbcType=VARCHAR},
+      and education = #{education,jdbcType=VARCHAR}
       </if>
       <if test="majorCourse != null" >
-        major_course = #{majorCourse,jdbcType=VARCHAR},
+      and major_course = #{majorCourse,jdbcType=VARCHAR}
       </if>
       <if test="scoreRank != null" >
-        score_rank = #{scoreRank,jdbcType=TINYINT},
+      and score_rank = #{scoreRank,jdbcType=TINYINT}
       </if>
       <if test="professinalSkill != null" >
-        professinal_skill = #{professinalSkill,jdbcType=VARCHAR},
+      and professinal_skill = #{professinalSkill,jdbcType=VARCHAR}
       </if>
       <if test="reward != null" >
-        reward = #{reward,jdbcType=VARCHAR},
+      and reward = #{reward,jdbcType=VARCHAR}
       </if>
       <if test="selfEvaluation != null" >
-        self_evaluation = #{selfEvaluation,jdbcType=VARCHAR},
+      and self_evaluation = #{selfEvaluation,jdbcType=VARCHAR}
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+       and update_time = #{updateTime,jdbcType=TIMESTAMP}
       </if>
       <if test="start != null and pageSize!=null">
       limit #{start},#{pageSize}
