@@ -228,4 +228,11 @@
 			limit #{start},#{pageSize}
 		</if>
 	</select>
+
+	<select id="findById" parameterType="com.yiguo.bean.Bulletin" resultType="Integer">
+		SELECT count(*)
+		FROM bulletin
+		WHERE
+		id  = #{id,jdbcType=INTEGER}
+	</select>
 </mapper>

@@ -20,6 +20,8 @@ public interface ConfigurationMapper extends BaseMapper<Integer, Configuration>{
      //根据type查询是否存在这条记录
      int findByType(String type);
 
+    int findById(Integer id);
+
 
 
 

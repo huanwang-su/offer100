@@ -66,7 +66,7 @@ public class ConfigurationController {
     //需要添加/type,否则运行时服务器不能正确辨别是本函数的url还是getConfigurationById方法的url
     public Configuration getConfigurationByType(@PathVariable String type){
         Configuration configuration=new Configuration();
-        System.out.println("123");
+       // System.out.println("123");
         configuration=configurationService.selectByType(type);
         System.out.println(configuration.getValue());
         return configuration;
@@ -76,13 +76,14 @@ public class ConfigurationController {
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String putConfiguration(@PathVariable Integer id, @ModelAttribute Configuration configuration) {
-        // 处理"/configuration/{id}"的PUT请求，用来更新Configuration信息
-        //user.setId(id);
+        if (configurationService.findById(id) > 0){
         int num = configurationService.updateByPrimaryKeySelective(configuration);
         if(num > 0) {
             return SUCCESS;
         }else
             return FAILURE;
+        }
+        return "this id does not exist";
     }
 
     @ApiOperation(value="根据id删除配置信息", notes="根据url的id来指定删除对象")
@@ -90,11 +91,14 @@ public class ConfigurationController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteConfiguration(@PathVariable Integer id) {
         // 处理"/configuration/{id}"的DELETE请求，用来删除Configuration
+        if (configurationService.findById(id) > 0){
         int num = configurationService.deleteByPrimaryKey(id);
         if(num > 0) {
             return SUCCESS;
         }else
             return FAILURE;
+        }
+        return "this id does not exist";
     }
 
    @ApiOperation(value="根据type删除配置信息", notes="根据url的type来指定删除对象")
@@ -102,10 +106,13 @@ public class ConfigurationController {
     @RequestMapping(value = "/type/{type}", method = RequestMethod.DELETE)
     public String deleteConfiguration(@PathVariable String type) {
         // 处理"/configuration/{id}"的DELETE请求，用来删除Configuration
+       if (configurationService.FindByType(type) > 0){
         int num = configurationService.deleteByType(type);
         if(num > 0) {
             return SUCCESS;
         }else
             return FAILURE;
+       }
+       return "this type does not exist";
     }
 }

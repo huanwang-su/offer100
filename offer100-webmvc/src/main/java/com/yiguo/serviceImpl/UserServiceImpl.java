@@ -71,5 +71,9 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<Integer, User> impl
 		return dao;
 	}
 
+	@Override
+	public int findById(Integer id) {
+		return dao.findById(id);
+	}
 
 }

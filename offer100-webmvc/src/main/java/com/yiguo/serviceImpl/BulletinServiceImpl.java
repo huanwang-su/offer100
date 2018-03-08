@@ -28,4 +28,9 @@ public class BulletinServiceImpl extends AbstractBaseServiceImpl<Integer, Bullet
 		return dao.query();
 	}
 
+	@Override
+	public int findById(Integer id) {
+		return dao.findById(id);
+	}
+
 }

@@ -271,4 +271,12 @@
       limit #{start},#{pageSize}
     </if>
   </select>
+
+
+  <select id="findById" parameterType="com.yiguo.bean.Notification" resultType="Integer">
+    SELECT count(*)
+    FROM notification
+    WHERE
+    id  = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

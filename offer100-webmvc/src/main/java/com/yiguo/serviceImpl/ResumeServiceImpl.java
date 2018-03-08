@@ -26,4 +26,9 @@ public class ResumeServiceImpl extends AbstractBaseServiceImpl<Integer, Resume> 
 	public List<Resume> getAll() {
 		return dao.query();
 	}
+
+	@Override
+	public int findById(Integer id) {
+		return dao.findById(id);
+	}
 }

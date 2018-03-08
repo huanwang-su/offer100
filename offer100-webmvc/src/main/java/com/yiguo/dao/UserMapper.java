@@ -28,4 +28,6 @@ public interface UserMapper extends BaseMapper<Integer, User> {
 
 	List<User> query();
 
+	int findById(Integer id);
+
 }

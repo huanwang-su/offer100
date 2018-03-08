@@ -39,5 +39,10 @@ public class ConfigurationServiceImpl extends AbstractBaseServiceImpl<Integer, C
 	@Override
 	public int FindByType(String type) { return dao.findByType(type); }
 
+	@Override
+	public int findById(Integer id) {
+		return dao.findById(id);
+	}
+
 
 }

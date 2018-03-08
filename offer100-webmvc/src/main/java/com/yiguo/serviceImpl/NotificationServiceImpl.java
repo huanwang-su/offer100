@@ -29,4 +29,9 @@ public class NotificationServiceImpl extends AbstractBaseServiceImpl<Integer, No
 		return dao.query();
 	}
 
+	@Override
+	public int findById(Integer id) {
+		return dao.findById(id);
+	}
+
 }

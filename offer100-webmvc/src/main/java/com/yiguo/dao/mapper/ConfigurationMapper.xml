@@ -210,4 +210,11 @@
 			limit #{start},#{pageSize}
 		</if>
 	</select>
+
+    <select id="findById" parameterType="com.yiguo.bean.Configuration" resultType="Integer">
+        SELECT count(*)
+        FROM configuration
+        WHERE
+        id  = #{id,jdbcType=INTEGER}
+    </select>
 </mapper>

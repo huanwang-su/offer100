@@ -61,24 +61,29 @@ public class BulletinController {
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public String putBulletin(@PathVariable Integer id, @ModelAttribute Bulletin bulletin) {
-
-		int num = bulletionService.updateByPrimaryKeySelective(bulletin);
-		if(num > 0) {
-			return SUCCESS;
-		}else
-			return FAILURE;
+		if (bulletionService.findById(id) > 0) {
+			int num = bulletionService.updateByPrimaryKeySelective(bulletin);
+			if (num > 0) {
+				return SUCCESS;
+			} else
+				return FAILURE;
+		}
+		return "this id does not exist";
 	}
 
 	@ApiOperation(value="删除公告信息", notes="根据url的id来指定删除对象")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String deleteBulletin(@PathVariable Integer id) {
-
+		if (bulletionService.findById(id) > 0) {
 		int num = bulletionService.deleteByPrimaryKey(id);
 		if(num > 0) {
 			return SUCCESS;
 		}else
 			return FAILURE;
+
+		}
+		return "this id does not exist";
 	}
 
 

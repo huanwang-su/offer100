@@ -475,4 +475,11 @@
       limit #{start},#{pageSize}
     </if>
   </select>
+
+    <select id="findById" parameterType="com.yiguo.bean.Resume" resultType="Integer">
+        SELECT count(*)
+        FROM resume
+        WHERE
+        id  = #{id,jdbcType=INTEGER}
+    </select>
 </mapper>

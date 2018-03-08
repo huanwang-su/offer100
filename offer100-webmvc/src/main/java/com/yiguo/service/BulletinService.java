@@ -8,4 +8,6 @@ public interface BulletinService extends BaseService<Integer, Bulletin> {
 
     List<Bulletin> getAll();
 
+    int findById(Integer id);
+
 }

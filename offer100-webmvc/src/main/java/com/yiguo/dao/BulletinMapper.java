@@ -12,4 +12,6 @@ public interface BulletinMapper extends BaseMapper<Integer, Bulletin> {
 
     List<Bulletin> query( );
 
+    int findById(Integer id);
+
 }

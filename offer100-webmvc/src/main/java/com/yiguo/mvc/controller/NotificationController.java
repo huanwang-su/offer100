@@ -49,21 +49,28 @@ public class NotificationController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Notification getNotification(@PathVariable Integer id) {
 
-        Notification notification=new Notification();
-        notification=notificationService.selectByPrimaryKey(id);
-        return notification;
+            Notification notification = new Notification();
+            return notificationService.selectByPrimaryKey(id);
+
     }
 
     @ApiOperation(value="更新通知详细信息", notes="根据url的id来指定更新对象，并根据传过来的notification信息来更新通知详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String putNotification(@PathVariable Integer id, @ModelAttribute Notification notification) {
-        //先判断该id是否存在，若存在，才能执行下一步更新操作（未实现）
-        int num = notificationService.updateByPrimaryKeySelective(notification);
-        if(num > 0) {
-            return SUCCESS;
-        }else
-            return FAILURE;
+        //先判断该id是否存在，若存在，才能执行下一步更新操作
+        if(notificationService.findById(id) > 0){
+        //若该条记录存在，则执行更新操作
+            int num = notificationService.updateByPrimaryKeySelective(notification);
+            if(num > 0) {
+                return SUCCESS;
+            }else
+                return FAILURE;
+
+        }
+        //
+        return "this id does not exist";
+
     }
 
     @ApiOperation(value="删除通知信息", notes="根据url的id来指定删除对象")
@@ -71,12 +78,16 @@ public class NotificationController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteNotification(@PathVariable Integer id) {
 
-        int num = notificationService.deleteByPrimaryKey(id);
-        if(num > 0) {
-            return SUCCESS;
-        }else
-            return FAILURE;
+        if (notificationService.findById(id) > 0) {
+            int num = notificationService.deleteByPrimaryKey(id);
+            if (num > 0) {
+                return SUCCESS;
+            } else
+                return FAILURE;
+        }
+        return "this id does not exist";
     }
+
 
 
 }

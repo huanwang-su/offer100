@@ -66,11 +66,15 @@ public class UserController {
     public String putUser(@PathVariable Integer id, @ModelAttribute User user) {
         // 处理"/users/{id}"的PUT请求，用来更新User信息
         //user.setId(id);
-        int num = userService.updateByPrimaryKeySelective(user);
-        if(num > 0) {
-            return SUCCESS;
-        }else
-            return FAILURE;
+
+        if(userService.findById(id) > 0) {
+            int num = userService.updateByPrimaryKeySelective(user);
+            if (num > 0) {
+                return SUCCESS;
+            } else
+                return FAILURE;
+        }
+        return "this id does not exist";
     }
 
     @ApiOperation(value="删除用户", notes="根据url的id来指定删除对象")
@@ -78,10 +82,13 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String  deleteUser(@PathVariable Integer id) {
         // 处理"/users/{id}"的DELETE请求，用来删除User
+        if(userService.findById(id) > 0) {
         int num = userService.deleteByPrimaryKey(id);
         if(num > 0) {
             return SUCCESS;
         }else
             return FAILURE;
+        }
+        return "this id does not exist";
     }
 }

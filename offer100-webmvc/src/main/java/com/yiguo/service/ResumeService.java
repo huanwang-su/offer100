@@ -8,4 +8,6 @@ public interface ResumeService extends BaseService<Integer, Resume> {
 
     List<Resume> getAll( );
 
+    int findById(Integer id);
+
 }

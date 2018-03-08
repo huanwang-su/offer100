@@ -12,4 +12,6 @@ public interface ResumeMapper extends BaseMapper<Integer, Resume> {
 
 
     List<Resume> query( );
+
+    int findById(Integer id);
 }

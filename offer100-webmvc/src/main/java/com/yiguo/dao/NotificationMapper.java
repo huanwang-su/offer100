@@ -11,4 +11,5 @@ import java.util.List;
 public interface NotificationMapper extends BaseMapper<Integer, Notification> {
     List<Notification> query( );
 
+    int findById(Integer id);
 }

@@ -17,5 +17,7 @@ public interface ConfigurationService extends BaseService<Integer, Configuration
 
     int FindByType(String  type);
 
+    int findById(Integer id);
+
 
 }

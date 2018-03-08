@@ -61,24 +61,28 @@ public class ResumeController {
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String putResume(@PathVariable Integer id, @ModelAttribute Resume resume) {
-
-        int num = resumeService.updateByPrimaryKeySelective(resume);
-        if(num > 0) {
-            return SUCCESS;
-        }else
-            return FAILURE;
+        if(resumeService.findById(id) > 0) {
+            int num = resumeService.updateByPrimaryKeySelective(resume);
+            if (num > 0) {
+                return SUCCESS;
+            } else
+                return FAILURE;
+        }
+        return "this id does not exist";
     }
 
     @ApiOperation(value="删除简历信息", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteResume(@PathVariable Integer id) {
-
+        if(resumeService.findById(id) > 0) {
         int num = resumeService.deleteByPrimaryKey(id);
         if(num > 0) {
             return SUCCESS;
         }else
             return FAILURE;
+        }
+        return "this id does not exist";
     }
 
 }
