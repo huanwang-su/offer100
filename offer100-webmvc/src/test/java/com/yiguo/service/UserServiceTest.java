@@ -1,23 +1,34 @@
 package com.yiguo.service;
 
+import com.yiguo.bean.Notification;
 import com.yiguo.bean.User;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Date;
 
 /**
  * Created by liyue on 2018/3/1.
  */
 public class UserServiceTest extends  BaseServiceTest{
+
+    @Autowired
+    ResumeService resumeService;
+
+    @Autowired
+    NotificationService notificationService;
+
     @Autowired
     UserService userService;
+
     @Autowired
     EnterpriseService enterpriseService;
+
     @Autowired
     private Resume_post_recordService resume_post_recordService;
+
     @Test
-@Ignore
     public void getUser(){
         User user=new User();
         user.setName("张舒雯");
@@ -47,11 +58,16 @@ public class UserServiceTest extends  BaseServiceTest{
     user.setAge(22);
       userService.updateByPrimaryKeySelective(user);
     }
+
+
     @Test
     @Ignore
     public void deleteKey(){
         userService.deleteByPrimaryKey(21);
     }
+
+
+
     @Test
     public void resumecount(){
         int resumeNum1 = 0;
@@ -66,24 +82,26 @@ public class UserServiceTest extends  BaseServiceTest{
         if (resumeNum != 0)
             resumeHanderRate = (resumeNum - resumeNum1) / resumeNum;
     }
-@Test
-public void loginUser() {
-    // 处理"/users/"的POST请求，用来创建User
-    // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
-    String username="wanghuan";
-    String password="wnghuan";
-    String f="登录成功";
-    User user= userService.findByUsername(username);
-    if(user!=null)
-    {
-        if(!user.getPassword().equals(password))
-            f="用户名或者密码不对";
-        else if(user.getState()==0)
-            f="此用户已经被封，不可用";
-    }
-    else
-        f="此用户不存在，请先注册";
-    //System.out.println(f);
-   System.out.println(f);
-}
+
+
+
+/*    //投递简历，简历投递后，用户会收到通知（notification），简历投递记录表会生成一条记录
+    @Test
+    public void resumeDeliver(){
+
+        Notification notification = new Notification();
+
+        notification.setTitle("应聘");
+        notification.setSendTime(new Date());
+        notification.setContext(resumeService.selectByPrimaryKey(5).getUserName());
+        notification.setSenderId(5);
+        notification.setRecieverId(1);
+        notification.setType(Byte.parseByte("1"));
+
+        int num = notificationService.insert(notification);
+
+        System.out.println(num);
+
+    }*/
+
 }
