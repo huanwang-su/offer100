@@ -110,12 +110,14 @@ public class JobServiceTest extends BaseServiceTest {
         Job job=new Job();
         job.setEnterpriseId(1);
         // 处理"/Zones/{id}"的DELETE请求，用来删除Zone
+
         PageInfo<Job> pageinfo=new PageInfo<Job>();
         pageinfo.setPageNum(pageNumber);
         pageinfo.setPageSize(pageSize);
         Page page= new Page();
         page.setPageNumber(pageNumber);
         page.setPageSize(pageSize);
+        List<Job> ew=jobService.select(job,page);
         pageinfo.setRows( jobService.select(job,page));
         pageinfo.setTotal(page.getTotal());
         System.out.println(pageinfo.getTotal());

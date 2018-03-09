@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 @Service("Resume_post_record")
 @Transactional
 public class Resume_post_recordServiceImpl extends AbstractBaseServiceImpl<Integer, Resume_post_record>
@@ -32,6 +35,17 @@ public class Resume_post_recordServiceImpl extends AbstractBaseServiceImpl<Integ
 		// TODO Auto-generated method stub
 		return dao.selectjob1(enterpriseId);
 	}
+
+	@Override
+	public List<Map> selectBy(String title, Integer enterpriseId, Integer state) {
+		return dao.selectBy(title,enterpriseId,state);
+	}
+
+	@Override
+	public int selectCounts(String title, Integer enterpriseId, Integer state) {
+		return dao.selectCounts(title,enterpriseId,state);
+	}
+
 
 	@Override
 	public int findByResumeId(Integer resumeId) {

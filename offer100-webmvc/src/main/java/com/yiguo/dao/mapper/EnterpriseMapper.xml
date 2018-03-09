@@ -346,112 +346,114 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<!-- 查詢数量 -->
-	<select id="selectCount" parameterType="com.yiguo.bean.Enterprise"
-		resultType="Integer">
+	<select id="selectCount" parameterType="com.yiguo.bean.Enterprise" resultType="Integer">
 		SELECT count(*)
-		FROM education
+		FROM enterprise
 		WHERE 1=1
-		<if test="name != null">
-			name = #{name,jdbcType=VARCHAR},
+		<if test="name != null" >
+		and name = #{name,jdbcType=VARCHAR}
 		</if>
-		<if test="userName != null">
-			user_name = #{userName,jdbcType=VARCHAR},
+		<if test="userName != null" >
+			and user_name = #{userName,jdbcType=VARCHAR}
 		</if>
-		<if test="userPassword != null">
-			user_password = #{userPassword,jdbcType=VARCHAR},
+		<if test="userPassword != null" >
+		and 	user_password = #{userPassword,jdbcType=VARCHAR}
 		</if>
-		<if test="email != null">
-			email = #{email,jdbcType=VARCHAR},
+		<if test="email != null" >
+			and email = #{email,jdbcType=VARCHAR}
 		</if>
-		<if test="address != null">
-			address = #{address,jdbcType=VARCHAR},
+		<if test="address != null" >
+		and	address = #{address,jdbcType=VARCHAR}
 		</if>
-		<if test="linkman != null">
-			linkman = #{linkman,jdbcType=VARCHAR},
+		<if test="linkman != null" >
+		and	linkman = #{linkman,jdbcType=VARCHAR}
 		</if>
-		<if test="phone != null">
-			phone = #{phone,jdbcType=VARCHAR},
+		<if test="phone != null" >
+		and	phone = #{phone,jdbcType=VARCHAR}
 		</if>
-		<if test="industryId != null">
-			industry_id = #{industryId,jdbcType=INTEGER},
+		<if test="industryId != null" >
+		and	industry_id = #{industryId,jdbcType=INTEGER}
 		</if>
-		<if test="zoneId != null">
-			zone_id = #{zoneId,jdbcType=INTEGER},
+		<if test="zoneId != null" >
+		and	zone_id = #{zoneId,jdbcType=INTEGER}
 		</if>
-		<if test="state != null">
-			state = #{state,jdbcType=TINYINT},
+		<if test="state != null" >
+			and state = #{state,jdbcType=TINYINT}
 		</if>
-		<if test="imageLog != null">
-			image_log = #{imageLog,jdbcType=VARCHAR},
+		<if test="imageLog != null" >
+		and	image_log = #{imageLog,jdbcType=VARCHAR}
 		</if>
-		<if test="imageLicense != null">
-			image_license = #{imageLicense,jdbcType=VARCHAR},
+		<if test="imageLicense != null" >
+			and image_license = #{imageLicense,jdbcType=VARCHAR}
 		</if>
-		<if test="description != null">
-			description = #{description,jdbcType=VARCHAR},
+		<if test="description != null" >
+			and description = #{description,jdbcType=VARCHAR}
 		</if>
-		<if test="stage != null">
-			stage = #{stage,jdbcType=TINYINT},
+		<if test="stage != null" >
+			and stage = #{stage,jdbcType=TINYINT}
 		</if>
-		<if test="createTime != null">
-			create_time = #{createTime,jdbcType=TIMESTAMP},
+		<if test="createTime != null" >
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
 		</if>
-		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP},
+		<if test="updateTime != null" >
+		and	update_time = #{updateTime,jdbcType=TIMESTAMP}
 		</if>
 	</select>
 	<!-- 分页查詢 -->
 	<select id="select" parameterType="Map" resultMap="BaseResultMap">
 		SELECT *
-		FROM education
+		FROM enterprise
 		WHERE 1=1
 		<if test="name != null">
-			name = #{name,jdbcType=VARCHAR},
+			and name = #{name,jdbcType=VARCHAR}
 		</if>
 		<if test="userName != null">
-			user_name = #{userName,jdbcType=VARCHAR},
+		and	user_name = #{userName,jdbcType=VARCHAR}
 		</if>
 		<if test="userPassword != null">
-			user_password = #{userPassword,jdbcType=VARCHAR},
+			and user_password = #{userPassword,jdbcType=VARCHAR}
 		</if>
 		<if test="email != null">
-			email = #{email,jdbcType=VARCHAR},
+			and email = #{email,jdbcType=VARCHAR}
 		</if>
 		<if test="address != null">
-			address = #{address,jdbcType=VARCHAR},
+			and address = #{address,jdbcType=VARCHAR}
 		</if>
 		<if test="linkman != null">
-			linkman = #{linkman,jdbcType=VARCHAR},
+			and linkman = #{linkman,jdbcType=VARCHAR}
 		</if>
 		<if test="phone != null">
-			phone = #{phone,jdbcType=VARCHAR},
+		and 	phone = #{phone,jdbcType=VARCHAR}
 		</if>
 		<if test="industryId != null">
-			industry_id = #{industryId,jdbcType=INTEGER},
+			and industry_id = #{industryId,jdbcType=INTEGER}
 		</if>
 		<if test="zoneId != null">
-			zone_id = #{zoneId,jdbcType=INTEGER},
+			and zone_id = #{zoneId,jdbcType=INTEGER}
 		</if>
 		<if test="state != null">
-			state = #{state,jdbcType=TINYINT},
+		and 	state = #{state,jdbcType=TINYINT}
 		</if>
 		<if test="imageLog != null">
-			image_log = #{imageLog,jdbcType=VARCHAR},
+			and image_log = #{imageLog,jdbcType=VARCHAR},
 		</if>
 		<if test="imageLicense != null">
-			image_license = #{imageLicense,jdbcType=VARCHAR},
+			and image_license = #{imageLicense,jdbcType=VARCHAR}
 		</if>
 		<if test="description != null">
-			description = #{description,jdbcType=VARCHAR},
+		and	description = #{description,jdbcType=VARCHAR}
 		</if>
 		<if test="stage != null">
-			stage = #{stage,jdbcType=TINYINT},
+			and stage = #{stage,jdbcType=TINYINT}
 		</if>
 		<if test="createTime != null">
-			create_time = #{createTime,jdbcType=TIMESTAMP},
+		and 	create_time = #{createTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP},
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="start != null and pageSize!=null">
+			limit #{start},#{pageSize}
 		</if>
 	</select>
 </mapper>

@@ -4,6 +4,7 @@ import com.yiguo.bean.Enterprise;
 import com.yiguo.bean.Job;
 import com.yiguo.bean.Page;
 import com.yiguo.bean.Resume_post_record;
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.EnterpriseService;
 import com.yiguo.service.JobService;
 import com.yiguo.service.Resume_post_recordService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Api(value = "API - Resume_post_recordController", description = "简历投递详情")
@@ -61,5 +63,21 @@ public class Resume_post_recordController {
         return resume_post_records;
     }
 
-
+    @ApiOperation(value = "resumeid",notes = "公司查看投递情况")
+    @ResponseBody
+    @RequestMapping(value = "/manageResume", method ={RequestMethod.GET})
+    public PageInfo<Map> manageResume(@PathVariable String title, @PathVariable Integer enterpriseId, @PathVariable Integer state,@PathVariable Integer pageNumber,@PathVariable Integer pageSize) {
+        // 处理"/users/"的GET请求，用来获取用户列表
+        // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
+        PageInfo<Map> pageinfo=new PageInfo<Map>();
+        pageinfo.setPageNum(pageNumber);
+        pageinfo.setPageSize(pageSize);
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
+        pageinfo.setRows( resume_post_recordService.selectBy(title,enterpriseId,state));
+        int count =resume_post_recordService.selectCounts(title,enterpriseId,state);
+        pageinfo.setTotal(count);
+        return pageinfo;
+    }
 }

@@ -1,6 +1,9 @@
 package com.yiguo.mvc.controller;
 
 import com.yiguo.bean.Enterprise;
+import com.yiguo.bean.Job;
+import com.yiguo.bean.Page;
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.EnterpriseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -95,6 +98,24 @@ public class EnterpriseController {
             f="审核未通过";
         }
         return f;
+    }
+    @ApiOperation(value = "查询企业",notes = "查询得出企业")
+    @ResponseBody
+    @RequestMapping(value = "/selectEnterprise", method = RequestMethod.GET)
+    public PageInfo<Enterprise> selectEnterprise(@RequestBody Enterprise enterprise,@PathVariable Integer pageSize,@PathVariable Integer pageNumber) {
+        // 处理"/users/"的GET请求，用来获取用户列表
+        // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
+        PageInfo<Enterprise> pageinfo=new PageInfo<Enterprise>();
+        pageinfo.setPageNum(pageNumber);
+        pageinfo.setPageSize(pageSize);
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
+        enterprise.setStage(1);
+        pageinfo.setRows( enterpriseService.select(enterprise,page));
+        int count=enterpriseService.selectCount(enterprise);
+        pageinfo.setTotal(count);
+        return  pageinfo;
     }
 
 }

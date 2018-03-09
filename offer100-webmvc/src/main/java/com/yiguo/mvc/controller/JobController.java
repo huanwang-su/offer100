@@ -1,6 +1,8 @@
 package com.yiguo.mvc.controller;
 
-import com.yiguo.bean.*;
+import com.yiguo.bean.Enterprise;
+import com.yiguo.bean.Job;
+import com.yiguo.bean.Page;
 import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.EnterpriseService;
 import com.yiguo.service.JobService;
@@ -22,7 +24,7 @@ public class JobController {
     EnterpriseService enterpriseService;
     @ApiOperation(value = "创建岗位",notes = "根据Job对象创建Job")
     @ResponseBody
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "/postJob", method = RequestMethod.POST)
     public String postJob(@RequestBody Job job) {
         // 处理"/Zones/"的POST请求，用来创建Zone
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
@@ -77,7 +79,7 @@ public class JobController {
     @ApiOperation(value="筛选岗位", notes="筛选岗位")
     @ResponseBody
     @RequestMapping(value = "/selectJob/{id}", method = RequestMethod.DELETE)
-    public PageInfo<Job> selectJob(@ModelAttribute Job job,@PathVariable Integer pageSize,Integer pageNumber) {
+    public PageInfo<Job> selectJob(@ModelAttribute Job job,@PathVariable Integer pageSize,@PathVariable Integer pageNumber) {
         // 处理"/Zones/{id}"的DELETE请求，用来删除Zone
              PageInfo<Job> pageinfo=new PageInfo<Job>();
              pageinfo.setPageNum(pageNumber);
@@ -86,7 +88,8 @@ public class JobController {
              page.setPageNumber(pageNumber);
              page.setPageSize(pageSize);
              pageinfo.setRows( jobService.select(job,page));
-             pageinfo.setTotal(page.getTotal());
+             int count=jobService.selectCount(job);
+             pageinfo.setTotal(count);
         return  pageinfo;
     }
 }
