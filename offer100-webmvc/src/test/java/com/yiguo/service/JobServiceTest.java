@@ -91,7 +91,7 @@ public class JobServiceTest extends BaseServiceTest {
     }
 
     @Test
-    @Ignore
+   // @Ignore
     public void testSolr() {
         Page page=new Page();
         page.setPageNumber(1);

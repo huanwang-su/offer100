@@ -18,6 +18,8 @@ public class Job implements Serializable {
     @Field
     private String id;
     @Field
+    private String enterpriseId;
+    @Field
     private String enterprise;
     @Field
     private String title;
@@ -59,25 +61,9 @@ public class Job implements Serializable {
     private String welfare;
     public Job(){}
 
-    public String getPublishDaysBefore() {
-        if (publishDaysBefore==null){
-            if (publishTime!=null){
-                Period period = Period.between(LocalDate.ofEpochDay(publishTime), LocalDate.now());
-                if(period.getYears()>0)
-                    publishDaysBefore = period.getYears()+"年前";
-                else if(period.getMonths()>0)
-                    publishDaysBefore = period.getMonths()+"个月前";
-                else if(period.getDays()>0)
-                    publishDaysBefore = period.getDays()+"天前";
-                else
-                    publishDaysBefore = "今天";
-            }
-        }
-        return publishDaysBefore;
-    }
-
     private Job(Builder builder) {
         setId(builder.id);
+        setEnterpriseId(builder.enterpriseId);
         setEnterprise(builder.enterprise);
         setTitle(builder.title);
         setNature(builder.nature);
@@ -95,10 +81,6 @@ public class Job implements Serializable {
         setWelfare(builder.welfare);
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public static Builder newBuilder() {
         return new Builder();
     }
@@ -106,6 +88,7 @@ public class Job implements Serializable {
     public static Builder newBuilder(Job copy) {
         Builder builder = new Builder();
         builder.id = copy.getId();
+        builder.enterpriseId = copy.getEnterpriseId();
         builder.enterprise = copy.getEnterprise();
         builder.title = copy.getTitle();
         builder.nature = copy.getNature();
@@ -124,12 +107,37 @@ public class Job implements Serializable {
         return builder;
     }
 
+    public String getPublishDaysBefore() {
+        if (publishDaysBefore==null){
+            if (publishTime!=null){
+                Period period = Period.between(LocalDate.ofEpochDay(publishTime), LocalDate.now());
+                if(period.getYears()>0)
+                    publishDaysBefore = period.getYears()+"年前";
+                else if(period.getMonths()>0)
+                    publishDaysBefore = period.getMonths()+"个月前";
+                else if(period.getDays()>0)
+                    publishDaysBefore = period.getDays()+"天前";
+                else
+                    publishDaysBefore = "今天";
+            }
+        }
+        return publishDaysBefore;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(String enterpriseId) {
+        this.enterpriseId = enterpriseId;
     }
 
     public String getEnterprise() {
@@ -252,30 +260,10 @@ public class Job implements Serializable {
         this.welfare = welfare;
     }
 
-    @Override
-    public String toString() {
-        return "Job{" +
-                "id='" + id + '\'' +
-                ", enterprise='" + enterprise + '\'' +
-                ", title='" + title + '\'' +
-                ", nature='" + nature + '\'' +
-                ", zone='" + zone + '\'' +
-                ", category=" + category +
-                ", wage=" + wage +
-                ", education='" + education + '\'' +
-                ", enterpriseLogo='" + enterpriseLogo + '\'' +
-                ", rank=" + rank +
-                ", key=" + key +
-                ", publishTime=" + publishTime +
-                ", serviceYear=" + serviceYear +
-                ", peopleNumber=" + peopleNumber +
-                ", enterpriseCategory='" + enterpriseCategory + '\'' +
-                ", welfare='" + welfare + '\'' +
-                '}';
-    }
 
     public static final class Builder {
         private String id;
+        private String enterpriseId;
         private String enterprise;
         private String title;
         private String nature;
@@ -297,6 +285,11 @@ public class Job implements Serializable {
 
         public Builder id(String val) {
             id = val;
+            return this;
+        }
+
+        public Builder enterpriseId(String val) {
+            enterpriseId = val;
             return this;
         }
 
