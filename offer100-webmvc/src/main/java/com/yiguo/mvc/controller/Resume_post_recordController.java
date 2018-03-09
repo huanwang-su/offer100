@@ -10,12 +10,10 @@ import com.yiguo.service.JobService;
 import com.yiguo.service.Resume_post_recordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +64,7 @@ public class Resume_post_recordController {
     @ApiOperation(value = "resumeid",notes = "公司查看投递情况")
     @ResponseBody
     @RequestMapping(value = "/manageResume", method ={RequestMethod.GET})
-    public PageInfo<Map> manageResume(@PathVariable String title, @PathVariable Integer enterpriseId, @PathVariable Integer state,@PathVariable Integer pageNumber,@PathVariable Integer pageSize) {
+    public PageInfo<Map> manageResume(@RequestParam(required = false) String title, @RequestParam(required = false) Integer enterpriseId, @RequestParam(required = false) Integer state, @RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
         PageInfo<Map> pageinfo=new PageInfo<Map>();
