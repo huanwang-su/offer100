@@ -17,7 +17,7 @@ public class EducationServiceTest extends BaseServiceTest {
    EducationService educationService;
 
     @Test
-    @Ignore
+
      public void getSchool(){
        Education education=new Education();
        education.setSchoolTitle("sasadasdsad");
@@ -46,6 +46,7 @@ public class EducationServiceTest extends BaseServiceTest {
 System.out.print(        educationService.selectByPrimaryKey(1));
     }
     @Test
+    @Ignore
     public void deleteSchool(){
         educationService.deleteByPrimaryKey(1);
     }

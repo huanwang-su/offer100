@@ -83,7 +83,7 @@ public class JobServiceTest extends BaseServiceTest {
     }
 
     @Test
-     @Ignore
+
     public void deleteZone() {
         jobService.deleteByPrimaryKey(11);
         if (jobService.selectByPrimaryKey(11) != null)
@@ -91,7 +91,7 @@ public class JobServiceTest extends BaseServiceTest {
     }
 
     @Test
-   // @Ignore
+   @Ignore
     public void testSolr() {
         Page page=new Page();
         page.setPageNumber(1);
@@ -104,6 +104,7 @@ public class JobServiceTest extends BaseServiceTest {
         jobSearchService.saveJobs(jobList);
     }
     @Test
+    @Ignore
     public void selectJob() {
         int pageSize=30;
         int pageNumber =0;

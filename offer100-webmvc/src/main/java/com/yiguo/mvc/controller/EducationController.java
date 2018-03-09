@@ -32,13 +32,13 @@ public class EducationController {
 	@ApiOperation(value = "创建教育",notes = "根据Education对象创建Education")
 	@ResponseBody
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String postEducation(@RequestBody Education Education) {
+	public String postEducation(@RequestBody Education education) {
 		// 处理"/Educations/"的POST请求，用来创建Education
 		// 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
 		String f="false";
-		Integer count=  educationService.selectByIds(Education.getUserId());
+		Integer count=  educationService.selectByIds(education.getUserId());
 		if(count==0) {
-			educationService.insert(Education);
+			educationService.insert(education);
 			f="true";
 		}
 		return f;
@@ -58,13 +58,13 @@ public class EducationController {
 	@ApiOperation(value="更新教育详细信息", notes="根据url的id来指定更新对象，并根据传过来的Education信息来更新教育详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public String putEducation(@PathVariable Integer id, @ModelAttribute Education education) {
+	public String putEducation(@ModelAttribute Education education) {
 		// 处理"/Educations/{id}"的PUT请求，用来更新Education信息
 
 		String f="true";
 		educationService.updateByPrimaryKeySelective(education);
 		Education education1=new Education();
-         education1=educationService.selectByPrimaryKey(id);
+         education1=educationService.selectByPrimaryKey(education.getId());
          if(education.equals(education1))
          	f="false";
 		return f;

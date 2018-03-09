@@ -76,17 +76,5 @@ public class ZoneController {
             f="删除失败";
         return f;
     }
-    @ApiOperation(value="获取子地区", notes="根据url的id来指定删除对象")
-    @ResponseBody
-    @RequestMapping(value = "/getSonZone/{id}", method = RequestMethod.DELETE)
-    public List<Zone> getSonZone(@PathVariable Integer id,Page page) {
-        // 处理"/Zones/{id}"的DELETE请求，用来删除Zone
 
-        Zone zone1=   zoneService.selectByPrimaryKey(id);
-        Zone zone =new Zone();
-        zone.setParentId(zone1.getParentId());
-
-        List<Zone> zones= zoneService.select(zone, page);
-        return zones;
-    }
 }

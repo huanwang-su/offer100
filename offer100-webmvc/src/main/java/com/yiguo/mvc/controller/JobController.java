@@ -46,7 +46,7 @@ public class JobController {
     }
     @ApiOperation(value="获取岗位详细信息", notes="根据url的id来获取岗位详细信息")
     @ResponseBody
-    @RequestMapping(value = "/{id}", method ={RequestMethod.GET})
+    @RequestMapping(value = "/getJob/{id}", method ={RequestMethod.GET})
     public Job getJob(@PathVariable Integer id ) {
         // 处理"/Zones/{id}"的GET请求，用来获取url中id值的Zone信息
         // url中的id可通过@PathVariable绑定到函数的参数中
@@ -54,13 +54,13 @@ public class JobController {
     }
     @ApiOperation(value="更新job" + "详细信息", notes="根据url的id来指定更新对象，并根据传过来的Job信息来更新岗位详细信息")
     @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putJob(@PathVariable Integer id, @RequestBody Job job) {
+    @RequestMapping(value = "/putJob/{id}", method = RequestMethod.PUT)
+    public String putJob( @ModelAttribute Job job) {
         /* 处理"/Zones/{id}"的PUT请求，用来更新Zone信息 */
         String f="修改成功";
        Job job1=new Job();
         jobService.updateByPrimaryKeySelective(job);
-        job1=jobService.selectByPrimaryKey(id);
+        job1=jobService.selectByPrimaryKey(job.getId());
         if(job.equals(job1))
             f="未修改成功";
         return f;
