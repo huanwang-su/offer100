@@ -1,9 +1,7 @@
 package com.yiguo.mvc.controller;
 
-import com.yiguo.bean.Education;
-import com.yiguo.bean.Enterprise;
-import com.yiguo.bean.Job;
-import com.yiguo.bean.Zone;
+import com.yiguo.bean.*;
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.EnterpriseService;
 import com.yiguo.service.JobService;
 import io.swagger.annotations.Api;
@@ -11,6 +9,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @Api(value = "API - JobController", description = "企业岗位详情")
@@ -53,8 +53,8 @@ public class JobController {
     @ApiOperation(value="更新job" + "详细信息", notes="根据url的id来指定更新对象，并根据传过来的Job信息来更新岗位详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putJob(@PathVariable Integer id, @ModelAttribute Job job) {
-        // 处理"/Zones/{id}"的PUT请求，用来更新Zone信息
+    public String putJob(@PathVariable Integer id, @RequestBody Job job) {
+        /* 处理"/Zones/{id}"的PUT请求，用来更新Zone信息 */
         String f="修改成功";
        Job job1=new Job();
         jobService.updateByPrimaryKeySelective(job);
@@ -73,5 +73,20 @@ public class JobController {
         if(jobService.selectByPrimaryKey(id)!=null)
             f="删除失败";
         return f;
+    }
+    @ApiOperation(value="筛选岗位", notes="筛选岗位")
+    @ResponseBody
+    @RequestMapping(value = "/selectJob/{id}", method = RequestMethod.DELETE)
+    public PageInfo<Job> selectJob(@ModelAttribute Job job,@PathVariable Integer pageSize,Integer pageNumber) {
+        // 处理"/Zones/{id}"的DELETE请求，用来删除Zone
+             PageInfo<Job> pageinfo=new PageInfo<Job>();
+             pageinfo.setPageNum(pageNumber);
+             pageinfo.setPageSize(pageSize);
+             Page page= new Page();
+             page.setPageNumber(pageNumber);
+             page.setPageSize(pageSize);
+             pageinfo.setRows( jobService.select(job,page));
+             pageinfo.setTotal(page.getTotal());
+        return  pageinfo;
     }
 }

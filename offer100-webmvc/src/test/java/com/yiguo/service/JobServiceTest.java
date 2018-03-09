@@ -4,10 +4,13 @@ import com.yiguo.bean.Enterprise;
 import com.yiguo.bean.Job;
 import com.yiguo.bean.Page;
 import com.yiguo.bean.Zone;
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.offer100.search.service.JobSearchService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,7 +83,7 @@ public class JobServiceTest extends BaseServiceTest {
     }
 
     @Test
-
+     @Ignore
     public void deleteZone() {
         jobService.deleteByPrimaryKey(11);
         if (jobService.selectByPrimaryKey(11) != null)
@@ -88,6 +91,7 @@ public class JobServiceTest extends BaseServiceTest {
     }
 
     @Test
+    @Ignore
     public void testSolr() {
         Page page=new Page();
         page.setPageNumber(1);
@@ -98,5 +102,24 @@ public class JobServiceTest extends BaseServiceTest {
             jobList.add(jobService.toSolrJob(job));
         });
         jobSearchService.saveJobs(jobList);
+    }
+    @Test
+    public void selectJob() {
+        int pageSize=30;
+        int pageNumber =0;
+        Job job=new Job();
+        job.setEnterpriseId(1);
+        // 处理"/Zones/{id}"的DELETE请求，用来删除Zone
+        PageInfo<Job> pageinfo=new PageInfo<Job>();
+        pageinfo.setPageNum(pageNumber);
+        pageinfo.setPageSize(pageSize);
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
+        pageinfo.setRows( jobService.select(job,page));
+        pageinfo.setTotal(page.getTotal());
+        System.out.println(pageinfo.getTotal());
+       for(int i=0;i<pageinfo.getRows().size();i++)
+           System.out.println(pageinfo.getRows().get(i));
     }
 }

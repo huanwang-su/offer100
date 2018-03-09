@@ -12,6 +12,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import sun.security.provider.MD5;
 
@@ -104,6 +105,7 @@ Date  date=new Date();
         System.out.print(f);
 }
 @Test
+@Ignore
     public void sendTemplateMail(){
     String emailencode=MD5("286311613@qq.com")+"&";
     String url="https://yiguo.com/password/reset?";
@@ -125,6 +127,36 @@ Date  date=new Date();
            configurer.setTemplateLoaderPath("classpath:templates");
             //读取 html 模板
             Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail.html");
+            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+            helper.setText(html, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mailSender.send(message);
+    }
+    @Test
+    public void sendGetMail(){
+        String email="286311613@qq.com";
+        String emailencode=MD5(email)+"&";
+
+
+        MimeMessage message = null;
+        try {
+            message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(Sender);
+            helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
+            helper.setTo(email);
+            helper.setSubject("简历通过邮件");
+            helper.setText("恭喜您，您的简历已经通过，请等待面试通知");
+            Map<String, Object> model = new HashedMap();
+            model.put("username", "你好，");
+            model.put("text","恭喜您，您的简历已经通过，请等待面试通知");
+            //修改 application.properties 文件中的读取路径
+            FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+            configurer.setTemplateLoaderPath("classpath:templates");
+            //读取 html 模板
+            Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail1.html");
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
             helper.setText(html, true);
         } catch (Exception e) {
