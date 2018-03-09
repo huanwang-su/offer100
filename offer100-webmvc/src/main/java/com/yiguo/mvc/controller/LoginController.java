@@ -56,18 +56,18 @@ public class LoginController {
 		// 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
 		String f="登录成功";
 		if(type.equals("user")){
-		User user= userService.findByUsername(username);
-		if(user!=null)
-		{
-			if(!user.getPassword().equals(password))
-				f="用户名或者密码不对";
-			else if(user.getState()==0)
-				f="此用户已经被封，不可用";
-		}
-		else
-			f="此用户不存在，请先注册";
-		if(f.equals("登录成功"))
-			return user;
+			User user= userService.findByUsername(username);
+			if(user!=null)
+			{
+				if(!user.getPassword().equals(password))
+					f="用户名或者密码不对";
+				else if(user.getState()==0)
+					f="此用户已经被封，不可用";
+			}
+			else
+				f="此用户不存在，请先注册";
+			if(f.equals("登录成功"))
+				return user;
 		}
 		else if(type.equals("enterprise")) {
 			Enterprise enterprise = enterpriseService.findByUsername(username);
@@ -81,7 +81,7 @@ public class LoginController {
 			if(f.equals("登录成功"))
 				return  enterprise;
 		}
-	return f;
+		return f;
 	}
 
 	@ApiOperation(value = "用户注销",notes = "用户注销账户" )
@@ -90,10 +90,10 @@ public class LoginController {
 	public String exitUser(@PathVariable String username) {
 		// 处理"/users/"的POST请求，用来创建User
 		// 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
-	String f="注销";
-			User user= userService.findByUsername(username);
-		    userService.deleteByPrimaryKey(user.getId());
-		    f="注销成功";
+		String f="注销";
+		User user= userService.findByUsername(username);
+		userService.deleteByPrimaryKey(user.getId());
+		f="注销成功";
 		return f;
 	}
 }
