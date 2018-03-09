@@ -114,6 +114,8 @@ public class ResumeController {
 
 
 
+
+
     //求职者投递简历成功后，企业向求职者发送通知
     @ApiOperation(value = "简历投递发通知",notes = "求职者投递简历成功后，企业发送通知给求职者")
     @ResponseBody
@@ -123,12 +125,17 @@ public class ResumeController {
                               @PathVariable Byte type,
                               @PathVariable Integer resumeId){
 
-        //resume_post_record中若是找到该份简历，则说明求职者简历投递成功，否则投递失败
-
-            Notification notification = new Notification();
-        if(resume_post_recordService.findByResumeId(resumeId) > 0){
+        Notification notification = new Notification();
 
 
+        Resume_post_record resume_post_record = new Resume_post_record();
+        resume_post_record.setResumeId(resumeId);
+        resume_post_record.setJobId(jobId);
+        resume_post_record.setState(Byte.parseByte("0"));
+
+        if(resume_post_recordService.insert(resume_post_record) > 0){
+
+            //resume_post_record中若是找到该份简历，则说明求职者简历投递成功，否则投递失败
             notification.setTitle("简历投递状态");
             notification.setSendTime(new Date());
             notification.setContext("简历投递成功");
@@ -137,12 +144,14 @@ public class ResumeController {
             notification.setType(type);
             int num =  notificationService.insert(notification);
             System.out.println(num);
-
+            return "resume was delivered successfully";
+        }
+        else
+        {
+            return "resume is fail to deliver";
         }
 
-        return "resume is fail to deliver";
 
 
-        
     }
 }
