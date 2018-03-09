@@ -33,4 +33,9 @@ public class Resume_post_recordServiceImpl extends AbstractBaseServiceImpl<Integ
 		return dao.selectjob1(enterpriseId);
 	}
 
+	@Override
+	public int findByResumeId(Integer resumeId) {
+		return dao.findByResumeId(resumeId);
+	}
+
 }

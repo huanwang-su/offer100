@@ -226,4 +226,12 @@
       limit #{start},#{pageSize}
     </if>
   </select>
+
+
+    <select id="findByResumeId" parameterType="com.yiguo.bean.Resume_post_record" resultType="Integer">
+        SELECT count(*)
+        FROM resume_post_record
+        WHERE
+        resume_id  = #{resumeId,jdbcType=INTEGER}
+    </select>
 </mapper>

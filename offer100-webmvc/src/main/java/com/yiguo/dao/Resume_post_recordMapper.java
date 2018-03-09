@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface Resume_post_recordMapper extends BaseMapper<Integer, Resume_post_record> {
 	int selectjob(Integer enterpriseId);
 	int selectjob1(Integer enterpriseId);
+
+	int findByResumeId(Integer resumeId);
 }

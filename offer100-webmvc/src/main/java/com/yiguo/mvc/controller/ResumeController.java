@@ -1,15 +1,20 @@
 package com.yiguo.mvc.controller;
 
+import com.yiguo.bean.Notification;
 import com.yiguo.bean.Page;
 import com.yiguo.bean.Resume;
 import com.yiguo.bean.Resume_post_record;
+import com.yiguo.service.JobService;
+import com.yiguo.service.NotificationService;
 import com.yiguo.service.ResumeService;
+import com.yiguo.service.Resume_post_recordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
@@ -20,13 +25,18 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 @Api(value = "API - ResumeController", description = "Resume详情")
 @RequestMapping(value="/resume")     // 通过这里配置使下面的映射都在/resume下
 public class ResumeController {
-
     @Autowired
     ResumeService resumeService;
+    @Autowired
+    JobService jobService;
+    @Autowired
+    NotificationService notificationService;
+    @Autowired
+    Resume_post_recordService resume_post_recordService;
+
     @ApiOperation(value = "获取简历列表",notes = "")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
-
     public List<Resume> getResumeList() {
         //List<User> r = new ArrayList<User>(users.values());
         List<Resume> r = resumeService.getAll();
@@ -86,6 +96,7 @@ public class ResumeController {
         }
         return "this id does not exist";
     }
+
     @ApiOperation(value = "resumeid",notes = "用户管理自己的简历")
     @ResponseBody
     @RequestMapping(value = "/maageUserResume/{id}", method ={RequestMethod.GET})
@@ -96,8 +107,39 @@ public class ResumeController {
         Page page=new Page();
         Resume resume=new Resume();
         resume.setId(id);
-     List<Resume> resumes =resumeService.select(resume,page);
+        List<Resume> resumes =resumeService.select(resume,page);
 
         return resumes;
+    }
+
+
+
+    //求职者投递简历成功后，企业向求职者发送通知
+    @ApiOperation(value = "简历投递发通知",notes = "求职者投递简历成功后，企业发送通知给求职者")
+    @ResponseBody
+    @RequestMapping(value = "/{seekerId}/{jobId}/{type}/{resumeId}", method ={RequestMethod.GET})
+    public String resumeDeliver(@PathVariable Integer seekerId,
+                              @PathVariable Integer jobId,
+                              @PathVariable Byte type,
+                              @PathVariable Integer resumeId){
+
+        //resume_post_record中若是找到该份简历，则说明求职者简历投递成功，否则投递失败
+
+            Notification notification = new Notification();
+        if(resume_post_recordService.findByResumeId(resumeId) > 0){
+
+
+            notification.setTitle("简历投递状态");
+            notification.setSendTime(new Date());
+            notification.setContext("简历投递成功");
+            notification.setSenderId(jobService.selectByPrimaryKey(jobId).getEnterpriseId());
+            notification.setRecieverId(seekerId);
+            notification.setType(type);
+            int num =  notificationService.insert(notification);
+            System.out.println(num);
+
+        }
+
+        return "resume is fail to deliver";
     }
 }
