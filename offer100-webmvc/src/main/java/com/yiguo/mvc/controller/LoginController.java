@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.net.httpserver.Authenticator;
 import com.yiguo.bean.Enterprise;
 import com.yiguo.bean.User;
 import com.yiguo.service.EnterpriseService;
@@ -16,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import ch.qos.logback.classic.Logger;
+import org.omg.PortableInterceptor.SUCCESSFUL;
 import org.slf4j.LoggerFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -34,6 +36,9 @@ import com.yiguo.permission.token.TokenUtil;
 import com.yiguo.service.RoleService;
 import com.yiguo.utils.UtilJson;
 
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+
 /**
  * 登陆控制器
  *
@@ -51,49 +56,88 @@ public class LoginController {
 	@ApiOperation(value = "用户登录",notes = "验证用户登录")
 	@ResponseBody
 	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
-	public Object loginUser(@PathVariable String username, @PathVariable String password,@PathVariable String type) {
+	public Map<String, Object> loginUser(@RequestBody Map<String, Object> loginInfo) {
 		// 处理"/users/"的POST请求，用来创建User
 		// 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
+		Map<String, Object> m = new HashMap<String, Object>();
 		String f="登录成功";
-		if(type.equals("user")){
-			User user= userService.findByUsername(username);
+		if(loginInfo.get("type").toString().equals("user")){
+			User user= userService.findByUsername(loginInfo.get("username").toString());
 			if(user!=null)
 			{
-				if(!user.getPassword().equals(password))
-					f="用户名或者密码不对";
-				else if(user.getState()==0)
-					f="此用户已经被封，不可用";
-			}
-			else
-				f="此用户不存在，请先注册";
-			if(f.equals("登录成功"))
-				return user;
-		}
-		else if(type.equals("enterprise")) {
-			Enterprise enterprise = enterpriseService.findByUsername(username);
-			if (enterprise != null) {
-				if (!enterprise.getUserPassword().equals(password))
+				if(!user.getPassword().equals(loginInfo.get("password").toString())) {
 					f = "用户名或者密码不对";
 
+					m.put("msg",f);
+				}
+				else if(user.getState()==0) {
+					f = "此用户已经被封，不可用";
+
+					m.put("msg",f);
+				}
 			}
-			else
-				f="此用户不存在，请先注册";
+			else {
+				f = "此用户不存在，请先注册";
+
+				m.put("msg",f);
+			}
+
 			if(f.equals("登录成功"))
-				return  enterprise;
+			{
+				m.put("username", user.getUsername());
+				m.put("id", user.getId());
+				m.put("type", loginInfo.get("type").toString());
+				m.put("msg",f);
+			}
+			return m;
 		}
-		return f;
+		else if(loginInfo.get("type").toString().equals("enterprise")) {
+			Enterprise enterprise = enterpriseService.findByUsername(loginInfo.get("username").toString());
+			if (enterprise != null) {
+				if (!enterprise.getUserPassword().equals(loginInfo.get("password").toString())) {
+
+					f = "用户名或者密码不对";
+
+					m.put("msg",f);
+				}
+				else if(enterprise.getState()==0) {
+					f = "此用户已经被封，不可用";
+
+					m.put("msg",f);
+				}
+			}
+			else {
+				f = "此用户不存在，请先注册";
+
+				m.put("msg",f);
+			}
+			if(f.equals("登录成功"))
+			{
+				m.put("user_name", enterprise.getUserName());
+				m.put("id", enterprise.getId());
+				m.put("type", loginInfo.get("type").toString());
+				m.put("msg",f);
+			}
+			return m;
+		}
+		else{
+			m.put("msg","没有此用户权限");
+		}
+		return m;
 	}
 
 	@ApiOperation(value = "用户注销",notes = "用户注销账户" )
 	@ResponseBody
-	@RequestMapping(value = "/user/exit", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/exit/{username}", method = RequestMethod.POST)
 	public String exitUser(@PathVariable String username) {
 		// 处理"/users/"的POST请求，用来创建User
 		// 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
-		String f="注销";
+		String f= SUCCESS;
 		User user= userService.findByUsername(username);
 		userService.deleteByPrimaryKey(user.getId());
-		f="注销成功";
+		if(userService.selectByPrimaryKey(user.getId())!=null) {
+			f = FAILURE;
+		};
 		return f;
 	}
 }

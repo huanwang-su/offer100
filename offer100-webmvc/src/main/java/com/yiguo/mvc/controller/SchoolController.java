@@ -18,8 +18,7 @@ import java.util.*;
 @Api(value = "API - SchoolController", description = "School详情")
 @RequestMapping("/school")
 public class SchoolController {
-    // 创建线程安全的Map
-    static Map<Integer, School> Schools = Collections.synchronizedMap(new HashMap<Integer, School>());
+
     @Autowired
     SchoolService schoolService;
   

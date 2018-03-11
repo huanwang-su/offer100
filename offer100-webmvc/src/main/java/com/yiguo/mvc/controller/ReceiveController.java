@@ -22,8 +22,7 @@ import java.util.Map;
 public class ReceiveController {
     @Autowired
     ReceiveService receiveService;
-    // 创建线程安全的Map
-    static Map<Integer, Receive> Receives = Collections.synchronizedMap(new HashMap<Integer, Receive>());
+
 
 
     @ApiOperation(value = "创建收藏",notes = "根据Receive对象创建Receive")

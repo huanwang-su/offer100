@@ -78,9 +78,10 @@ public class JobController {
     }
     @ApiOperation(value="筛选岗位", notes="筛选岗位")
     @ResponseBody
-    @RequestMapping(value = "/selectJob/{id}", method = RequestMethod.DELETE)
-    public PageInfo<Job> selectJob(@ModelAttribute Job job,@PathVariable Integer pageSize,@PathVariable Integer pageNumber) {
+    @RequestMapping(value = "/selectJob", method = RequestMethod.DELETE)
+    public PageInfo<Job> selectJob(@RequestBody(required = false)  Job job,@PathVariable Integer pageSize,@PathVariable Integer pageNumber) {
         // 处理"/Zones/{id}"的DELETE请求，用来删除Zone
+              job = job==null?new Job():job;
              PageInfo<Job> pageinfo=new PageInfo<Job>();
              pageinfo.setPageNum(pageNumber);
              pageinfo.setPageSize(pageSize);

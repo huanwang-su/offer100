@@ -17,8 +17,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 @RequestMapping(value="/users")     // 通过这里配置使下面的映射都在/users下
 public class UserController {
 
-    // 创建线程安全的Map
-    static Map<Integer, User> users = Collections.synchronizedMap(new HashMap<Integer, User>());
+
   @Autowired
     UserService userService;
     @ApiOperation(value = "获取用户列表",notes = "")
