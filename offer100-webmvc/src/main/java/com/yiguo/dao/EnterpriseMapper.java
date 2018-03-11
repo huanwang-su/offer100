@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface EnterpriseMapper extends BaseMapper<Integer, Enterprise> {
     Enterprise selectByIds(String userName,String userPassword);
     Enterprise findByUsername(String userName);
+
+    int findById(Integer id);
 }

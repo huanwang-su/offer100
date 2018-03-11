@@ -456,4 +456,12 @@
 			limit #{start},#{pageSize}
 		</if>
 	</select>
+
+
+	<select id="findById" parameterType="com.yiguo.bean.Enterprise" resultType="Integer">
+		SELECT count(*)
+		FROM enterprise
+		WHERE
+		id  = #{id,jdbcType=INTEGER}
+	</select>
 </mapper>

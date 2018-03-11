@@ -30,4 +30,9 @@ public class EnterpriseServiceImpl extends AbstractBaseServiceImpl<Integer, Ente
 	public Enterprise findByUsername(String username) {
 		return dao.findByUsername(username);
 	}
+
+	@Override
+	public int findById(Integer id) {
+		return dao.findById(id);
+	}
 }

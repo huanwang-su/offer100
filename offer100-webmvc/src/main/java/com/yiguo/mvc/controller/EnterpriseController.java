@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+
 @Controller
 @Api(value = "API - EnterpriseController", description = "企业详情")
 @RequestMapping("/enterprise")
@@ -59,15 +62,27 @@ public class EnterpriseController {
     @ApiOperation(value="更新Enterprise" + "详细信息", notes="根据url的id来指定更新对象，并根据传过来的Enterprise信息来更新企业详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putEnterprise(@PathVariable Enterprise enterprise) {
+    public String putEnterprise(@PathVariable Integer id,@ModelAttribute Enterprise enterprise) {
         // 处理"/Zones/{id}"的PUT请求，用来更新Zone信息
-        String f="修改成功";
+        /*String f="修改成功";
         Enterprise enterprise1=new Enterprise();
         enterpriseService.updateByPrimaryKeySelective(enterprise);
         enterprise1=enterpriseService.selectByPrimaryKey(enterprise.getId());
         if(enterprise.equals(enterprise1))
             f="未修改成功";
-        return f;
+        return f;*/
+
+
+        if (enterpriseService.findById(id) > 0) {
+            int num = enterpriseService.updateByPrimaryKeySelective(enterprise);
+            if (num > 0) {
+                return SUCCESS;
+            } else
+                return FAILURE;
+        }
+        return "this id does not exist";
+
+
     }
     @ApiOperation(value="删除企业", notes="根据url的id来指定删除对象")
     @ResponseBody
