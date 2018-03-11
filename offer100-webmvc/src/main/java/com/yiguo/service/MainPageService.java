@@ -51,18 +51,18 @@ public class MainPageService {
 				int resumeNum = 0;
 				int resumeNum1 = 0;
 
-				for (int j = 0; j < job.size(); j++) {
-
-					// 获取岗位id
-					int jobid = job.get(j).getId();
-					// 获取简历数量
-					resumeNum = resumeNum + resume_post_recordService.selectjob(jobid);
-					// 获取简历数量，且state为1
-					resumeNum1 = resumeNum1 + resume_post_recordService.selectjob1(jobid);
-					// 计算简历处理率
-				}
-				if (resumeNum != 0)
-					resumeHanderRate = (resumeNum - resumeNum1) / resumeNum;
+//				for (int j = 0; j < job.size(); j++) {
+//
+//					// 获取岗位id
+//					int jobid = job.get(j).getId();
+//					// 获取简历数量
+//					resumeNum = resumeNum + resume_post_recordService.selectjob(jobid);
+//					// 获取简历数量，且state为1
+//					resumeNum1 = resumeNum1 + resume_post_recordService.selectjob1(jobid);
+//					// 计算简历处理率
+//				}
+//				if (resumeNum != 0)
+//					resumeHanderRate = (resumeNum - resumeNum1) / resumeNum;
 
 				// 获取企业logo
 				String imagelogo = enterprise.getImageLog();
@@ -93,7 +93,7 @@ public class MainPageService {
 				enterprisev.setImageLog(imagelogo);
 				enterprisev.setName(name);
 				enterprisev.setJobCount(jobCount);
-				enterprisev.setResumeHanderRate(resumeHanderRate);
+//				enterprisev.setResumeHanderRate(resumeHanderRate);
 				enterprisev.setStage(stage);
                 enterprisev.setIndustryName(industry.getName());
 				enterprisevo.add(enterprisev);
