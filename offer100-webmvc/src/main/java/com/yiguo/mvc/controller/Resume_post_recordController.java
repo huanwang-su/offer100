@@ -22,6 +22,7 @@ import java.util.Map;
 @Controller
 @Api(value = "API - Resume_post_recordController", description = "简历投递详情")
 @RequestMapping("/resume_post_record")
+
 public class Resume_post_recordController {
     @Autowired
     Resume_post_recordService resume_post_recordService;
@@ -54,7 +55,7 @@ public class Resume_post_recordController {
 
         Page page=new Page();
         page.setPageSize(10);
-       Resume_post_record resume_post_record=new Resume_post_record();
+        Resume_post_record resume_post_record=new Resume_post_record();
         resume_post_record.setJobId(id);
         List<Resume_post_record> resume_post_records= resume_post_recordService.select(resume_post_record,page);
 
