@@ -6,6 +6,7 @@ import com.yiguo.bean.Job;
 import com.yiguo.bean.Zone;
 import com.yiguo.mvc.vo.EnterpriseVO;
 import com.yiguo.mvc.vo.JobVO;
+import com.yiguo.utils.UtilJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,20 +26,17 @@ public class MainPageService {
 	private JobService jobService;
     @Autowired
 	private Resume_post_recordService resume_post_recordService;
+    @Autowired
+	private ConfigurationService configurationService;
 
 
 
 	public List<EnterpriseVO> getHotEnterprise() throws IOException {
 		// TODO 获取配置的id
-		List<Integer> enterpriseIds = new ArrayList<>();
-		enterpriseIds.add(1);
-		enterpriseIds.add(2);
-		enterpriseIds.add(3);
-
+		List<Integer> enterpriseIds = UtilJson.readValue(configurationService.selectByType("mainpage_hotEnterPrice").getValue(),List.class);
 		List<EnterpriseVO> enterprisevo = new ArrayList<>();
 		for (int i = 0; i < enterpriseIds.size(); i++) {
 			// 获取企业信息
-
 			EnterpriseVO enterprisev = new EnterpriseVO();
 			Enterprise enterprise = new Enterprise();
 			enterprise = enterpriseService.selectByPrimaryKey(enterpriseIds.get(i));
@@ -107,12 +105,8 @@ public class MainPageService {
 
 	public List<JobVO> getHotJob() throws IOException, IllegalAccessException, InvocationTargetException {
 		// TODO 获取配置的id
-	
 		List<JobVO> jobVo = new ArrayList<>();
-		List<Integer> jobIds = new ArrayList<>();
-		jobIds.add(1);
-		jobIds.add(2);
-		jobIds.add(3);
+		List<Integer> jobIds = UtilJson.readValue(configurationService.selectByType("mainpage_hotjob").getValue(),List.class);
 		for (int i = 0; i < jobIds.size(); i++) {
 			
 			JobVO jobvos = new JobVO();

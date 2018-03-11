@@ -47,7 +47,7 @@ public class MainPageController {
 	public List<JobVO> getHotJob() throws IOException, IllegalAccessException, InvocationTargetException {
 		// TODO 获取配置的id
 		List<JobVO> jobvo = mainpageService.getHotJob();
-	return jobvo;
+		return jobvo;
 	}
 
 	@ApiOperation(value = "获取广告图片", produces = "application/json")

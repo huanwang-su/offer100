@@ -12,10 +12,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ConfigurationServiceTest extends BaseServiceTest {
 
@@ -69,12 +66,20 @@ public class ConfigurationServiceTest extends BaseServiceTest {
     public void insert(){
 
         Configuration con = new Configuration();
-        con.setType("adImage_mainpage");
+        con.setType("adImage_search");
         HashMap<String,String> map = new HashMap<>();
-        map.put("https://www.lgstatic.com/i/image3/M00/25/49/Cgq2xlqXcbuAZjq4AAk40VkL9gc766.PNG","");
-        map.put("https://www.lgstatic.com/i/image3/M00/25/A7/CgpOIFqXqL-ANo1lAApG-4doay4200.JPG","");
-        map.put("https://www.lgstatic.com/i/image3/M00/25/DA/CgpOIFqXwd6AWFnoAA1yzkJ2JQg435.JPG","");
+        map.put("https://static.lagou.com/i/image3/M00/25/52/Cgq2xlqXdguAVAwVAACDmIz1tFI568.PNG","https://activity.lagou.com/activi/promotion2018/pages/pc/index.html#/main");
+        map.put("https://static.lagou.com/i/image/M00/41/7E/CgpEMllUxC2AOU7wAABZXy04ZTg283.JPG","https://pro.lagou.com/");
         con.setValue(UtilJson.writeValueAsString(map));
+
+        //热门公司
+        List<Integer> hotEnterPrice = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
+        con.setType("mainpage_hotEnterPrice");
+        con.setValue(UtilJson.writeValueAsString(hotEnterPrice));
+        System.out.println(service.insert(con));
+        List<Integer> hotjob = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
+        con.setType("mainpage_hotjob");
+        con.setValue(UtilJson.writeValueAsString(hotEnterPrice));
         System.out.println(service.insert(con));
         //System.out.println(service.insertSelective());
     }
