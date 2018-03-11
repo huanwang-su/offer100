@@ -58,7 +58,7 @@ insert into news (id, title, abstruct,
    <if test="endTime != null" >
       and  end_time = #{endTime,jdbcType=TIMESTAMP}
     </if>
-   
+   limit #{start}, #{pageSize}
 
   </select>
   
@@ -282,7 +282,7 @@ insert into news (id, title, abstruct,
       </if>
   </select>
   <!-- 分页查询 -->
-  <select id="select" parameterType="Map" resultMap="BaseResultMap">
+  <select id="select" parameterType="java.util.Map" resultMap="BaseResultMap">
     SELECT *
     FROM news
     WHERE 1=1

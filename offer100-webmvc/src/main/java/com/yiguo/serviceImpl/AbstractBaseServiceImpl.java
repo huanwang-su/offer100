@@ -21,10 +21,9 @@ public abstract class AbstractBaseServiceImpl<ID, T> {
 
 	// 对分页查询进行page设置
 	public List<T> select(T record, Page page) {
-		if (page == null) {
+		if (page == null)
 			page = new Page();
-		}
-		if (page.getPageNumber() == null || page.getPageSize() == null || page.getPageSize() >= 100) {
+		if ((page.getPageNumber() == null&&page.getStart()==null) || page.getPageSize() == null || page.getPageSize() >= 100) {
 			page.setPageNumber(1);
 			page.setPageSize(10);
 		}

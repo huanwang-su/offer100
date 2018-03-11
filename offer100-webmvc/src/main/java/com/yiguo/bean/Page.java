@@ -16,11 +16,13 @@ public class Page {
 	Integer total;
 
 	public Integer getStart() {
-		if (pageNumber != null) {
-			if (pageNumber <= 1) {
-				start = 0;
-			} else {
-				start = (pageNumber - 1) * pageSize;
+		if(start==null) {
+			if (pageNumber != null) {
+				if (pageNumber <= 1) {
+					start = 0;
+				} else {
+					start = (pageNumber - 1) * pageSize;
+				}
 			}
 		}
 		return start;
