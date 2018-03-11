@@ -1,6 +1,9 @@
 package com.yiguo.mvc.controller;
 
+import com.yiguo.bean.Enterprise;
 import com.yiguo.bean.Notification;
+import com.yiguo.bean.Page;
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.NotificationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -86,6 +89,24 @@ public class NotificationController {
                 return FAILURE;
         }
         return "this id does not exist";
+    }
+    @ApiOperation(value = "查询通知",notes = "查询得出通知")
+    @ResponseBody
+    @RequestMapping(value = "/selectNotification", method = RequestMethod.GET)
+    public PageInfo<Notification> selectNotifivation(@RequestParam(required = false) Notification notification, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+        // 处理"/users/"的GET请求，用来获取用户列表
+        // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递=
+        notification = notification==null?new Notification():notification;
+        PageInfo<Notification> pageinfo=new PageInfo<Notification>();
+        pageinfo.setPageNum(pageNumber);
+        pageinfo.setPageSize(pageSize);
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
+        pageinfo.setRows( notificationService.select(notification,page));
+        int count=notificationService.selectCount(notification);
+        pageinfo.setTotal(count);
+        return  pageinfo;
     }
 
 

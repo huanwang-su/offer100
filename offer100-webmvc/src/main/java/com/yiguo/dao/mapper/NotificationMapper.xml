@@ -214,28 +214,28 @@
     FROM notification
     WHERE 1=1
   <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
+      and title = #{title,jdbcType=VARCHAR}
       </if>
       <if test="sendTime != null" >
-        send_time = #{sendTime,jdbcType=TIMESTAMP},
+       and send_time = #{sendTime,jdbcType=TIMESTAMP}
       </if>
       <if test="context != null" >
-        context = #{context,jdbcType=VARCHAR},
+       and context = #{context,jdbcType=VARCHAR}
       </if>
       <if test="senderId != null" >
-        sender_id = #{senderId,jdbcType=INTEGER},
+      and  sender_id = #{senderId,jdbcType=INTEGER}
       </if>
       <if test="recieverId != null" >
-        reciever_id = #{recieverId,jdbcType=INTEGER},
+      and  reciever_id = #{recieverId,jdbcType=INTEGER}
       </if>
       <if test="type != null" >
-        type = #{type,jdbcType=TINYINT},
+      and  type = #{type,jdbcType=TINYINT}
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+      and  create_time = #{createTime,jdbcType=TIMESTAMP}
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+       and update_time = #{updateTime,jdbcType=TIMESTAMP}
       </if>
   </select>
   <!-- 分页查询 -->
@@ -244,28 +244,28 @@
     FROM notification
     WHERE 1=1
     <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
+      and  title = #{title,jdbcType=VARCHAR}
       </if>
       <if test="sendTime != null" >
-        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      and  send_time = #{sendTime,jdbcType=TIMESTAMP}
       </if>
       <if test="context != null" >
-        context = #{context,jdbcType=VARCHAR},
+      and  context = #{context,jdbcType=VARCHAR}
       </if>
       <if test="senderId != null" >
-        sender_id = #{senderId,jdbcType=INTEGER},
+       and sender_id = #{senderId,jdbcType=INTEGER}
       </if>
       <if test="recieverId != null" >
-        reciever_id = #{recieverId,jdbcType=INTEGER},
+       and reciever_id = #{recieverId,jdbcType=INTEGER}
       </if>
       <if test="type != null" >
-        type = #{type,jdbcType=TINYINT},
+     and  type = #{type,jdbcType=TINYINT}
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+       and create_time = #{createTime,jdbcType=TIMESTAMP}
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      and  update_time = #{updateTime,jdbcType=TIMESTAMP}
       </if>
       <if test="start != null and pageSize!=null">
       limit #{start},#{pageSize}
