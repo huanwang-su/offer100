@@ -72,10 +72,11 @@ public class Resume_post_recordController {
             @ApiImplicitParam(name = "enterpriseId", value = "企业id", dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "userId", value = "用户id", dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "state", value = "状态 1 已投递 2 待沟通 3 已邀请 4 已拒绝", dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "page", value = "页码", dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "rows", value = "条数", dataType = "int", paramType = "query")
+            @ApiImplicitParam(name = "pageNumber", value = "页码", dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "条数", dataType = "int", paramType = "query")
     })
-    public PageInfo<Map> manageResume(@RequestParam(required = false) String title, @RequestParam(required = false) Integer enterpriseId, @RequestParam(required = false) Integer userId, @RequestParam(required = false) Integer state, @RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+    public PageInfo<Map> manageResume(@RequestParam(required = false) String title, @RequestParam(required = false) Integer enterpriseId, @RequestParam(required = false) Integer userId, @RequestParam(required = false) Integer state,
+                                      @RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
         PageInfo<Map> pageinfo=new PageInfo<Map>();
@@ -101,6 +102,6 @@ public class Resume_post_recordController {
         Resume_post_record resume_post_record=new Resume_post_record();
         resume_post_record.setId(id);
         resume_post_record.setState(state.byteValue());
-        resume_post_recordService.updateByPrimaryKey(resume_post_record);
+        resume_post_recordService.updateByPrimaryKeySelective(resume_post_record);
     }
 }
