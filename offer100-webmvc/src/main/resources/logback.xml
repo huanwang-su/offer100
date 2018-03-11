@@ -39,7 +39,7 @@
         </sift>
     </appender>
 
-    <!--<logger name="io.transwarp.workflow.job" level="INFO">-->
+    <!--<logger name="io.transwarp.workfsearchJob.job" level="INFO">-->
     <!--<appender-ref ref="SIFT"/>-->
     <!--</logger>-->
 

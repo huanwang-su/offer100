@@ -1,7 +1,7 @@
 package com.yiguo.offer100.search.service;
 
 import com.yiguo.offer100.common.page.PageInfo;
-import com.yiguo.offer100.search.bean.Job;
+import com.yiguo.offer100.search.bean.SearchJob;
 
 import java.util.List;
 
@@ -16,26 +16,26 @@ public interface JobSearchService {
     
     /**
      * 保存岗位
-     * @param job
+     * @param searchJob
      */
-    void saveJob(Job job);
+    void saveJob(SearchJob searchJob);
     
     /**
      * 保存岗位
-     * @param jobs
+     * @param searchJobs
      */
-    void saveJobs(List<Job> jobs);
+    void saveJobs(List<SearchJob> searchJobs);
     
     /**
      * 搜索岗位
      * 调用的时候注意:
      * 1. 等值查询：除了key中的字段，其他均为等值查询
      * 2. 对于list，list中的每一个字段都满足搜索引擎中的数据
-     * @param job
+     * @param searchJob
      * @param start
      * @param size
      */
-    PageInfo<Job> search(Job job, PageInfo<Job> pageInfo,String sortKey, Boolean asc);
+    PageInfo<SearchJob> search(SearchJob searchJob, PageInfo<SearchJob> pageInfo, String sortKey, Boolean asc);
     
     /**
      * 删除岗位

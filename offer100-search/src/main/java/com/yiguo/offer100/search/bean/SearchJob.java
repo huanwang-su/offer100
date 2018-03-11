@@ -13,7 +13,7 @@ import org.apache.solr.client.solrj.beans.Field;
  * @author wanghuan
  * @date 2018-01-17
  */
-public class Job implements Serializable {
+public class SearchJob implements Serializable {
     private static final long serialVersionUID = 1L;
     @Field
     private String id;
@@ -59,9 +59,9 @@ public class Job implements Serializable {
     private String enterpriseCategory;
     @Field
     private String welfare;
-    public Job(){}
+    public SearchJob(){}
 
-    private Job(Builder builder) {
+    private SearchJob(Builder builder) {
         setId(builder.id);
         setEnterpriseId(builder.enterpriseId);
         setEnterprise(builder.enterprise);
@@ -85,7 +85,7 @@ public class Job implements Serializable {
         return new Builder();
     }
 
-    public static Builder newBuilder(Job copy) {
+    public static Builder newBuilder(SearchJob copy) {
         Builder builder = new Builder();
         builder.id = copy.getId();
         builder.enterpriseId = copy.getEnterpriseId();
@@ -368,8 +368,8 @@ public class Job implements Serializable {
             return this;
         }
 
-        public Job build() {
-            return new Job(this);
+        public SearchJob build() {
+            return new SearchJob(this);
         }
     }
 }

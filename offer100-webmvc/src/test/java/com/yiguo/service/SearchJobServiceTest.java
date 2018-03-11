@@ -3,14 +3,12 @@ package com.yiguo.service;
 import com.yiguo.bean.Enterprise;
 import com.yiguo.bean.Job;
 import com.yiguo.bean.Page;
-import com.yiguo.bean.Zone;
 import com.yiguo.offer100.common.page.PageInfo;
+import com.yiguo.offer100.search.bean.SearchJob;
 import com.yiguo.offer100.search.service.JobSearchService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +17,7 @@ import java.util.List;
 /**
  * Created by liyue on 2018/3/2.
  */
-public class JobServiceTest extends BaseServiceTest {
+public class SearchJobServiceTest extends BaseServiceTest {
 
     @Autowired
     JobSearchService jobSearchService;
@@ -91,17 +89,17 @@ public class JobServiceTest extends BaseServiceTest {
     }
 
     @Test
-   @Ignore
+    //@Ignore
     public void testSolr() {
         Page page=new Page();
         page.setPageNumber(1);
-        page.setPageSize(30);
+        page.setPageSize(37);
         List<Job> jobs = jobService.select(new Job(),page);
-        List<com.yiguo.offer100.search.bean.Job> jobList = new ArrayList<>();
+        List<SearchJob> searchJobList = new ArrayList<>();
         jobs.forEach(job -> {
-            jobList.add(jobService.toSolrJob(job));
+            searchJobList.add(jobService.toSolrJob(job));
         });
-        jobSearchService.saveJobs(jobList);
+        jobSearchService.saveJobs(searchJobList);
     }
     @Test
     @Ignore
