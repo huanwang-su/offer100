@@ -15,25 +15,26 @@ import java.util.Map;
  */
 public class Resume_post_recordServiceTest extends BaseServiceTest {
 
-@Autowired
+    @Autowired
     Resume_post_recordService resume_post_recordService;
-@Test
-public void manageUserResume() {
-    // 处理"/users/"的GET请求，用来获取用户列表
-    // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
-         String title="经理";
-          int enterpriseId=2;
-         int state=1;
-    PageInfo<Map> pageinfo=new PageInfo<Map>();
-    pageinfo.setPageNum(0);
-    pageinfo.setPageSize(30);
-    Page page= new Page();
-    page.setPageNumber(0);
-    page.setPageSize(30);
-    pageinfo.setRows( resume_post_recordService.selectBy(title,enterpriseId,state));
-int count =resume_post_recordService.selectCounts(title,enterpriseId,state);
-    pageinfo.setTotal(page.getTotal());
-     System.out.println(count);
-     System.out.println(pageinfo.getRows());
-}
+
+    @Test
+    public void manageUserResume() {
+        // 处理"/users/"的GET请求，用来获取用户列表
+        // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
+        String title = "经理";
+        int enterpriseId = 2;
+        int state = 1;
+        PageInfo<Map> pageinfo = new PageInfo<Map>();
+        pageinfo.setPageNum(0);
+        pageinfo.setPageSize(30);
+        Page page = new Page();
+        page.setPageNumber(0);
+        page.setPageSize(30);
+        pageinfo.setRows(resume_post_recordService.selectBy(title, enterpriseId, 1, state));
+        int count = resume_post_recordService.selectCounts(title, enterpriseId, 1, state);
+        pageinfo.setTotal(page.getTotal());
+        System.out.println(count);
+        System.out.println(pageinfo.getRows());
+    }
 }
