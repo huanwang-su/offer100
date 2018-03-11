@@ -23,7 +23,7 @@ public abstract class AbstractBaseServiceImpl<ID, T> {
 	public List<T> select(T record, Page page) {
 		if (page == null)
 			page = new Page();
-		if ((page.getPageNumber() == null&&page.getStart()==null) || page.getPageSize() == null || page.getPageSize() >= 100) {
+		if ((page.getPageNumber() == null&&page.getStart()==null) || page.getPageSize() == null || page.getPageSize() >= 500) {
 			page.setPageNumber(1);
 			page.setPageSize(10);
 		}

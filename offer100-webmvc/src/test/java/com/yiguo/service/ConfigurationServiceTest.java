@@ -3,6 +3,7 @@ package com.yiguo.service;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.sun.xml.internal.fastinfoset.stax.factory.StAXOutputFactory;
 import com.yiguo.bean.Configuration;
+import com.yiguo.utils.UtilJson;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class ConfigurationServiceTest extends BaseServiceTest {
@@ -66,8 +69,12 @@ public class ConfigurationServiceTest extends BaseServiceTest {
     public void insert(){
 
         Configuration con = new Configuration();
-        con.setType("欢欢");
-        con.setValue("7");
+        con.setType("adImage_mainpage");
+        HashMap<String,String> map = new HashMap<>();
+        map.put("https://www.lgstatic.com/i/image3/M00/25/49/Cgq2xlqXcbuAZjq4AAk40VkL9gc766.PNG","");
+        map.put("https://www.lgstatic.com/i/image3/M00/25/A7/CgpOIFqXqL-ANo1lAApG-4doay4200.JPG","");
+        map.put("https://www.lgstatic.com/i/image3/M00/25/DA/CgpOIFqXwd6AWFnoAA1yzkJ2JQg435.JPG","");
+        con.setValue(UtilJson.writeValueAsString(map));
         System.out.println(service.insert(con));
         //System.out.println(service.insertSelective());
     }

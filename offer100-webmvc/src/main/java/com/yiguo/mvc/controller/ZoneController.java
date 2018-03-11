@@ -77,4 +77,18 @@ public class ZoneController {
         return f;
     }
 
+    @ApiOperation(value="获取子地区详细信息", notes="根据url的id来获取地区详细信息")
+    @ResponseBody
+    @RequestMapping(value = "getZoneByParentId/{id}", method ={RequestMethod.GET})
+    public List<Zone> getZoneByParentId(@PathVariable Integer id ) {
+        // 处理"/Zones/{id}"的GET请求，用来获取url中id值的Zone信息
+        // url中的id可通过@PathVariable绑定到函数的参数中
+        Zone zone=new Zone();
+        zone.setParentId(id);
+        Page page=new Page();
+        page.setPageNumber(0);
+        page.setPageSize(99);
+        return zoneService.select(zone,page);
+    }
+
 }
