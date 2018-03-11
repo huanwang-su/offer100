@@ -3,6 +3,7 @@ package com.yiguo.serviceImpl;
 import com.yiguo.bean.Job;
 import com.yiguo.dao.BaseMapper;
 import com.yiguo.dao.JobMapper;
+import com.yiguo.offer100.search.bean.SearchJob;
 import com.yiguo.service.EnterpriseService;
 import com.yiguo.service.IndustryService;
 import com.yiguo.service.JobService;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.InvocationTargetException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -50,8 +50,8 @@ public class JobServiceImpl extends AbstractBaseServiceImpl<Integer, Job> implem
     }
 
     @Override
-    public com.yiguo.offer100.search.bean.Job toSolrJob(Job src) {
-        com.yiguo.offer100.search.bean.Job dest = new com.yiguo.offer100.search.bean.Job();
+    public SearchJob toSolrJob(Job src) {
+        SearchJob dest = new SearchJob();
         try {
             BeanUtils.copyProperties(dest, src);
             Optional.ofNullable(src.getIndustryId()).ifPresent(id -> Optional.ofNullable(industryService.getIndustryToRoot(id))

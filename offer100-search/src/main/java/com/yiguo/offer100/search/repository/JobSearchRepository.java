@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.yiguo.offer100.common.page.PageInfo;
-import com.yiguo.offer100.search.bean.Job;
+import com.yiguo.offer100.search.bean.SearchJob;
 import com.yiguo.offer100.search.util.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -33,10 +33,10 @@ public class JobSearchRepository {
     @Qualifier("jobHttpSolrClient")
     private HttpSolrClient httpSolrClient;
 
-    public void save(List<Job> jobs) throws SolrServerException, IOException {
+    public void save(List<SearchJob> searchJobs) throws SolrServerException, IOException {
         // 添加多个
         Collection<SolrInputDocument> docs = new ArrayList<>();
-        jobs.forEach(job -> {
+        searchJobs.forEach(job -> {
             SolrInputDocument doc = new SolrInputDocument();
             Map<String, Object> map = BeanUtils.objectToMap(job);
             map.forEach((t, u) -> {
@@ -51,9 +51,9 @@ public class JobSearchRepository {
 
     }
 
-    public void save(Job job) throws SolrServerException, IOException {
+    public void save(SearchJob searchJob) throws SolrServerException, IOException {
         SolrInputDocument doc = new SolrInputDocument();
-        Map<String, Object> map = BeanUtils.objectToMap(job);
+        Map<String, Object> map = BeanUtils.objectToMap(searchJob);
         map.forEach((t, u) -> {
             if (u != null && !StringUtils.equals(t, "key")) {
                 doc.addField(t, u);
@@ -73,10 +73,10 @@ public class JobSearchRepository {
         httpSolrClient.commit();
     }
 
-    public PageInfo<Job> search(Job job, PageInfo<Job> pageInfo, String sortKey, Boolean asc) throws SolrServerException, IOException {
+    public PageInfo<SearchJob> search(SearchJob searchJob, PageInfo<SearchJob> pageInfo, String sortKey, Boolean asc) throws SolrServerException, IOException {
         SolrQuery query = new SolrQuery();
         StringBuilder queryStringBuilder = new StringBuilder("*:*");
-        Map<String, Object> map = BeanUtils.objectToMap(job);
+        Map<String, Object> map = BeanUtils.objectToMap(searchJob);
         map.forEach((t, u) -> {
             Optional.ofNullable(u).ifPresent(v -> {
                 if (v instanceof List) {
@@ -117,7 +117,7 @@ public class JobSearchRepository {
         query.setFields("id","enterprise","enterpriseId","title","nature","zone","category","wage","enterpriseLogo","education",
                 "rank","publishTime","serviceYear","peopleNumber","enterpriseCategory","welfare");
         QueryResponse response = httpSolrClient.query(query);
-        pageInfo.setRows(response.getBeans(Job.class));
+        pageInfo.setRows(response.getBeans(SearchJob.class));
         pageInfo.setTotal(response.getFieldStatsInfo().get("id").getCount().intValue());
         return pageInfo;
     }
