@@ -1,5 +1,7 @@
 package com.yiguo.dao;
 
+import com.yiguo.bean.Education;
+
 import java.util.List;
 import java.util.Map;
 
@@ -40,4 +42,6 @@ public interface BaseMapper<ID, T> {
 	List<T> select(Map map);
 
 	int selectByName(String name);
+
+	T findAll();
 }

@@ -81,4 +81,10 @@ public abstract class AbstractBaseServiceImpl<ID, T> {
 	public int selectByName(String name) {
 		return getDao().selectByName(name);
 	}
+
+
+
+	public T findAll(){
+		return getDao().findAll();
+	}
 }
