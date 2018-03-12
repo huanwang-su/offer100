@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+
 @Controller
 @Api(value = "API - SchoolController", description = "School详情")
 @RequestMapping("/school")
@@ -53,16 +56,16 @@ public class SchoolController {
     @ApiOperation(value="更新学校详细信息", notes="根据url的id来指定更新对象，并根据传过来的School信息来更新学校详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putSchool(@PathVariable Integer id, @ModelAttribute School school) {
+    public String putSchool(@PathVariable Integer id, @RequestBody School school) {
         // 处理"/Schools/{id}"的PUT请求，用来更新School信息
-        school.setId(id);
-        String f="true";
-        schoolService.updateByPrimaryKeySelective(school);
-        School school1=new School();
-        school1=schoolService.selectByPrimaryKey(id);
-        if(school.equals(school1))
-            f="false";
-        return f;
+        if (schoolService.findById(id) > 0) {
+            int num = schoolService.updateByPrimaryKeySelective(school);
+            if (num > 0) {
+                return SUCCESS;
+            } else
+                return FAILURE;
+        }
+        return "this id does not exist";
     }
 
     @ApiOperation(value="删除学校", notes="根据url的id来指定删除对象")

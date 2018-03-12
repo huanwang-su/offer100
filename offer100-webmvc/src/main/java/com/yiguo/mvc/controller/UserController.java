@@ -62,7 +62,7 @@ public class UserController {
     @ApiOperation(value="更新用户详细信息", notes="根据url的id来指定更新对象，并根据传过来的user信息来更新用户详细信息")
    @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putUser(@PathVariable Integer id, @ModelAttribute User user) {
+    public String putUser(@PathVariable Integer id, @RequestBody User user) {
         // 处理"/users/{id}"的PUT请求，用来更新User信息
         //user.setId(id);
 

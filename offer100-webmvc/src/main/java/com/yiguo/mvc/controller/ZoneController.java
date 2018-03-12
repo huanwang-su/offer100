@@ -18,6 +18,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+
 @Controller
 @Api(value = "API - ZoneController", description = "地区详情")
 @RequestMapping("/zone")
@@ -54,15 +57,16 @@ public class ZoneController {
     @ApiOperation(value="更新地区详细信息", notes="根据url的id来指定更新对象，并根据传过来的Zone信息来更新地区详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putZone(@PathVariable Integer id, @ModelAttribute Zone zone) {
+    public String putZone(@PathVariable Integer id, @RequestBody Zone zone) {
         // 处理"/Zones/{id}"的PUT请求，用来更新Zone信息
-        String f="true";
-        Zone zone1=new Zone();
-        zoneService.updateByPrimaryKeySelective(zone);
-        zone1=zoneService.selectByPrimaryKey(id);
-        if(zone.equals(zone1))
-            f="false";
-        return f;
+        if (zoneService.findById(id) > 0) {
+            int num = zoneService.updateByPrimaryKeySelective(zone);
+            if (num > 0) {
+                return SUCCESS;
+            } else
+                return FAILURE;
+        }
+        return "this id does not exist";
     }
 
     @ApiOperation(value="删除地区", notes="根据url的id来指定删除对象")

@@ -61,21 +61,17 @@ public class NewsController {
     @ApiOperation(value="更新通知详细信息", notes="根据url的id来指定更新对象，并根据传过来的news信息来更新通知详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putNews(@PathVariable Integer id, @ModelAttribute News news) {
+    public String putNews(@PathVariable Integer id, @RequestBody News news) {
         //先判断该id是否存在，若存在，才能执行下一步更新操作
-        if(newsService.selectByPrimaryKey(id) != null){
-            //若该条记录存在，则执行更新操作
+        if (newsService.findById(id) > 0) {
             int num = newsService.updateByPrimaryKeySelective(news);
-            if(num > 0) {
+            if (num > 0) {
                 return SUCCESS;
-            }else
+            } else
                 return FAILURE;
-
         }
-        //
         return "this id does not exist";
-
-    }
+        }
 
     @ApiOperation(value="删除通知信息", notes="根据url的id来指定删除对象")
     @ResponseBody

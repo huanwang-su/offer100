@@ -72,7 +72,7 @@ public class ResumeController {
     @ApiOperation(value="更新简历详细信息", notes="根据url的id来指定更新对象，并根据传过来的resume信息来更新简历详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putResume(@PathVariable Integer id, @ModelAttribute Resume resume) {
+    public String putResume(@PathVariable Integer id, @RequestBody Resume resume) {
         if(resumeService.findById(id) > 0) {
             int num = resumeService.updateByPrimaryKeySelective(resume);
             if (num > 0) {

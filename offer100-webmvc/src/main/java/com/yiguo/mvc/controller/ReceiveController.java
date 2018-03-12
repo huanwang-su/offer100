@@ -16,6 +16,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+
 @Controller
 @Api(value = "API - ReceiveController", description = "Receive详情")
 @RequestMapping(value = "/Receive")
@@ -54,16 +57,16 @@ public class ReceiveController {
     @ApiOperation(value="更新收藏详细信息", notes="根据url的id来指定更新对象，并根据传过来的Receive信息来更新收藏详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putReceive(@PathVariable Integer id, @ModelAttribute Receive receive) {
+    public String putReceive(@PathVariable Integer id, @RequestBody Receive receive) {
         // 处理"/Receives/{id}"的PUT请求，用来更新Receive信息
-        receive.setId(id);
-        String f="true";
-        receiveService.updateByPrimaryKeySelective(receive);
-        Receive receive1=new Receive();
-        receive1=receiveService.selectByPrimaryKey(id);
-        if(receive.equals(receive1))
-            f="false";
-        return f;
+        if (receiveService.findById(id) > 0) {
+            int num = receiveService.updateByPrimaryKeySelective(receive);
+            if (num > 0) {
+                return SUCCESS;
+            } else
+                return FAILURE;
+        }
+        return "this id does not exist";
     }
 
     @ApiOperation(value="删除收藏", notes="根据url的id来指定删除对象")

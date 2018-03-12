@@ -8,11 +8,15 @@ import com.yiguo.service.EnterpriseService;
 import com.yiguo.service.JobService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 
 @Controller
 @Api(value = "API - JobController", description = "企业岗位详情")
@@ -55,15 +59,16 @@ public class JobController {
     @ApiOperation(value="更新job" + "详细信息", notes="根据url的id来指定更新对象，并根据传过来的Job信息来更新岗位详细信息")
     @ResponseBody
     @RequestMapping(value = "/putJob/{id}", method = RequestMethod.PUT)
-    public String putJob( @ModelAttribute Job job) {
+    public String putJob(@PathVariable Integer id,@RequestBody Job job) {
         /* 处理"/Zones/{id}"的PUT请求，用来更新Zone信息 */
-        String f="修改成功";
-       Job job1=new Job();
-        jobService.updateByPrimaryKeySelective(job);
-        job1=jobService.selectByPrimaryKey(job.getId());
-        if(job.equals(job1))
-            f="未修改成功";
-        return f;
+        if (jobService.findById(id) > 0) {
+            int num =jobService.updateByPrimaryKeySelective(job);
+            if (num > 0) {
+                return SUCCESS;
+            } else
+                return FAILURE;
+        }
+        return "this id does not exist";
     }
     @ApiOperation(value="删除岗位", notes="根据url的id来指定删除对象")
     @ResponseBody
