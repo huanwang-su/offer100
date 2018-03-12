@@ -75,7 +75,7 @@ public class ConfigurationController {
     @ApiOperation(value="更新配置详细信息", notes="根据url的id来指定更新对象，并根据传过来的configuration信息来更新用户详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putConfiguration(@PathVariable Integer id, @ModelAttribute Configuration configuration) {
+    public String putConfiguration(@PathVariable Integer id, @RequestBody Configuration configuration) {
         if (configurationService.findById(id) > 0){
             configuration.setId(id);
         int num = configurationService.updateByPrimaryKeySelective(configuration);

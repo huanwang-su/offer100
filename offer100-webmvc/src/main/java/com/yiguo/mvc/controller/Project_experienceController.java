@@ -58,7 +58,7 @@ public class Project_experienceController {
     @ApiOperation(value="更新项目经验详细信息", notes="根据url的id来指定更新对象，并根据传过来的project_experience信息来更新项目经验详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putProjrctE(@PathVariable Integer id, @ModelAttribute Project_experience project_experience) {
+    public String putProjrctE(@PathVariable Integer id, @RequestBody Project_experience project_experience) {
         if (project_experienceService.findById(id) > 0) {
             project_experience.setId(id);
             int num = project_experienceService.updateByPrimaryKeySelective(project_experience);

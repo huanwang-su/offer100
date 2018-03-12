@@ -60,7 +60,7 @@ public class BulletinController {
 	@ApiOperation(value="更新公告详细信息", notes="根据url的id来指定更新对象，并根据传过来的bulletin信息来更新用户详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public String putBulletin(@PathVariable Integer id, @ModelAttribute Bulletin bulletin) {
+	public String putBulletin(@PathVariable Integer id, @RequestBody Bulletin bulletin) {
 		if (bulletionService.findById(id) > 0) {
 			bulletin.setId(id);
 			int num = bulletionService.updateByPrimaryKeySelective(bulletin);
