@@ -234,7 +234,13 @@
       limit #{start},#{pageSize}
     </if>
   </select>
+    <select id="findByZoneId" parameterType="com.yiguo.bean.School" resultType="String">
+        SELECT name
+        FROM school
+        WHERE
+           zone_id = #{zoneId,jdbcType=INTEGER}
 
+    </select>
   <select id="findById" parameterType="com.yiguo.bean.School" resultType="Integer">
     SELECT count(*)
     FROM school

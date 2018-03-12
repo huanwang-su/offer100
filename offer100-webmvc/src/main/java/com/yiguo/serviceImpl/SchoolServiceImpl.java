@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("School")
 @Transactional
 public class SchoolServiceImpl extends AbstractBaseServiceImpl<Integer, School> implements SchoolService {
@@ -20,4 +22,8 @@ public class SchoolServiceImpl extends AbstractBaseServiceImpl<Integer, School> 
 		return dao;
 	}
 
+	@Override
+	public List<String> findByZoneId(Integer zoneId) {
+		return dao.findByZoneId(zoneId);
+	}
 }

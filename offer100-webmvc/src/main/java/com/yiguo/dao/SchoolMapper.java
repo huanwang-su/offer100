@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 @Mapper
 public interface SchoolMapper extends BaseMapper<Integer, School> {
-
-}
+      List <String > findByZoneId(Integer zoneId);
+ }

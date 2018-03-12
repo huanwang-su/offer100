@@ -89,16 +89,11 @@ public class SchoolController {
     @ApiOperation(value="根据地区查询学校", notes="根据传给的地区id值进行查询学校操作")
     @ResponseBody
     @RequestMapping(value = "/selectSchool/{id}", method = RequestMethod.DELETE)
-    public List<School>selectSchool(@PathVariable Integer id) {
+    public List<String>selectSchool(@PathVariable Integer id) {
         // 处理"/Schools/{id}"的DELETE请求，用来删除School
-  List<School> schools=new ArrayList<School>();
+  List<String> schools=new ArrayList<String>();
   if(zoneService.selectByPrimaryKey(id)!=null){
-            School school = new School();
-            school.setZoneId(id);
-
-
-         schools=schoolService.select(school, null);
-
+         schools=schoolService.findByZoneId(id);
 
             return schools;
         }

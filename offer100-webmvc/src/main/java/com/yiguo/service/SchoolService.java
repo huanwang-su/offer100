@@ -2,6 +2,8 @@ package com.yiguo.service;
 
 import com.yiguo.bean.School;
 
-public interface SchoolService extends BaseService<Integer, School> {
+import java.util.List;
 
+public interface SchoolService extends BaseService<Integer, School> {
+    List<String > findByZoneId(Integer zoneId);
 }

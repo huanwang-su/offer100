@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by liyue on 2018/3/2.
  */
@@ -50,19 +53,10 @@ public class SchoolServiceTest extends BaseServiceTest {
     @Test
     public void selectSchool() {
         // 处理"/Schools/{id}"的DELETE请求，用来删除School
-        School school =new School();
-        school.setZoneId(2);
-        PageInfo<School> pageinfo=new PageInfo<School>();
-        pageinfo.setPageNum(1);
-        pageinfo.setPageSize(30);
-        Page page= new Page();
-        page.setPageNumber(1);
-        page.setPageSize(30);
-        pageinfo.setRows( schoolService.select(school,page));
-        int count=schoolService.selectCount(school);
-        pageinfo.setTotal(count);
+        List<String> schools=new ArrayList<String>();
 
- System.out.println(count+"+++++++++++++++++++++++++++++++++++++++++++++++++=");
- System.out.println(pageinfo.getRows());
+            schools=schoolService.findByZoneId(2);
+
+         System.out.println(schools);
     }
 }
