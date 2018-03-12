@@ -54,7 +54,7 @@ public class ReceiveController {
         return receive;
     }
 
-    @ApiOperation(value="更新收藏详细信息", notes="根据url的id来指定更新对象，并根据传过来的Receive信息来更新收藏详细信息")
+    /*@ApiOperation(value="更新收藏详细信息", notes="根据url的id来指定更新对象，并根据传过来的Receive信息来更新收藏详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String putReceive(@PathVariable Integer id, @RequestBody Receive receive) {
@@ -68,7 +68,7 @@ public class ReceiveController {
                 return FAILURE;
         }
         return "this id does not exist";
-    }
+    }*/
 
     @ApiOperation(value="删除收藏", notes="根据url的id来指定删除对象")
     @ResponseBody

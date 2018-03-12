@@ -4,10 +4,7 @@ import com.yiguo.bean.Notification;
 import com.yiguo.bean.Page;
 import com.yiguo.bean.Resume;
 import com.yiguo.bean.Resume_post_record;
-import com.yiguo.service.JobService;
-import com.yiguo.service.NotificationService;
-import com.yiguo.service.ResumeService;
-import com.yiguo.service.Resume_post_recordService;
+import com.yiguo.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +30,8 @@ public class ResumeController {
     NotificationService notificationService;
     @Autowired
     Resume_post_recordService resume_post_recordService;
+    @Autowired
+    UserService userService;
 
     @ApiOperation(value = "获取简历列表",notes = "")
     @ResponseBody
@@ -75,11 +74,15 @@ public class ResumeController {
     public String putResume(@PathVariable Integer id, @RequestBody Resume resume) {
         if(resumeService.findById(id) > 0) {
             resume.setId(id);
-            int num = resumeService.updateByPrimaryKeySelective(resume);
-            if (num > 0) {
-                return SUCCESS;
-            } else
-                return FAILURE;
+            if(userService.findById(resume.getUserId()) > 0 ) {
+                int num = resumeService.updateByPrimaryKeySelective(resume);
+                if (num > 0) {
+                    return SUCCESS;
+                } else
+                    return FAILURE;
+
+            }
+            return "this user_id does not exist";
         }
         return "this id does not exist";
     }
