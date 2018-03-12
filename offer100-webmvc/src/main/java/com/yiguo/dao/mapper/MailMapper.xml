@@ -104,4 +104,13 @@
 		</if>
 	</select>
 
+
+
+	<!--<select id="findById" parameterType="com.yiguo.bean.Job" resultType="Integer">
+		SELECT count(*)
+		FROM job
+		WHERE
+		id  = #{id,jdbcType=INTEGER}
+	</select>-->
+
 </mapper>

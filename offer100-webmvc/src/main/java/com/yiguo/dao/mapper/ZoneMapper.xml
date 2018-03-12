@@ -221,4 +221,11 @@
   <!-- 分页查詢 -->
 
 
+  <select id="findById" parameterType="com.yiguo.bean.Zone" resultType="Integer">
+    SELECT count(*)
+    FROM zone
+    WHERE
+    id  = #{id,jdbcType=INTEGER}
+  </select>
+
 </mapper>

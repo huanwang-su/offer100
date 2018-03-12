@@ -317,4 +317,13 @@ insert into news (id, title, abstruct,
       limit #{start},#{pageSize}
     </if>
   </select>
+
+
+
+  <select id="findById" parameterType="com.yiguo.bean.News" resultType="Integer">
+    SELECT count(*)
+    FROM news
+    WHERE
+    id  = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

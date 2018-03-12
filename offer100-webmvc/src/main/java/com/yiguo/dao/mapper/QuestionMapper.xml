@@ -227,4 +227,12 @@
       limit #{start},#{pageSize}
     </if>
   </select>
+
+
+  <select id="findById" parameterType="com.yiguo.bean.Question" resultType="Integer">
+    SELECT count(*)
+    FROM question
+    WHERE
+    id  = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

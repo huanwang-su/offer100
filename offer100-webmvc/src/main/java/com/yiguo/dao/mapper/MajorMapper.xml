@@ -262,4 +262,13 @@
 			limit #{start},#{pageSize}
 		</if>
 	</select>
+
+
+
+	<select id="findById" parameterType="com.yiguo.bean.Major" resultType="Integer">
+		SELECT count(*)
+		FROM major
+		WHERE
+		id  = #{id,jdbcType=INTEGER}
+	</select>
 </mapper>

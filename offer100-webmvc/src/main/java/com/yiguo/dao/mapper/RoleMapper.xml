@@ -186,4 +186,13 @@ insert into role (id, name, desc,
       limit #{start},#{pageSize}
     </if>
   </select>
+
+
+
+  <select id="findById" parameterType="com.yiguo.bean.Role" resultType="Integer">
+    SELECT count(*)
+    FROM role
+    WHERE
+    id  = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

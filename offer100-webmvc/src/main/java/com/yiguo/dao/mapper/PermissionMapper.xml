@@ -206,4 +206,12 @@
       limit #{start},#{pageSize}
     </if>
   </select>
+
+
+  <select id="findById" parameterType="com.yiguo.bean.Permission" resultType="Integer">
+    SELECT count(*)
+    FROM permission
+    WHERE
+    id  = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

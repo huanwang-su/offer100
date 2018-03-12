@@ -135,4 +135,12 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="findById" parameterType="com.yiguo.bean.Receive" resultType="Integer">
+    SELECT count(*)
+    FROM receive
+    WHERE
+    id  = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

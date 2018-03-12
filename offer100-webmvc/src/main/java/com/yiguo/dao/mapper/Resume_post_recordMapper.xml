@@ -282,4 +282,11 @@
         WHERE
         resume_id  = #{resumeId,jdbcType=INTEGER}
     </select>
+
+    <select id="findById" parameterType="com.yiguo.bean.Resume_post_record" resultType="Integer">
+        SELECT count(*)
+        FROM resume_post_record
+        WHERE
+        id  = #{id,jdbcType=INTEGER}
+    </select>
 </mapper>
