@@ -1,9 +1,13 @@
 package com.yiguo.mvc.controller;
 
+import com.yiguo.bean.Enterprise;
+import com.yiguo.bean.Page;
 import com.yiguo.bean.School;
 import com.yiguo.bean.Zone;
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.SchoolService;
 import com.yiguo.service.SchoolService;
+import com.yiguo.service.ZoneService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -24,6 +28,8 @@ public class SchoolController {
 
     @Autowired
     SchoolService schoolService;
+    @Autowired
+    ZoneService zoneService;
   
 
     @ApiOperation(value = "创建学校",notes = "根据School对象创建School")
@@ -79,5 +85,25 @@ public class SchoolController {
         if(schoolService.selectByPrimaryKey(id)!=null)
             f="false";
         return f;
+    }
+    @ApiOperation(value="根据地区查询学校", notes="根据传给的地区id值进行查询学校操作")
+    @ResponseBody
+    @RequestMapping(value = "/selectSchool/{id}", method = RequestMethod.DELETE)
+    public List<School>selectSchool(@PathVariable Integer id) {
+        // 处理"/Schools/{id}"的DELETE请求，用来删除School
+  List<School> schools=new ArrayList<School>();
+  if(zoneService.selectByPrimaryKey(id)!=null){
+            School school = new School();
+            school.setZoneId(id);
+
+
+         schools=schoolService.select(school, null);
+
+
+            return schools;
+        }
+     else
+         return schools;
+
     }
 }
