@@ -3,15 +3,13 @@ package com.yiguo.mvc.controller;
 import com.yiguo.bean.Enterprise;
 import com.yiguo.bean.Page;
 import com.yiguo.bean.Question;
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.QuestionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class QuestionController {
     QuestionService questionService;
     @ApiOperation(value = "创建问答",notes = "根据Question对象创建Question")
     @ResponseBody
-    @RequestMapping(value = "/admin/question", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String postQuestion(@RequestBody Question question) {
         // 处理"/Zones/"的POST请求，用来创建Zone
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
@@ -36,15 +34,21 @@ public class QuestionController {
     }
     @ApiOperation(value = "提取问答",notes = "提取问答列表")
     @ResponseBody
-    @RequestMapping(value = "/getQuestion", method = RequestMethod.POST)
-    public List<Question> getQuestion() {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public PageInfo<Question> getQuestion(@RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
         // 处理"/Zones/"的POST请求，用来创建Zone
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
         Question question=new Question();
-        Page page=new Page();
-        List<Question> questions =questionService.select(question,page);
+        PageInfo<Question> pageinfo=new PageInfo<Question>();
+        pageinfo.setPageNum(pageNumber);
+        pageinfo.setPageSize(pageSize);
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
 
+      pageinfo.setRows(questionService.select(question,page));
 
-        return questions;
+pageinfo.setTotal(questionService.selectCount(question));
+        return pageinfo;
     }
 }

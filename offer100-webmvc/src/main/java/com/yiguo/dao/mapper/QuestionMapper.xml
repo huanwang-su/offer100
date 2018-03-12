@@ -181,24 +181,24 @@
     SELECT count(*)
     FROM question
     WHERE 1=1
-   <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="context != null" >
-        context = #{context,jdbcType=VARCHAR},
-      </if>
-      <if test="time != null" >
-        time = #{time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+    <if test="title != null" >
+      and title = #{title,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null" >
+      and user_id = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="context != null" >
+      and  context = #{context,jdbcType=VARCHAR}
+    </if>
+    <if test="time != null" >
+      and time = #{time,jdbcType=TIMESTAMP}
+    </if>
+    <if test="createTime != null" >
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateTime != null" >
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
   </select>
   <!-- 分页查询 -->
   <select id="select" parameterType="Map" resultMap="BaseResultMap">
@@ -206,22 +206,22 @@
     FROM question
     WHERE 1=1
   <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
+       and title = #{title,jdbcType=VARCHAR}
       </if>
       <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+       and user_id = #{userId,jdbcType=INTEGER}
       </if>
       <if test="context != null" >
-        context = #{context,jdbcType=VARCHAR},
+      and  context = #{context,jdbcType=VARCHAR}
       </if>
       <if test="time != null" >
-        time = #{time,jdbcType=TIMESTAMP},
+       and time = #{time,jdbcType=TIMESTAMP}
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+       and create_time = #{createTime,jdbcType=TIMESTAMP}
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+       and update_time = #{updateTime,jdbcType=TIMESTAMP}
       </if>
       <if test="start != null and pageSize!=null">
       limit #{start},#{pageSize}

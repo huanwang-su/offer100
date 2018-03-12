@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.yiguo.service.EducationService;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
@@ -26,13 +24,22 @@ import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 public class EducationController {
 	@Autowired
 	EducationService educationService;
-
+	@ApiOperation(value = "获取个人教育经历",notes = "根据User的id来查询受教育程度")
+	@ResponseBody
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
+	public List<Education> getEducationByUserId(@PathVariable Integer id) {
+		// 处理"/Educations/"的POST请求，用来创建Education
+		// 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
+		List<Education> educations=new ArrayList<Education>();
+		educations =educationService.getEducationByUserId(id);
+		return  educations;
+	}
 
 
 	@ApiOperation(value = "创建教育",notes = "根据Education对象创建Education")
 	@ResponseBody
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String postEducation(@RequestBody Education education) {
+	public String buildEducation(@RequestBody Education education) {
 		// 处理"/Educations/"的POST请求，用来创建Education
 		// 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
 		String f="false";
@@ -58,7 +65,7 @@ public class EducationController {
 	@ApiOperation(value="更新教育详细信息", notes="根据url的id来指定更新对象，并根据传过来的Education信息来更新教育详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public String putEducation(@PathVariable Integer id,@RequestBody Education education) {
+	public String updateEducation(@PathVariable Integer id,@RequestBody Education education) {
 		// 处理"/Educations/{id}"的PUT请求，用来更新Education信息
 		if (educationService.findById(id) > 0) {
 			education.setId(id);

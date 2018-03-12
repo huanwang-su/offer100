@@ -5,8 +5,11 @@ import com.yiguo.bean.School;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
@@ -36,7 +39,7 @@ public class EducationServiceTest extends BaseServiceTest {
 
      }
     @Test
-
+@Ignore
     public void updateSchool(){
         Education education=new Education();
         education.setId(4);
@@ -59,5 +62,13 @@ System.out.print(        educationService.selectByPrimaryKey(1));
     @Ignore
     public void deleteSchool(){
         educationService.deleteByPrimaryKey(1);
+    }
+@Test
+    public void getEducationByUserId() {
+        // 处理"/Educations/"的POST请求，用来创建Education
+        // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
+        List<Education> educations=new ArrayList<Education>();
+        educations =educationService.getEducationByUserId(1);
+     System.out.println(educations);
     }
 }

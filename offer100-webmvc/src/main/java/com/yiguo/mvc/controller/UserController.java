@@ -20,7 +20,7 @@ public class UserController {
 
   @Autowired
     UserService userService;
-    @ApiOperation(value = "获取用户列表",notes = "")
+    /*@ApiOperation(value = "获取用户列表",notes = "")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<User> getUserList() {
@@ -29,12 +29,12 @@ public class UserController {
         //List<User> r = new ArrayList<User>(users.values());
         List<User> r = userService.query();
         return r;
-    }
+    }*/
 
     @ApiOperation(value = "创建用户",notes = "根据user对象创建user")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String postUser(@RequestBody User user) {
+    public String buildUser(@RequestBody User user) {
         // 处理"/users/"的POST请求，用来创建User
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
         String f="注册失败，重新注册";
@@ -62,7 +62,7 @@ public class UserController {
     @ApiOperation(value="更新用户详细信息", notes="根据url的id来指定更新对象，并根据传过来的user信息来更新用户详细信息")
    @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putUser(@PathVariable Integer id, @RequestBody User user) {
+    public String updateUser(@PathVariable Integer id, @RequestBody User user) {
         // 处理"/users/{id}"的PUT请求，用来更新User信息
         //user.setId(id);
 

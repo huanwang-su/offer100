@@ -143,4 +143,44 @@
     WHERE
     id  = #{id,jdbcType=INTEGER}
   </select>
+  <!-- 查詢数量 -->
+  <select id="selectCount" parameterType="com.yiguo.bean.Receive" resultType="Integer">
+    SELECT count(*)
+    FROM receive
+    WHERE 1=1
+    <if test="userId != null">
+    and  user_id = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="jobId != null">
+      and job_id = #{jobId,jdbcType=INTEGER}
+    </if>
+    <if test="createTime != null">
+     and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateTime != null">
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+  <!-- 分页查询 -->
+  <select id="select" parameterType="Map" resultMap="BaseResultMap">
+    SELECT *
+    FROM receive
+    WHERE 1=1
+    <if test="userId != null">
+      and  user_id = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="jobId != null">
+      and job_id = #{jobId,jdbcType=INTEGER}
+    </if>
+    <if test="createTime != null">
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateTime != null">
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="start != null and pageSize!=null">
+      limit #{start},#{pageSize}
+    </if>
+  </select>
+
 </mapper>

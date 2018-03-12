@@ -85,8 +85,8 @@ public class EngineCotroller {
 
     @ApiOperation(value = "用户找回密码",notes = "")
     @ResponseBody
-    @RequestMapping(value = "/sendTemplateMail", method = RequestMethod.GET)
-    public void sendTemplateMail(@PathVariable  String email){
+    @RequestMapping(value = "/getCodeMail", method = RequestMethod.GET)
+    public void getCodeMail(@PathVariable  String email){
         String emailencode=MD5(email)+"&";
         String url="https://yiguo.com/password/reset?";
 
@@ -116,8 +116,8 @@ public class EngineCotroller {
     }
     @ApiOperation(value = "发送录取简历通知",notes = "")
     @ResponseBody
-    @RequestMapping(value = "/sendGetMail", method = RequestMethod.GET)
-    public void sendGetMail(@PathVariable  String email){
+    @RequestMapping(value = "/getResumeMail", method = RequestMethod.GET)
+    public void getResumeMail(@PathVariable  String email){
         String emailencode=MD5(email)+"&";
         String url="https://yiguo.com/password/reset?";
 
@@ -147,8 +147,8 @@ public class EngineCotroller {
     }
     @ApiOperation(value = "发送打回简历通知",notes = "")
     @ResponseBody
-    @RequestMapping(value = "/sendUpMail", method = RequestMethod.GET)
-    public void sendUpMail(@PathVariable  String email){
+    @RequestMapping(value = "/getReturnMail", method = RequestMethod.GET)
+    public void getReturnMail(@PathVariable  String email){
         String emailencode=MD5(email)+"&";
         String url="https://yiguo.com/password/reset?";
 
@@ -178,8 +178,8 @@ public class EngineCotroller {
     }
     @ApiOperation(value = "用户点击找回密码链接",notes = "")
     @ResponseBody
-    @RequestMapping(value = "/getLink", method = RequestMethod.GET)
-    public String getLink(@PathVariable  String link ,@PathVariable Integer id ) throws Exception {
+    @RequestMapping(value = "/getLinkCode", method = RequestMethod.GET)
+    public String getLinkCode(@PathVariable  String link ,@PathVariable Integer id ) throws Exception {
         String reset = "true";
         Date date = new Date();
         long time = date.getTime();

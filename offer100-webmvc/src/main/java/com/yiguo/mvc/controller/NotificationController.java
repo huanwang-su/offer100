@@ -23,19 +23,19 @@ public class NotificationController {
 
     @Autowired
     NotificationService notificationService;
-    @ApiOperation(value = "获取通知列表",notes = "")
+ /*   @ApiOperation(value = "获取通知列表",notes = "")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Notification> getNotificationList() {
 
         List<Notification> r = notificationService.getAll();
         return r;
-    }
+    }*/
 
     @ApiOperation(value = "创建通知信息",notes = "根据notification对象创建notification")
     @ResponseBody
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public String postNotification(@RequestBody Notification notification) {
+    @RequestMapping(value = "/buildbNotification", method = RequestMethod.POST)
+    public String buildbNotification(@RequestBody Notification notification) {
         String f=FAILURE;
         Integer count=  notificationService.insert(notification);
         if(count > 0) {
@@ -49,7 +49,7 @@ public class NotificationController {
 
     @ApiOperation(value="根据id获取通知详细信息", notes="根据url的id来获取通知详细信息")
     @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getNotification/{id}", method = RequestMethod.GET)
     public Notification getNotification(@PathVariable Integer id) {
 
             Notification notification = new Notification();
@@ -60,7 +60,7 @@ public class NotificationController {
     @ApiOperation(value="更新通知详细信息", notes="根据url的id来指定更新对象，并根据传过来的notification信息来更新通知详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putNotification(@PathVariable Integer id, @ModelAttribute Notification notification) {
+    public String updateNotification(@PathVariable Integer id, @RequestBody Notification notification) {
         //先判断该id是否存在，若存在，才能执行下一步更新操作
         if(notificationService.findById(id) > 0){
         //若该条记录存在，则执行更新操作
@@ -93,7 +93,7 @@ public class NotificationController {
     }
     @ApiOperation(value = "查询通知",notes = "查询得出通知")
     @ResponseBody
-    @RequestMapping(value = "/selectNotification", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public PageInfo<Notification> selectNotifivation(@RequestParam(required = false) Notification notification, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递=

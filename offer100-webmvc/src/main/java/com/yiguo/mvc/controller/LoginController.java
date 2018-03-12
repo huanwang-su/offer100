@@ -55,7 +55,7 @@ public class LoginController {
 	EnterpriseService enterpriseService;
 	@ApiOperation(value = "用户登录",notes = "验证用户登录")
 	@ResponseBody
-	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public Map<String, Object> loginUser(@RequestBody Map<String, Object> loginInfo) {
 		// 处理"/users/"的POST请求，用来创建User
 		// 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
@@ -126,7 +126,7 @@ public class LoginController {
 
 	@ApiOperation(value = "用户注销",notes = "用户注销账户" )
 	@ResponseBody
-	@RequestMapping(value = "/user/exit/{username}", method = RequestMethod.POST)
+	@RequestMapping(value = "/exit/{username}", method = RequestMethod.POST)
 	public String exitUser(@PathVariable String username) {
 		// 处理"/users/"的POST请求，用来创建User
 		// 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数

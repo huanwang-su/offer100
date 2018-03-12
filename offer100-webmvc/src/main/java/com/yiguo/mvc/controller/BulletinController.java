@@ -1,6 +1,9 @@
 package com.yiguo.mvc.controller;
 
 import com.yiguo.bean.Bulletin;
+import com.yiguo.bean.Enterprise;
+import com.yiguo.bean.Page;
+import com.yiguo.offer100.common.page.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +27,28 @@ public class BulletinController {
 	BulletinService bulletionService;
 	@ApiOperation(value = "获取公告列表",notes = "")
 	@ResponseBody
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public List<Bulletin> getBulletinList() {
+	@RequestMapping(value = "/getBulletinList", method = RequestMethod.GET)
+	public PageInfo<Bulletin> getBulletinList(@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+         Bulletin bulletin =new Bulletin();
 
-		List<Bulletin> r = bulletionService.getAll();
-		return r;
+		PageInfo<Bulletin> pageinfo=new PageInfo<Bulletin>();
+		pageinfo.setPageNum(pageNumber);
+		pageinfo.setPageSize(pageSize);
+		Page page= new Page();
+		page.setPageNumber(pageNumber);
+		page.setPageSize(pageSize);
+
+		pageinfo.setRows( bulletionService.select(bulletin,page));
+		int count=bulletionService.selectCount(bulletin);
+		pageinfo.setTotal(count);
+		return pageinfo;
 	}
 
 	@ApiOperation(value = "创建公告信息",notes = "根据bulletin对象创建bulletin")
 	@ResponseBody
 
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String postBulletin(@RequestBody Bulletin bulletin) {
+	@RequestMapping(value = "/buildBulletin", method = RequestMethod.POST)
+	public String buildBulletin(@RequestBody Bulletin bulletin) {
 		String f=FAILURE;
 		Integer count=  bulletionService.insert(bulletin);
 		if(count > 0) {
@@ -60,7 +73,7 @@ public class BulletinController {
 	@ApiOperation(value="更新公告详细信息", notes="根据url的id来指定更新对象，并根据传过来的bulletin信息来更新用户详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public String putBulletin(@PathVariable Integer id, @RequestBody Bulletin bulletin) {
+	public String updateBulletin(@PathVariable Integer id, @RequestBody Bulletin bulletin) {
 		if (bulletionService.findById(id) > 0) {
 			bulletin.setId(id);
 			int num = bulletionService.updateByPrimaryKeySelective(bulletin);

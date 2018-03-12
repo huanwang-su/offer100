@@ -36,8 +36,8 @@ public class EnterpriseController {
 */
     @ApiOperation(value = "创建企业",notes = "根据Enterprise对象创建Enterprise")
     @ResponseBody
-    @RequestMapping(value = "/admin/enterprise", method = RequestMethod.POST)
-    public String postEnterprise(@RequestBody Enterprise  enterprise) {
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public String buildEnterprise(@RequestBody Enterprise  enterprise) {
         // 处理"/Zones/"的POST请求，用来创建Zone
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
         String f=SUCCESS;
@@ -72,7 +72,7 @@ public class EnterpriseController {
     @ApiOperation(value="更新Enterprise" + "详细信息", notes="根据url的id来指定更新对象，并根据传过来的Enterprise信息来更新企业详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putEnterprise(@PathVariable Integer id,@RequestBody Enterprise enterprise) {
+    public String updateEnterprise(@PathVariable Integer id,@RequestBody Enterprise enterprise) {
         // 处理"/Zones/{id}"的PUT请求，用来更新Zone信息
         /*String f="修改成功";
         Enterprise enterprise1=new Enterprise();
@@ -98,7 +98,7 @@ public class EnterpriseController {
     @ApiOperation(value="删除企业", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String deleteJob(@PathVariable Integer id) {
+    public String deleteEnterprise(@PathVariable Integer id) {
         // 处理"/Zones/{id}"的DELETE请求，用来删除Zone
         String f=SUCCESS;
         enterpriseService.deleteByPrimaryKey(id);
@@ -109,7 +109,7 @@ public class EnterpriseController {
 
     @ApiOperation(value = "审核企业",notes = "审核企业的资质")
     @ResponseBody
-    @RequestMapping(value = "/checkEnterprise/{id}/{flag}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/{flag}", method = RequestMethod.GET)
     public String checkEnterprise(@PathVariable Integer id,@PathVariable Integer flag) {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递

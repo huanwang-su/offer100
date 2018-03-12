@@ -23,6 +23,7 @@
     <result column="professinal_skill" property="professinalSkill" jdbcType="VARCHAR" />
     <result column="reward" property="reward" jdbcType="VARCHAR" />
     <result column="self_evaluation" property="selfEvaluation" jdbcType="VARCHAR" />
+      <result column="resume_link" property="resumeLink" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -34,13 +35,13 @@
       graduated_school, profession, education, 
       major_course, score_rank, professinal_skill, 
       reward, self_evaluation, create_time, 
-      update_time)
+      update_time,resume_Link)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
       #{sex,jdbcType=TINYINT}, #{telephone,jdbcType=INTEGER}, #{nativePlace,jdbcType=VARCHAR}, 
       #{personPhoto,jdbcType=VARCHAR}, #{communicationAddress,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{graduatedSchool,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
       #{majorCourse,jdbcType=VARCHAR}, #{scoreRank,jdbcType=TINYINT}, #{professinalSkill,jdbcType=VARCHAR}, 
-      #{reward,jdbcType=VARCHAR}, #{selfEvaluation,jdbcType=VARCHAR},now(),now())
+      #{reward,jdbcType=VARCHAR}, #{selfEvaluation,jdbcType=VARCHAR},now(),now(),#{resumeLink,jdbcType=VARCHAR})
 
 </sql> 
 <!-- 查询数据 -->
@@ -96,7 +97,9 @@
   <if test="selfEvaluation!= null" >
       and  self_evaluation= #{selfEvaluation,jdbcType=VARCHAR}
     </if>
- 
+      <if test="resumeLink!= null" >
+          and  resume_link= #{resumeLink,jdbcType=VARCHAR}
+      </if>
 
   </select>
   <sql id="Base_Column_List" >
@@ -106,7 +109,7 @@
     -->
     id, user_id, user_name, sex, telephone, native_place, person_photo, communication_address, 
     email, graduated_school, profession, education, major_course, score_rank, professinal_skill, 
-    reward, self_evaluation, create_time, update_time
+    reward, self_evaluation, create_time, update_time,resume_link
   </sql>
   <!-- 主键查询数据 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -199,6 +202,9 @@
       <if test="updateTime != null" >
         update_time,
       </if>
+        <if test="resumeLink != null" >
+            resume_link,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -258,6 +264,10 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="resumeLink!= null" >
+         #{resumeLink,jdbcType=VARCHAR},
+        </if>
+
     </trim>
   </insert>
   <!-- 根据主键进行更新，部分更新 -->
@@ -322,6 +332,9 @@
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+        <if test="resumeLink != null" >
+            resume_link = #{resumeLink,jdbcType=VARCHAR},
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -349,7 +362,9 @@
       reward = #{reward,jdbcType=VARCHAR},
       self_evaluation = #{selfEvaluation,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+          resume_link = #{resumeLink,jdbcType=VARCHAR},
+
     where id = #{id,jdbcType=INTEGER}
   </update>
      <!-- 查詢数量 -->
@@ -358,58 +373,61 @@
     FROM resume
     WHERE 1=1
    <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+      and  user_id = #{userId,jdbcType=INTEGER}
       </if>
       <if test="userName != null" >
-        user_name = #{userName,jdbcType=VARCHAR},
+       and user_name = #{userName,jdbcType=VARCHAR}
       </if>
       <if test="sex != null" >
-        sex = #{sex,jdbcType=TINYINT},
+       and sex = #{sex,jdbcType=TINYINT}
       </if>
       <if test="telephone != null" >
-        telephone = #{telephone,jdbcType=INTEGER},
+       and telephone = #{telephone,jdbcType=INTEGER}
       </if>
       <if test="nativePlace != null" >
-        native_place = #{nativePlace,jdbcType=VARCHAR},
+       and native_place = #{nativePlace,jdbcType=VARCHAR}
       </if>
       <if test="personPhoto != null" >
-        person_photo = #{personPhoto,jdbcType=VARCHAR},
+       and person_photo = #{personPhoto,jdbcType=VARCHAR}
       </if>
       <if test="communicationAddress != null" >
-        communication_address = #{communicationAddress,jdbcType=VARCHAR},
+      and  communication_address = #{communicationAddress,jdbcType=VARCHAR}
       </if>
       <if test="email != null" >
-        email = #{email,jdbcType=VARCHAR},
+      and  email = #{email,jdbcType=VARCHAR}
       </if>
       <if test="graduatedSchool != null" >
-        graduated_school = #{graduatedSchool,jdbcType=VARCHAR},
+       and graduated_school = #{graduatedSchool,jdbcType=VARCHAR}
       </if>
       <if test="profession != null" >
-        profession = #{profession,jdbcType=VARCHAR},
+       and profession = #{profession,jdbcType=VARCHAR}
       </if>
       <if test="education != null" >
-        education = #{education,jdbcType=VARCHAR},
+       and education = #{education,jdbcType=VARCHAR}
       </if>
       <if test="majorCourse != null" >
-        major_course = #{majorCourse,jdbcType=VARCHAR},
+       and major_course = #{majorCourse,jdbcType=VARCHAR}
       </if>
       <if test="scoreRank != null" >
-        score_rank = #{scoreRank,jdbcType=TINYINT},
+       and score_rank = #{scoreRank,jdbcType=TINYINT}
       </if>
       <if test="professinalSkill != null" >
-        professinal_skill = #{professinalSkill,jdbcType=VARCHAR},
+        and professinal_skill = #{professinalSkill,jdbcType=VARCHAR}
       </if>
       <if test="reward != null" >
-        reward = #{reward,jdbcType=VARCHAR},
+        and reward = #{reward,jdbcType=VARCHAR}
       </if>
       <if test="selfEvaluation != null" >
-        self_evaluation = #{selfEvaluation,jdbcType=VARCHAR},
+       and self_evaluation = #{selfEvaluation,jdbcType=VARCHAR}
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+       and create_time = #{createTime,jdbcType=TIMESTAMP}
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      and  update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="resumeLink != null" >
+        and  resume_link = #{resumeLink,jdbcType=VARCHAR}
       </if>
   </select>
    <!-- 分页查詢 -->
@@ -417,59 +435,62 @@
     SELECT *
     FROM resume
     WHERE 1=1
-   <if test="userId != null" >
-       and user_id = #{userId,jdbcType=INTEGER}
+      <if test="userId != null" >
+          and  user_id = #{userId,jdbcType=INTEGER}
       </if>
       <if test="userName != null" >
-        and user_name = #{userName,jdbcType=VARCHAR}
+          and user_name = #{userName,jdbcType=VARCHAR}
       </if>
       <if test="sex != null" >
-       and sex = #{sex,jdbcType=TINYINT}
+          and sex = #{sex,jdbcType=TINYINT}
       </if>
       <if test="telephone != null" >
-        and telephone = #{telephone,jdbcType=INTEGER}
+          and telephone = #{telephone,jdbcType=INTEGER}
       </if>
       <if test="nativePlace != null" >
-        and native_place = #{nativePlace,jdbcType=VARCHAR}
+          and native_place = #{nativePlace,jdbcType=VARCHAR}
       </if>
       <if test="personPhoto != null" >
-        and person_photo = #{personPhoto,jdbcType=VARCHAR}
+          and person_photo = #{personPhoto,jdbcType=VARCHAR}
       </if>
       <if test="communicationAddress != null" >
-        and communication_address = #{communicationAddress,jdbcType=VARCHAR}
+          and  communication_address = #{communicationAddress,jdbcType=VARCHAR}
       </if>
       <if test="email != null" >
-        and email = #{email,jdbcType=VARCHAR}
+          and  email = #{email,jdbcType=VARCHAR}
       </if>
       <if test="graduatedSchool != null" >
-        and graduated_school = #{graduatedSchool,jdbcType=VARCHAR}
+          and graduated_school = #{graduatedSchool,jdbcType=VARCHAR}
       </if>
       <if test="profession != null" >
-        and profession = #{profession,jdbcType=VARCHAR}
+          and profession = #{profession,jdbcType=VARCHAR}
       </if>
       <if test="education != null" >
-      and education = #{education,jdbcType=VARCHAR}
+          and education = #{education,jdbcType=VARCHAR}
       </if>
       <if test="majorCourse != null" >
-      and major_course = #{majorCourse,jdbcType=VARCHAR}
+          and major_course = #{majorCourse,jdbcType=VARCHAR}
       </if>
       <if test="scoreRank != null" >
-      and score_rank = #{scoreRank,jdbcType=TINYINT}
+          and score_rank = #{scoreRank,jdbcType=TINYINT}
       </if>
       <if test="professinalSkill != null" >
-      and professinal_skill = #{professinalSkill,jdbcType=VARCHAR}
+          and professinal_skill = #{professinalSkill,jdbcType=VARCHAR}
       </if>
       <if test="reward != null" >
-      and reward = #{reward,jdbcType=VARCHAR}
+          and reward = #{reward,jdbcType=VARCHAR}
       </if>
       <if test="selfEvaluation != null" >
-      and self_evaluation = #{selfEvaluation,jdbcType=VARCHAR}
+          and self_evaluation = #{selfEvaluation,jdbcType=VARCHAR}
       </if>
       <if test="createTime != null" >
-        and create_time = #{createTime,jdbcType=TIMESTAMP}
+          and create_time = #{createTime,jdbcType=TIMESTAMP}
       </if>
       <if test="updateTime != null" >
-       and update_time = #{updateTime,jdbcType=TIMESTAMP}
+          and  update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="resumeLink != null" >
+       and   resume_link = #{resumeLink,jdbcType=VARCHAR}
       </if>
       <if test="start != null and pageSize!=null">
       limit #{start},#{pageSize}
@@ -482,4 +503,70 @@
         WHERE
         id  = #{id,jdbcType=INTEGER}
     </select>
+    <select id="selectByUserId" parameterType="com.yiguo.bean.Resume" resultType="String">
+        SELECT resume_link
+        FROM resume
+        WHERE 1=1
+        <if test="userId != null" >
+            and  user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="userName != null" >
+            and user_name = #{userName,jdbcType=VARCHAR}
+        </if>
+        <if test="sex != null" >
+            and sex = #{sex,jdbcType=TINYINT}
+        </if>
+        <if test="telephone != null" >
+            and telephone = #{telephone,jdbcType=INTEGER}
+        </if>
+        <if test="nativePlace != null" >
+            and native_place = #{nativePlace,jdbcType=VARCHAR}
+        </if>
+        <if test="personPhoto != null" >
+            and person_photo = #{personPhoto,jdbcType=VARCHAR}
+        </if>
+        <if test="communicationAddress != null" >
+            and  communication_address = #{communicationAddress,jdbcType=VARCHAR}
+        </if>
+        <if test="email != null" >
+            and  email = #{email,jdbcType=VARCHAR}
+        </if>
+        <if test="graduatedSchool != null" >
+            and graduated_school = #{graduatedSchool,jdbcType=VARCHAR}
+        </if>
+        <if test="profession != null" >
+            and profession = #{profession,jdbcType=VARCHAR}
+        </if>
+        <if test="education != null" >
+            and education = #{education,jdbcType=VARCHAR}
+        </if>
+        <if test="majorCourse != null" >
+            and major_course = #{majorCourse,jdbcType=VARCHAR}
+        </if>
+        <if test="scoreRank != null" >
+            and score_rank = #{scoreRank,jdbcType=TINYINT}
+        </if>
+        <if test="professinalSkill != null" >
+            and professinal_skill = #{professinalSkill,jdbcType=VARCHAR}
+        </if>
+        <if test="reward != null" >
+            and reward = #{reward,jdbcType=VARCHAR}
+        </if>
+        <if test="selfEvaluation != null" >
+            and self_evaluation = #{selfEvaluation,jdbcType=VARCHAR}
+        </if>
+        <if test="createTime != null" >
+            and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime != null" >
+            and  update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="resumeLink != null" >
+            and   resume_link = #{resumeLink,jdbcType=VARCHAR}
+        </if>
+        <if test="start != null and pageSize!=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
 </mapper>

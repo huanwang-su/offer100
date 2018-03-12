@@ -21,7 +21,7 @@ public class ConfigurationController {
 
     @Autowired
     ConfigurationService configurationService;
-    @ApiOperation(value = "获取配置列表",notes = "")
+  /*  @ApiOperation(value = "获取配置列表",notes = "")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Configuration> getConfigurationList() {
@@ -30,12 +30,12 @@ public class ConfigurationController {
         //List<User> r = new ArrayList<User>(users.values());
         List<Configuration> r = configurationService.getAll();
         return r;
-    }
+    }*/
 
     @ApiOperation(value = "创建配置信息",notes = "根据configuration对象创建configuration")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String postUser(@RequestBody Configuration configuration) {
+    public String buildConfiguration(@RequestBody Configuration configuration) {
 
         String f=FAILURE;
         Integer count=  configurationService.FindByType(configuration.getType());
@@ -51,7 +51,7 @@ public class ConfigurationController {
     @ApiOperation(value="根据id获取配置详细信息", notes="根据url的id来获取配置详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Object getConfigurationById(@PathVariable Integer id) {
+    public Object getConfiguration(@PathVariable Integer id) {
         // 处理"/configuration/{id}"的GET请求，用来获取url中id值的User信息
         // url中的id可通过@PathVariable绑定到函数的参数中
         if( configurationService.findById(id) > 0) {
@@ -68,7 +68,7 @@ public class ConfigurationController {
    
     @ApiOperation(value="根据type获取配置详细信息", notes="根据url的type来获取配置详细信息")
     @ResponseBody
-    @RequestMapping(value = "/type/{type}" , method = RequestMethod.GET)
+    @RequestMapping(value = "/{type}" , method = RequestMethod.GET)
     //需要添加/type,否则运行时服务器不能正确辨别是本函数的url还是getConfigurationById方法的url
     public Object getConfigurationByType(@PathVariable String type){
 
@@ -87,7 +87,7 @@ public class ConfigurationController {
     @ApiOperation(value="更新配置详细信息", notes="根据url的id来指定更新对象，并根据传过来的configuration信息来更新用户详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putConfiguration(@PathVariable Integer id, @RequestBody Configuration configuration) {
+    public String updatetConfiguration(@PathVariable Integer id, @RequestBody Configuration configuration) {
         if (configurationService.findById(id) > 0){
             configuration.setId(id);
         int num = configurationService.updateByPrimaryKeySelective(configuration);
@@ -102,7 +102,7 @@ public class ConfigurationController {
     @ApiOperation(value="根据id删除配置信息", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String deleteConfiguration(@PathVariable Integer id) {
+    public String deleteConfigurationById(@PathVariable Integer id) {
         // 处理"/configuration/{id}"的DELETE请求，用来删除Configuration
         if (configurationService.findById(id) > 0){
         int num = configurationService.deleteByPrimaryKey(id);
@@ -116,8 +116,8 @@ public class ConfigurationController {
 
    @ApiOperation(value="根据type删除配置信息", notes="根据url的type来指定删除对象")
     @ResponseBody
-    @RequestMapping(value = "/type/{type}", method = RequestMethod.DELETE)
-    public String deleteConfiguration(@PathVariable String type) {
+    @RequestMapping(value = "/deleteConfigurationByType/{type}", method = RequestMethod.DELETE)
+    public String deleteConfigurationByType(@PathVariable String type) {
         // 处理"/configuration/{id}"的DELETE请求，用来删除Configuration
        if (configurationService.FindByType(type) > 0){
         int num = configurationService.deleteByType(type);

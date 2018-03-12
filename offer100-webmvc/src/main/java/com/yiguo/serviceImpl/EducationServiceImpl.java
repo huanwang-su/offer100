@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("Education")
 @Transactional
 public class EducationServiceImpl extends AbstractBaseServiceImpl<Integer, Education> implements EducationService {
@@ -23,5 +25,10 @@ public class EducationServiceImpl extends AbstractBaseServiceImpl<Integer, Educa
 	@Override
 	public int selectByIds(Integer userId) {
 		return dao.selectByIds(userId);
+	}
+
+	@Override
+	public List<Education> getEducationByUserId(Integer userId) {
+		return dao.getEducationByUserId(userId);
 	}
 }

@@ -1,7 +1,9 @@
 package com.yiguo.mvc.controller;
 
+import com.yiguo.bean.Page;
 import com.yiguo.bean.Receive;
 import com.yiguo.bean.Receive;
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.ReceiveService;
 import com.yiguo.service.ReceiveService;
 import io.swagger.annotations.Api;
@@ -31,7 +33,7 @@ public class ReceiveController {
     @ApiOperation(value = "创建收藏",notes = "根据Receive对象创建Receive")
   @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String postReceive(@RequestBody Receive receive) {
+    public String buildReceive(@RequestBody Receive receive) {
         // 处理"/Receives/"的POST请求，用来创建Receive
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
         String f="false";
@@ -46,12 +48,19 @@ public class ReceiveController {
     @ApiOperation(value="获取收藏详细信息", notes="根据url的id来获取收藏详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Receive getReceive(@PathVariable Integer id) {
+    public PageInfo<Receive> getReceive(@PathVariable Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
         // 处理"/Receives/{id}"的GET请求，用来获取url中id值的Receive信息
         // url中的id可通过@PathVariable绑定到函数的参数中
-        Receive receive=new Receive();
-        receive=receiveService.selectByPrimaryKey(id);
-        return receive;
+     Receive receive =new Receive();
+     receive.setUserId(id);
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
+     PageInfo<Receive> pageInfo=new PageInfo<Receive>();
+     pageInfo.setRows(receiveService.select(receive,page));
+     pageInfo.setTotal(receiveService.selectCount(receive));
+     return pageInfo;
+
     }
 
     /*@ApiOperation(value="更新收藏详细信息", notes="根据url的id来指定更新对象，并根据传过来的Receive信息来更新收藏详细信息")

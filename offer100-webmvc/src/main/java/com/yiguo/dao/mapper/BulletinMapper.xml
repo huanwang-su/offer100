@@ -182,22 +182,22 @@
 		FROM bulletin
 		WHERE 1=1
 		<if test="createTime != null">
-			create_time = #{createTime,jdbcType=TIMESTAMP},
+			and	create_time = #{createTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP},
+			and	update_time = #{updateTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="title != null">
-			title = #{title,jdbcType=VARCHAR},
+			and	title = #{title,jdbcType=VARCHAR}
 		</if>
 		<if test="startTime != null">
-			start_time = #{startTime,jdbcType=TIMESTAMP},
+			and	start_time = #{startTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="endTime != null">
-			end_time = #{endTime,jdbcType=TIMESTAMP},
+			and	end_time = #{endTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="content != null">
-			content = #{content,jdbcType=LONGVARCHAR},
+			and	content = #{content,jdbcType=LONGVARCHAR}
 		</if>
 	</select>
 
@@ -207,22 +207,22 @@
 		FROM bulletin
 		WHERE 1=1
 		<if test="createTime != null">
-			create_time = #{createTime,jdbcType=TIMESTAMP},
+		and	create_time = #{createTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP},
+		and	update_time = #{updateTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="title != null">
-			title = #{title,jdbcType=VARCHAR},
+		and	title = #{title,jdbcType=VARCHAR}
 		</if>
 		<if test="startTime != null">
-			start_time = #{startTime,jdbcType=TIMESTAMP},
+		and	start_time = #{startTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="endTime != null">
-			end_time = #{endTime,jdbcType=TIMESTAMP},
+		and	end_time = #{endTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="content != null">
-			content = #{content,jdbcType=LONGVARCHAR},
+		and	content = #{content,jdbcType=LONGVARCHAR}
 		</if>
 		<if test="start != null and pageSize!=null">
 			limit #{start},#{pageSize}
