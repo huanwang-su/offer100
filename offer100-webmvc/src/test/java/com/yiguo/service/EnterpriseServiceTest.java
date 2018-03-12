@@ -27,6 +27,8 @@ public class EnterpriseServiceTest extends BaseServiceTest {
     EnterpriseService enterpriseService;
     @Autowired
     UserService userService;
+    @Autowired
+    JobService jobService;
     @Test
     @Ignore
      public void getEnterprise(){
@@ -97,18 +99,16 @@ public class EnterpriseServiceTest extends BaseServiceTest {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
 
-        PageInfo<Enterprise> pageinfo=new PageInfo<Enterprise>();
+        PageInfo<Job> pageinfo=new PageInfo<Job>();
         pageinfo.setPageNum(0);
         pageinfo.setPageSize(30);
         Page page= new Page();
         page.setPageNumber(0);
         page.setPageSize(30);
-        Enterprise enterprise =new Enterprise();
-      enterprise.setState(1);
-        enterprise.setStage(1);
-      List<Enterprise> ew=enterpriseService.select(enterprise,page);
-        System.out.println(ew.size());
-        int count=enterpriseService.selectCount(enterprise);
+      Job job=new Job();
+  job.setEnterpriseId(1);
+        int count=jobService.selectCount(job);
+        pageinfo.setRows(jobService.select(job,page));
         pageinfo.setTotal(count);
         System.out.println(count);
         System.out.println(pageinfo.getRows());

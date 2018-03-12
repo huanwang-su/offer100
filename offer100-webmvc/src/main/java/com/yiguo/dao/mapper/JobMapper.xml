@@ -361,63 +361,6 @@
 		FROM job
 		WHERE 1=1
 		<if test="enterpriseId != null">
-			enterprise_id = #{enterpriseId,jdbcType=INTEGER},
-		</if>
-		<if test="title != null">
-			title = #{title,jdbcType=VARCHAR},
-		</if>
-		<if test="nature != null">
-			nature = #{nature,jdbcType=VARCHAR},
-		</if>
-		<if test="industryId != null">
-			industry_id = #{industryId,jdbcType=INTEGER},
-		</if>
-		<if test="zoneId != null">
-			zone_id = #{zoneId,jdbcType=INTEGER},
-		</if>
-		<if test="address != null">
-			address = #{address,jdbcType=VARCHAR},
-		</if>
-		<if test="effectiveTime != null">
-			effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
-		</if>
-		<if test="expirationTime != null">
-			expiration_time = #{expirationTime,jdbcType=TIMESTAMP},
-		</if>
-		<if test="wage != null">
-			wage = #{wage,jdbcType=INTEGER},
-		</if>
-		<if test="peopleNumber != null">
-			people_number = #{peopleNumber,jdbcType=INTEGER},
-		</if>
-		<if test="education != null">
-			education = #{education,jdbcType=VARCHAR},
-		</if>
-		<if test="serviceYear != null">
-			service_year = #{serviceYear,jdbcType=VARCHAR},
-		</if>
-		<if test="description != null">
-			description = #{description,jdbcType=VARCHAR},
-		</if>
-		<if test="welfare != null">
-			welfare = #{welfare,jdbcType=VARCHAR},
-		</if>
-		<if test="email != null">
-			email = #{email,jdbcType=VARCHAR},
-		</if>
-		<if test="creatTime != null">
-			creat_time = #{creatTime,jdbcType=TIMESTAMP},
-		</if>
-		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP},
-		</if>
-	</select>
-	<!-- 分页查詢 -->
-	<select id="select" parameterType="Map" resultMap="BaseResultMap">
-		SELECT *
-		FROM job
-		WHERE 1=1
-		<if test="enterpriseId != null">
 			and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
 		</if>
 		<if test="title != null">
@@ -468,8 +411,65 @@
 		<if test="updateTime != null">
 			and update_time = #{updateTime,jdbcType=TIMESTAMP}
 		</if>
+	</select>
+	<!-- 分页查詢 -->
+	<select id="select" parameterType="Map" resultMap="BaseResultMap">
+		SELECT *
+		FROM job
+		WHERE 1=1
+		<if test="enterpriseId != null">
+		and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+	</if>
+		<if test="title != null">
+			and title = #{title,jdbcType=VARCHAR}
+		</if>
+		<if test="nature != null">
+			and nature = #{nature,jdbcType=VARCHAR}
+		</if>
+		<if test="industryId != null">
+			and industry_id = #{industryId,jdbcType=INTEGER}
+		</if>
+		<if test="zoneId != null">
+			and zone_id = #{zoneId,jdbcType=INTEGER}
+		</if>
+		<if test="address != null">
+			and address = #{address,jdbcType=VARCHAR}
+		</if>
+		<if test="effectiveTime != null">
+			and effective_time = #{effectiveTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="expirationTime != null">
+			and expiration_time = #{expirationTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="wage != null">
+			and wage = #{wage,jdbcType=INTEGER}
+		</if>
+		<if test="peopleNumber != null">
+			and people_number = #{peopleNumber,jdbcType=INTEGER}
+		</if>
+		<if test="education != null">
+			and education = #{education,jdbcType=VARCHAR}
+		</if>
+		<if test="serviceYear != null">
+			and service_year = #{serviceYear,jdbcType=VARCHAR}
+		</if>
+		<if test="description != null">
+			and description = #{description,jdbcType=VARCHAR}
+		</if>
+		<if test="welfare != null">
+			and welfare = #{welfare,jdbcType=VARCHAR}
+		</if>
+		<if test="email != null">
+			and email = #{email,jdbcType=VARCHAR}
+		</if>
+		<if test="creatTime != null">
+			and creat_time = #{creatTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updateTime != null">
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
 		<if test="start != null and pageSize!=null">
-		   	limit #{start},#{pageSize}
+			limit #{start},#{pageSize}
 		</if>
 	</select>
 

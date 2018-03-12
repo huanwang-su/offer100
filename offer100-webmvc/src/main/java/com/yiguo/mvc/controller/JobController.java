@@ -81,21 +81,24 @@ public class JobController {
             f="删除失败";
         return f;
     }
-    @ApiOperation(value="筛选岗位", notes="筛选岗位")
+    @ApiOperation(value = "筛选岗位",notes = "查询得出岗位")
     @ResponseBody
-    @RequestMapping(value = "/selectJob", method = RequestMethod.DELETE)
-    public PageInfo<Job> selectJob(@RequestBody(required = false)  Job job,@PathVariable Integer pageSize,@PathVariable Integer pageNumber) {
-        // 处理"/Zones/{id}"的DELETE请求，用来删除Zone
-              job = job==null?new Job():job;
-             PageInfo<Job> pageinfo=new PageInfo<Job>();
-             pageinfo.setPageNum(pageNumber);
-             pageinfo.setPageSize(pageSize);
-             Page page= new Page();
-             page.setPageNumber(pageNumber);
-             page.setPageSize(pageSize);
-             pageinfo.setRows( jobService.select(job,page));
-             int count=jobService.selectCount(job);
-             pageinfo.setTotal(count);
+    @RequestMapping(value = "/selectJob", method = RequestMethod.GET)
+    public PageInfo<Job> selectJob(@ModelAttribute Job job,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+        // 处理"/users/"的GET请求，用来获取用户列表
+        // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递=
+        job =job==null?new Job():job;
+        PageInfo<Job> pageinfo=new PageInfo<Job>();
+        pageinfo.setPageNum(pageNumber);
+        pageinfo.setPageSize(pageSize);
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
+
+        pageinfo.setRows( jobService.select(job,page));
+        int count=jobService.selectCount(job);
+        pageinfo.setTotal(count);
         return  pageinfo;
     }
+
 }

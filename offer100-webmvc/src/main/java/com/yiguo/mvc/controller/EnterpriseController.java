@@ -114,10 +114,10 @@ public class EnterpriseController {
         }
         return f;
     }
-    @ApiOperation(value = "查询企业",notes = "查询得出企业")
+    @ApiOperation(value = "筛选企业",notes = "查询得出企业")
     @ResponseBody
     @RequestMapping(value = "/selectEnterprise", method = RequestMethod.GET)
-    public PageInfo<Enterprise> selectEnterprise(@RequestBody(required = false) Enterprise enterprise,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+    public PageInfo<Enterprise> selectEnterprise(@ModelAttribute Enterprise enterprise,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递=
         enterprise = enterprise==null?new Enterprise():enterprise;
