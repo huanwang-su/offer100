@@ -21,7 +21,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 public class EnterpriseController {
     @Autowired
     EnterpriseService enterpriseService;
-    @ApiOperation(value = "企业用户登录",notes = "")
+    /*@ApiOperation(value = "企业用户登录",notes = "")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getEnterprise(@PathVariable String userName,@PathVariable String userPassword) {
@@ -33,7 +33,7 @@ public class EnterpriseController {
             f="登录失败";
         return f;
     }
-
+*/
     @ApiOperation(value = "创建企业",notes = "根据Enterprise对象创建Enterprise")
     @ResponseBody
     @RequestMapping(value = "/admin/enterprise", method = RequestMethod.POST)
