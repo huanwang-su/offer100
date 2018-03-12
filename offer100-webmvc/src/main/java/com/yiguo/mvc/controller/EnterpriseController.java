@@ -61,8 +61,8 @@ public class EnterpriseController {
     }
     @ApiOperation(value="更新Enterprise" + "详细信息", notes="根据url的id来指定更新对象，并根据传过来的Enterprise信息来更新企业详细信息")
     @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String putEnterprise(@PathVariable Integer id,@ModelAttribute Enterprise enterprise) {
+    @RequestMapping(value = "/putEnterprise", method = RequestMethod.PUT)
+    public String putEnterprise(@ModelAttribute Enterprise enterprise) {
         // 处理"/Zones/{id}"的PUT请求，用来更新Zone信息
         /*String f="修改成功";
         Enterprise enterprise1=new Enterprise();
@@ -73,7 +73,7 @@ public class EnterpriseController {
         return f;*/
 
 
-        if (enterpriseService.findById(id) > 0) {
+        if (enterpriseService.findById(enterprise.getId()) > 0) {
             int num = enterpriseService.updateByPrimaryKeySelective(enterprise);
             if (num > 0) {
                 return SUCCESS;
