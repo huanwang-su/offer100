@@ -74,6 +74,7 @@ public class ResumeController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String putResume(@PathVariable Integer id, @RequestBody Resume resume) {
         if(resumeService.findById(id) > 0) {
+            resume.setId(id);
             int num = resumeService.updateByPrimaryKeySelective(resume);
             if (num > 0) {
                 return SUCCESS;

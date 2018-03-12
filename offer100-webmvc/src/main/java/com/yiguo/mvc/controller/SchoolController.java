@@ -59,6 +59,7 @@ public class SchoolController {
     public String putSchool(@PathVariable Integer id, @RequestBody School school) {
         // 处理"/Schools/{id}"的PUT请求，用来更新School信息
         if (schoolService.findById(id) > 0) {
+            school.setId(id);
             int num = schoolService.updateByPrimaryKeySelective(school);
             if (num > 0) {
                 return SUCCESS;

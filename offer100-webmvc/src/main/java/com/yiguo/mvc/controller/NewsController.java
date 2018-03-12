@@ -64,6 +64,7 @@ public class NewsController {
     public String putNews(@PathVariable Integer id, @RequestBody News news) {
         //先判断该id是否存在，若存在，才能执行下一步更新操作
         if (newsService.findById(id) > 0) {
+            news.setId(id);
             int num = newsService.updateByPrimaryKeySelective(news);
             if (num > 0) {
                 return SUCCESS;

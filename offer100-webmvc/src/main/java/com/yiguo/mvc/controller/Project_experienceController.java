@@ -60,6 +60,7 @@ public class Project_experienceController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String putProjrctE(@PathVariable Integer id, @ModelAttribute Project_experience project_experience) {
         if (project_experienceService.findById(id) > 0) {
+            project_experience.setId(id);
             int num = project_experienceService.updateByPrimaryKeySelective(project_experience);
             if (num > 0) {
                 return SUCCESS;

@@ -61,6 +61,7 @@ public class EducationController {
 	public String putEducation(@PathVariable Integer id,@RequestBody Education education) {
 		// 处理"/Educations/{id}"的PUT请求，用来更新Education信息
 		if (educationService.findById(id) > 0) {
+			education.setId(id);
 			int num = educationService.updateByPrimaryKeySelective(education);
 			if (num > 0) {
 				return SUCCESS;

@@ -60,6 +60,7 @@ public class ReceiveController {
     public String putReceive(@PathVariable Integer id, @RequestBody Receive receive) {
         // 处理"/Receives/{id}"的PUT请求，用来更新Receive信息
         if (receiveService.findById(id) > 0) {
+            receive.setId(id);
             int num = receiveService.updateByPrimaryKeySelective(receive);
             if (num > 0) {
                 return SUCCESS;

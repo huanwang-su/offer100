@@ -64,6 +64,7 @@ public class NotificationController {
         //先判断该id是否存在，若存在，才能执行下一步更新操作
         if(notificationService.findById(id) > 0){
         //若该条记录存在，则执行更新操作
+            notification.setId(id);
             int num = notificationService.updateByPrimaryKeySelective(notification);
             if(num > 0) {
                 return SUCCESS;

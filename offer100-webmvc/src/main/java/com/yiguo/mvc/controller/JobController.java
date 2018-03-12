@@ -62,6 +62,7 @@ public class JobController {
     public String putJob(@PathVariable Integer id,@RequestBody Job job) {
         /* 处理"/Zones/{id}"的PUT请求，用来更新Zone信息 */
         if (jobService.findById(id) > 0) {
+            job.setId(id);
             int num =jobService.updateByPrimaryKeySelective(job);
             if (num > 0) {
                 return SUCCESS;

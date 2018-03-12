@@ -51,11 +51,11 @@ public class UserServiceTest extends  BaseServiceTest{
 
     }
     @Test
-    @Ignore
+
     public void updateKey(){
       User user=new User();
-      user.setId(21);
-    user.setAge(22);
+      user.setId(11);
+    user.setUsername("String");
       userService.updateByPrimaryKeySelective(user);
     }
 

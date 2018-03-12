@@ -77,6 +77,7 @@ public class ConfigurationController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String putConfiguration(@PathVariable Integer id, @ModelAttribute Configuration configuration) {
         if (configurationService.findById(id) > 0){
+            configuration.setId(id);
         int num = configurationService.updateByPrimaryKeySelective(configuration);
         if(num > 0) {
             return SUCCESS;

@@ -62,6 +62,7 @@ public class BulletinController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public String putBulletin(@PathVariable Integer id, @ModelAttribute Bulletin bulletin) {
 		if (bulletionService.findById(id) > 0) {
+			bulletin.setId(id);
 			int num = bulletionService.updateByPrimaryKeySelective(bulletin);
 			if (num > 0) {
 				return SUCCESS;

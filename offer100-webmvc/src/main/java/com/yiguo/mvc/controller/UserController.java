@@ -67,6 +67,7 @@ public class UserController {
         //user.setId(id);
 
         if(userService.findById(id) > 0) {
+            user.setId(id);
             int num = userService.updateByPrimaryKeySelective(user);
             if (num > 0) {
                 return SUCCESS;

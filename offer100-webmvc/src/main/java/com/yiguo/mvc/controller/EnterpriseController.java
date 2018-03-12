@@ -74,6 +74,7 @@ public class EnterpriseController {
 
 
         if (enterpriseService.findById(id) > 0) {
+            enterprise.setId(id);
             int num = enterpriseService.updateByPrimaryKeySelective(enterprise);
             if (num > 0) {
                 return SUCCESS;

@@ -60,6 +60,7 @@ public class ZoneController {
     public String putZone(@PathVariable Integer id, @RequestBody Zone zone) {
         // 处理"/Zones/{id}"的PUT请求，用来更新Zone信息
         if (zoneService.findById(id) > 0) {
+            zone.setId(id);
             int num = zoneService.updateByPrimaryKeySelective(zone);
             if (num > 0) {
                 return SUCCESS;
