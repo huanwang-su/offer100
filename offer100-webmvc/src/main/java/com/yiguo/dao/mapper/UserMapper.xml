@@ -390,4 +390,5 @@
     WHERE
     id  = #{id,jdbcType=INTEGER}
   </select>
+  
 </mapper>
