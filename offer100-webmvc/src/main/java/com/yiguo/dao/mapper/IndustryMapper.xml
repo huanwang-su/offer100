@@ -169,22 +169,22 @@
 		FROM industry
 		WHERE 1=1
 		<if test="name != null">
-			name = #{name,jdbcType=VARCHAR},
+			and name = #{name,jdbcType=VARCHAR}
 		</if>
 		<if test="description != null">
-			description = #{description,jdbcType=VARCHAR},
+			and description = #{description,jdbcType=VARCHAR}
 		</if>
 		<if test="parentId != null">
-			parent_id = #{parentId,jdbcType=INTEGER},
+			and parent_id = #{parentId,jdbcType=INTEGER}
 		</if>
 		<if test="level != null">
-			level = #{level,jdbcType=TINYINT},
+			and level = #{level,jdbcType=TINYINT}
 		</if>
 		<if test="createTime != null">
-			create_time = #{createTime,jdbcType=TIMESTAMP},
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP},
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
 		</if>
 	</select>
 	<!-- 分页查詢 -->
@@ -193,22 +193,22 @@
 		FROM industry
 		WHERE 1=1
 		<if test="name != null">
-			name = #{name,jdbcType=VARCHAR},
+			and name = #{name,jdbcType=VARCHAR}
 		</if>
 		<if test="description != null">
-			description = #{description,jdbcType=VARCHAR},
+			and description = #{description,jdbcType=VARCHAR}
 		</if>
 		<if test="parentId != null">
-			parent_id = #{parentId,jdbcType=INTEGER},
+			and parent_id = #{parentId,jdbcType=INTEGER}
 		</if>
 		<if test="level != null">
-			level = #{level,jdbcType=TINYINT},
+			and level = #{level,jdbcType=TINYINT}
 		</if>
 		<if test="createTime != null">
-			create_time = #{createTime,jdbcType=TIMESTAMP},
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP},
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="start != null and pageSize!=null">
 			limit #{start},#{pageSize}
