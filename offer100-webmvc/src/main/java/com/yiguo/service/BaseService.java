@@ -41,7 +41,7 @@ public interface BaseService<ID, T> {
 
 	// 统计查询的数量
 	int selectCount(T record);
-
+	int findById(ID id);
 	// 分页查询处理
 	List<T> select(T record, Page page);
 

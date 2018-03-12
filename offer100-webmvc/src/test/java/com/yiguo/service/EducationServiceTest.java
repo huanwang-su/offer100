@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+
 /**
  * Created by liyue on 2018/3/2.
  */
@@ -33,12 +36,19 @@ public class EducationServiceTest extends BaseServiceTest {
 
      }
     @Test
-  @Ignore
+
     public void updateSchool(){
         Education education=new Education();
-        education.setId(1);
-        education.setSchoolTitle("巴巴爸爸爸爸");
-        educationService.updateByPrimaryKeySelective(education);
+        education.setId(4);
+        education.setSchoolTitle("巴巴爸爸");
+        if (educationService.findById(education.getId()) > 0) {
+            int num = educationService.updateByPrimaryKeySelective(education);
+            if (num > 0) {
+               System.out.print("+++++++++++++++++++++++++");
+            } else
+                System.out.print("_____________________________");
+        }
+
     }
     @Test
   @Ignore

@@ -6,5 +6,5 @@ public interface EnterpriseService extends BaseService<Integer, Enterprise> {
    Enterprise selectByIds(String userName,String userPassword);
    Enterprise findByUsername(String username);
 
-   int findById(Integer id);
+
 }
