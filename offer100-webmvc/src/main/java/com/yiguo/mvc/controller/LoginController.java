@@ -67,12 +67,10 @@ public class LoginController {
 			{
 				if(!user.getPassword().equals(loginInfo.get("password").toString())) {
 					f = "用户名或者密码不对";
-
 					m.put("msg",f);
 				}
 				else if(user.getState()==0) {
 					f = "此用户已经被封，不可用";
-
 					m.put("msg",f);
 				}
 			}
@@ -137,7 +135,7 @@ public class LoginController {
 		userService.deleteByPrimaryKey(user.getId());
 		if(userService.selectByPrimaryKey(user.getId())!=null) {
 			f = FAILURE;
-		};
+		}
 		return f;
 	}
 

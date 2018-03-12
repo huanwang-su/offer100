@@ -29,7 +29,9 @@ public abstract class AbstractBaseServiceImpl<ID, T> {
 		}
 		return getDao().select(ReflectUtil.generalMap(record, page));
 	}
-
+	public int findById(ID id){
+		return getDao().findById(id);
+	}
 	// 插入设置，调用dao层函数
 	public int insert(T record) {
 		return getDao().insert(record);

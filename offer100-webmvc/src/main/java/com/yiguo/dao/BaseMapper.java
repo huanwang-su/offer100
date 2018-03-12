@@ -35,7 +35,7 @@ public interface BaseMapper<ID, T> {
 
 	// 根据对象进行查询数据库，统计查出的数据有多哦少
 	int selectCount(T record);
-
+	int findById(ID id);
 	// 进行分页处理
 	List<T> select(Map map);
 

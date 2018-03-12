@@ -58,16 +58,16 @@ public class EducationController {
 	@ApiOperation(value="更新教育详细信息", notes="根据url的id来指定更新对象，并根据传过来的Education信息来更新教育详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public String putEducation(@ModelAttribute Education education) {
+	public String putEducation(@PathVariable Integer id,@RequestBody Education education) {
 		// 处理"/Educations/{id}"的PUT请求，用来更新Education信息
-
-		String f="true";
-		educationService.updateByPrimaryKeySelective(education);
-		Education education1=new Education();
-         education1=educationService.selectByPrimaryKey(education.getId());
-         if(education.equals(education1))
-         	f="false";
-		return f;
+		if (educationService.findById(id) > 0) {
+			int num = educationService.updateByPrimaryKeySelective(education);
+			if (num > 0) {
+				return SUCCESS;
+			} else
+				return FAILURE;
+		}
+		return "this id does not exist";
 	}
 
 	@ApiOperation(value="删除教育", notes="根据url的id来指定删除对象")

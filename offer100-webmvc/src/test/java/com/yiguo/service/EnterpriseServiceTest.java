@@ -14,6 +14,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
+import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
+
 /**
  * Created by liyue on 2018/3/2.
  */
@@ -51,18 +54,17 @@ public class EnterpriseServiceTest extends BaseServiceTest {
      System.out.print(f);
      }
     @Test
-      @Ignore
     public void updateZone(){
-        String f="修改成功";
-        Enterprise enterprise=new Enterprise();
-        Enterprise enterprise1=new Enterprise();
-        enterprise.setId(8);
-        enterprise.setDescription("我叫李越");
-        enterpriseService.updateByPrimaryKeySelective(enterprise);
-        enterprise1=enterpriseService.selectByPrimaryKey(8);
-        if(enterprise.equals(enterprise1))
-            f="未修改成功";
-        System.out.print(f);
+         Enterprise enterprise=new Enterprise();
+         enterprise.setId(2);
+         enterprise.setDescription("我爱张舒雯");
+        if (enterpriseService.findById(enterprise.getId()) > 0) {
+            int num = enterpriseService.updateByPrimaryKeySelective(enterprise);
+            if (num > 0) {
+                System.out.print("++++++++++++++++++++++++++++++++");
+            } else
+                System.out.print("_________________________________");
+        }
         }
 
 
