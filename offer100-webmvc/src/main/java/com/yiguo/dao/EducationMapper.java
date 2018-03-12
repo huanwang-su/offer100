@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface EducationMapper extends BaseMapper<Integer, Education> {
     int selectByIds(Integer userId);
+
+
 }

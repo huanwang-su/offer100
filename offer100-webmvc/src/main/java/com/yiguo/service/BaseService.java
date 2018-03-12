@@ -46,4 +46,6 @@ public interface BaseService<ID, T> {
 	List<T> select(T record, Page page);
 
 	int selectByName(String name);
+
+	T findAll();
 }

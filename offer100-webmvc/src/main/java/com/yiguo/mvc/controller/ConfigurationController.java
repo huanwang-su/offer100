@@ -51,12 +51,18 @@ public class ConfigurationController {
     @ApiOperation(value="根据id获取配置详细信息", notes="根据url的id来获取配置详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Configuration getConfigurationById(@PathVariable Integer id) {
+    public Object getConfigurationById(@PathVariable Integer id) {
         // 处理"/configuration/{id}"的GET请求，用来获取url中id值的User信息
         // url中的id可通过@PathVariable绑定到函数的参数中
-        Configuration configuration=new Configuration();
-        configuration=configurationService.selectByPrimaryKey(id);
-        return configuration;
+        if( configurationService.findById(id) > 0) {
+
+
+            Configuration configuration = new Configuration();
+            configuration = configurationService.selectByPrimaryKey(id);
+            return configuration;
+
+        }
+        return "this id does not exist";
     }
 
    
@@ -64,12 +70,18 @@ public class ConfigurationController {
     @ResponseBody
     @RequestMapping(value = "/type/{type}" , method = RequestMethod.GET)
     //需要添加/type,否则运行时服务器不能正确辨别是本函数的url还是getConfigurationById方法的url
-    public Configuration getConfigurationByType(@PathVariable String type){
-        Configuration configuration=new Configuration();
-       // System.out.println("123");
-        configuration=configurationService.selectByType(type);
-        System.out.println(configuration.getValue());
-        return configuration;
+    public Object getConfigurationByType(@PathVariable String type){
+
+        if(configurationService.FindByType(type) > 0) {
+
+            Configuration configuration = new Configuration();
+            // System.out.println("123");
+            configuration = configurationService.selectByType(type);
+            System.out.println(configuration.getValue());
+            return configuration;
+
+        }
+        return "this type does not exist";
     }
 
     @ApiOperation(value="更新配置详细信息", notes="根据url的id来指定更新对象，并根据传过来的configuration信息来更新用户详细信息")

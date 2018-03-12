@@ -254,4 +254,31 @@
 		WHERE
 		id  = #{id,jdbcType=INTEGER}
 	</select>
+
+
+	<!-- 查询数据 -->
+	<select id="findAll" parameterType="com.yiguo.bean.Education"
+			resultMap="BaseResultMap">
+		select *
+		from education
+		WHERE 1=1
+		<if test="questionId != null">
+			and question_id = #{question_id,jdbcType=INTEGER}
+		</if>
+		<if test="userId != null">
+			and user_id = #{userId,jdbcType=INTEGER}
+		</if>
+		<if test="userName != null">
+			and user_name = #{userName,jdbcType=VARCHAR}
+		</if>
+		<if test="startTime != null">
+			and start_time = #{startTime,jdbcType=INTEGER}
+		</if>
+		<if test="endTime != null">
+			and end_time = #{endTime,jdbcType=INTEGER}
+		</if>
+		<if test="schoolTitle != null">
+			and school_title = #{schoolTitle,jdbcType=VARCHAR}
+		</if>
+	</select>
 </mapper>
