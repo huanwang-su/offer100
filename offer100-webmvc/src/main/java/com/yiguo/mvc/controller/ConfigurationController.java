@@ -48,10 +48,10 @@ public class ConfigurationController {
     }
 
 
-    @ApiOperation(value="根据id获取配置", notes="根据url的id来获取配置详细信息")
+    @ApiOperation(value="查询配置（id）", notes="根据url的id来获取配置详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Object getConfiguration(@PathVariable Integer id) {
+    public Object getConfiguration(@RequestParam Integer id) {
         // 处理"/configuration/{id}"的GET请求，用来获取url中id值的User信息
         // url中的id可通过@PathVariable绑定到函数的参数中
         if( configurationService.findById(id) > 0) {
@@ -70,7 +70,7 @@ public class ConfigurationController {
     @ResponseBody
     @RequestMapping(value = "/{type}" , method = RequestMethod.GET)
     //需要添加/type,否则运行时服务器不能正确辨别是本函数的url还是getConfigurationById方法的url
-    public Object getConfigurationByType(@PathVariable String type){
+    public Object getConfigurationByType(@RequestParam String type){
 
         if(configurationService.FindByType(type) > 0) {
 

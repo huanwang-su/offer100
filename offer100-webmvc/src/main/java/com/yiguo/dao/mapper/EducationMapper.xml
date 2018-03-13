@@ -7,6 +7,8 @@
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="user_id" property="userId" jdbcType="INTEGER" />
 		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="stage" property="stage" jdbcType="INTEGER" />
+		<result column="note" property="note" jdbcType="VARCHAR" />
 		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
 		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
 		<result column="school_title" property="schoolTitle" jdbcType="VARCHAR" />
@@ -15,11 +17,11 @@
 	</resultMap>
 	<!-- sql语句，调用now函数 -->
 	<sql id="insert">
-		insert into education ( user_id, user_name,
+		insert into education ( user_id, user_name,stage,note,
 		start_time, end_time, school_title,
 		creat_time, update_time)
 		values ( #{userId,jdbcType=INTEGER},
-		#{userName,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR},#{stage,jdbcType=INTEGER},#{note,jdbcType=VARCHAR},
 		#{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{schoolTitle,jdbcType=VARCHAR},
 		now(), now())
 
@@ -39,6 +41,16 @@
 		<if test="userName != null">
 			and user_name = #{userName,jdbcType=VARCHAR}
 		</if>
+
+
+		<if test="stage != null">
+			and stage = #{stage,jdbcType=INTEGER}
+		</if>
+		<if test="note != null">
+			and note = #{note,jdbcType=VARCHAR}
+		</if>
+
+
 		<if test="startTime != null">
 			and start_time = #{startTime,jdbcType=INTEGER}
 		</if>

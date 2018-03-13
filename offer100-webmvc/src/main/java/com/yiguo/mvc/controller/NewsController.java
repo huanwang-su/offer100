@@ -2,6 +2,7 @@ package com.yiguo.mvc.controller;
 
 import com.yiguo.bean.News;
 import com.yiguo.bean.Page;
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.NewsService;
 import com.yiguo.service.NewsService;
 import io.swagger.annotations.Api;
@@ -20,19 +21,27 @@ import static com.alibaba.dubbo.monitor.MonitorService.*;
 public class NewsController {
     @Autowired
     NewsService newsService;
-    @ApiOperation(value = "获取咨询列表",notes = "获取所有咨询列表，加入了分页")
+    @ApiOperation(value = "获取咨询列表",notes = "获取所有咨询列表，并且进行分页处理")
     @ResponseBody
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<News> getNewsList(@RequestParam(required = false) Integer has,@RequestParam(required = false) Integer next) {
-        if (has==null)
-            has = 0;
-        if (next==null)
-            next= 5;
-        Page page=new Page();
-        page.setStart(has);
-        page.setPageSize(next);
-        List<News> r = newsService.select(new News(),page);
-        return r;
+    @RequestMapping(value = "getNewsList", method = RequestMethod.GET)
+    public PageInfo<News> getNewsList(@RequestParam Integer pageSize,
+                                  @RequestParam Integer pageNumber) {
+
+        News news = new News();
+        PageInfo<News> pageinfo=new PageInfo<News>();
+        pageinfo.setPageNum(pageNumber);
+        pageinfo.setPageSize(pageSize);
+
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
+
+        pageinfo.setRows( newsService.select(news,page));
+        int count=newsService.selectCount(news);
+        pageinfo.setTotal(count);
+
+
+        return pageinfo;
     }
 
     @ApiOperation(value = "创建咨询信息",notes = "根据news对象创建news")
@@ -53,7 +62,7 @@ public class NewsController {
     @ApiOperation(value="根据id获取咨询详细信息", notes="根据url的id来获取通知详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public News getNews(@PathVariable Integer id) {
+    public News getNews(@RequestParam Integer id) {
 
         News news = new News();
         return newsService.selectByPrimaryKey(id);

@@ -34,6 +34,7 @@ public class BulletinController {
 		PageInfo<Bulletin> pageinfo=new PageInfo<Bulletin>();
 		pageinfo.setPageNum(pageNumber);
 		pageinfo.setPageSize(pageSize);
+
 		Page page= new Page();
 		page.setPageNumber(pageNumber);
 		page.setPageSize(pageSize);
@@ -46,7 +47,6 @@ public class BulletinController {
 
 	@ApiOperation(value = "创建公告",notes = "根据bulletin对象创建bulletin，创建一条新的公告")
 	@ResponseBody
-
 	@RequestMapping(value = "/buildBulletin", method = RequestMethod.POST)
 	public String buildBulletin(@RequestBody Bulletin bulletin) {
 		String f=FAILURE;
@@ -63,7 +63,7 @@ public class BulletinController {
 	@ApiOperation(value="根据id获取公告", notes="根据url的id来获取公告详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Bulletin getBulletin(@PathVariable Integer id) {
+	public Bulletin getBulletin(@RequestParam Integer id) {
 
 		Bulletin bulletin=new Bulletin();
 		bulletin=bulletionService.selectByPrimaryKey(id);
@@ -73,7 +73,7 @@ public class BulletinController {
 	@ApiOperation(value="更新公告", notes="根据url的id来指定更新对象，并根据传过来的bulletin信息来更新用户详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public String updateBulletin(@PathVariable Integer id, @RequestBody Bulletin bulletin) {
+	public String updateBulletin(@RequestParam Integer id, @RequestBody Bulletin bulletin) {
 		if (bulletionService.findById(id) > 0) {
 			bulletin.setId(id);
 			int num = bulletionService.updateByPrimaryKeySelective(bulletin);

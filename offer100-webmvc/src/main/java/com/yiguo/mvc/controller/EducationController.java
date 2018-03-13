@@ -54,7 +54,7 @@ public class EducationController {
 	@ApiOperation(value="获取教育详细信息", notes="根据url的id来获取教育详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Education getEducation(@PathVariable Integer id) {
+	public Education getEducation(@RequestParam Integer id) {
 		// 处理"/Educations/{id}"的GET请求，用来获取url中id值的Education信息
 		// url中的id可通过@PathVariable绑定到函数的参数中
 		Education Education=new Education();

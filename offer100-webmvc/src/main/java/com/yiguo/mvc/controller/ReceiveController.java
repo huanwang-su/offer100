@@ -48,7 +48,7 @@ public class ReceiveController {
     @ApiOperation(value="获取收藏详细信息", notes="根据url的id来获取收藏详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public PageInfo<Receive> getReceive(@PathVariable Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+    public PageInfo<Receive> getReceive(@RequestParam Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
         // 处理"/Receives/{id}"的GET请求，用来获取url中id值的Receive信息
         // url中的id可通过@PathVariable绑定到函数的参数中
      Receive receive =new Receive();

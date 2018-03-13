@@ -25,7 +25,7 @@ public class Project_experienceController {
     @ApiOperation(value = "获取id项目经验列表",notes = "根据传入的用户id获得用户所有经验，加入了分页")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public PageInfo<Project_experience> getProjectEList(@PathVariable Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+    public PageInfo<Project_experience> getProjectEList(@RequestParam Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
         Project_experience project_experience =new Project_experience();
         PageInfo<Project_experience> pageinfo=new PageInfo<Project_experience>();
         pageinfo.setPageNum(pageNumber);

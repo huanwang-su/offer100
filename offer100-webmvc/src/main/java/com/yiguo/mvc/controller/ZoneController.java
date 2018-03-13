@@ -48,7 +48,7 @@ public class ZoneController {
     @ApiOperation(value="获取地区详细信息", notes="根据url的id来获取地区详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method ={RequestMethod.GET})
-    public Zone getZone(@PathVariable Integer id ) {
+    public Zone getZone(@RequestParam Integer id ) {
         // 处理"/Zones/{id}"的GET请求，用来获取url中id值的Zone信息
         // url中的id可通过@PathVariable绑定到函数的参数中
         return zoneService.selectByPrimaryKey(id);

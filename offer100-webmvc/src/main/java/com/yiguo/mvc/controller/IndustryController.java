@@ -34,7 +34,9 @@ public class IndustryController {
     @RequestMapping(value="/getParentId/{id}",method=RequestMethod.GET)
     @ApiOperation(value = "根据父id找行业",notes = "通过传入的父id值进行找子行业")
     @ResponseBody
-    public PageInfo<Industry> getParentId(@PathVariable Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+    public PageInfo<Industry> getParentId(@RequestParam Integer id,
+                                          @RequestParam Integer pageSize,
+                                          @RequestParam Integer pageNumber) {
 
     PageInfo<Industry> pageinfo =new PageInfo<Industry>();
     Industry industry = new Industry();
@@ -51,7 +53,7 @@ public class IndustryController {
     @RequestMapping(value="/{id}",method=RequestMethod.GET)
     @ApiOperation(value = "通过id找到行业详细信息",notes = "通过传入的id值，找到行业详细信息")
     @ResponseBody
-    public Object getIndustry(@PathVariable Integer id) {
+    public Object getIndustry(@RequestParam Integer id) {
 
       String key=FAILURE;
       Industry industry =industryService.selectByPrimaryKey(id);
