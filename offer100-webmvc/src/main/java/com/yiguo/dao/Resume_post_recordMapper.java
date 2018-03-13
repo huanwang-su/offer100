@@ -16,6 +16,6 @@ public interface Resume_post_recordMapper extends BaseMapper<Integer, Resume_pos
 	int selectjob1(Integer enterpriseId);
 
 	int findByResumeId(Integer resumeId);
-	List<Map> selectBy(String title,Integer enterpriseId,Integer userId,Integer state);
+	List<Map> selectBy(String title,Integer enterpriseId,Integer userId,Integer state,Integer start,Integer size);
 	int selectCounts(String title,Integer enterpriseId,Integer userId,Integer state);
 }

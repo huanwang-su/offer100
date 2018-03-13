@@ -37,8 +37,8 @@ public class Resume_post_recordServiceImpl extends AbstractBaseServiceImpl<Integ
 	}
 
 	@Override
-	public List<Map> selectBy(String title, Integer enterpriseId,Integer userId, Integer state) {
-		return dao.selectBy(title,enterpriseId,userId,state);
+	public List<Map> selectBy(String title, Integer enterpriseId,Integer userId, Integer state,Integer start,Integer size) {
+		return dao.selectBy(title,enterpriseId,userId,state,start,size);
 	}
 
 	@Override

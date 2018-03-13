@@ -238,31 +238,25 @@
 		FROM education
 		WHERE 1=1
 		<if test="userId != null">
-			user_id = #{userId,jdbcType=INTEGER},
+			and user_id = #{userId,jdbcType=INTEGER}
 		</if>
 		<if test="userName != null">
-			user_name = #{userName,jdbcType=VARCHAR},
+			and user_name = #{userName,jdbcType=VARCHAR}
 		</if>
 		<if test="stage != null">
-			stage = #{stage,jdbcType=INTEGER},
+			and stage = #{stage,jdbcType=INTEGER}
 		</if>
 		<if test="note != null">
-			note = #{note,jdbcType=VARCHAR},
+			and note = #{note,jdbcType=VARCHAR}
 		</if>
 		<if test="startTime != null">
-			start_time = #{startTime,jdbcType=TIMESTAMP},
+			and start_time = #{startTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="endTime != null">
-			end_time = #{endTime,jdbcType=TIMESTAMP},
+			and end_time = #{endTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="schoolTitle != null">
-			school_title = #{schoolTitle,jdbcType=VARCHAR},
-		</if>
-		<if test="creatTime != null">
-			creat_time = #{creatTime,jdbcType=TIMESTAMP},
-		</if>
-		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP},
+			and school_title = #{schoolTitle,jdbcType=VARCHAR}
 		</if>
 	</select>
 
@@ -272,31 +266,25 @@
 		FROM education
 		WHERE 1=1
 		<if test="userId != null">
-			user_id = #{userId,jdbcType=INTEGER},
+			and user_id = #{userId,jdbcType=INTEGER}
 		</if>
 		<if test="userName != null">
-			user_name = #{userName,jdbcType=VARCHAR},
+			and user_name = #{userName,jdbcType=VARCHAR}
 		</if>
 		<if test="stage != null">
-			stage = #{stage,jdbcType=INTEGER},
+			and stage = #{stage,jdbcType=INTEGER}
 		</if>
 		<if test="note != null">
-			note = #{note,jdbcType=VARCHAR},
+			and note = #{note,jdbcType=VARCHAR}
 		</if>
 		<if test="startTime != null">
-			start_time = #{startTime,jdbcType=TIMESTAMP},
+			and start_time = #{startTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="endTime != null">
-			end_time = #{endTime,jdbcType=TIMESTAMP},
+			and end_time = #{endTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="schoolTitle != null">
-			school_title = #{schoolTitle,jdbcType=VARCHAR},
-		</if>
-		<if test="creatTime != null">
-			creat_time = #{creatTime,jdbcType=TIMESTAMP},
-		</if>
-		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP},
+			and school_title = #{schoolTitle,jdbcType=VARCHAR}
 		</if>
 		<if test="start != null and pageSize!=null">
 			limit #{start},#{pageSize}

@@ -31,7 +31,7 @@ public class Resume_post_recordServiceTest extends BaseServiceTest {
         Page page = new Page();
         page.setPageNumber(0);
         page.setPageSize(30);
-        pageinfo.setRows(resume_post_recordService.selectBy(title, enterpriseId, 1, state));
+//        pageinfo.setRows(resume_post_recordService.selectBy(title, enterpriseId, 1, state));
         int count = resume_post_recordService.selectCounts(title, enterpriseId, 1, state);
         pageinfo.setTotal(page.getTotal());
         System.out.println(count);

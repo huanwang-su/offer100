@@ -1,29 +1,29 @@
 package com.yiguo.serviceImpl;
 
-import com.yiguo.bean.Project_experience;
+import com.yiguo.bean.ProjectExperience;
 import com.yiguo.dao.BaseMapper;
-import com.yiguo.dao.Project_experienceMapper;
-import com.yiguo.service.Project_experienceService;
+import com.yiguo.dao.ProjectExperienceMapper;
+import com.yiguo.service.ProjectExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service("Project_experience")
+@Service("ProjectExperience")
 @Transactional
-public class Project_experienceServiceImpl extends AbstractBaseServiceImpl<Integer, Project_experience> implements Project_experienceService {
+public class Project_experienceServiceImpl extends AbstractBaseServiceImpl<Integer, ProjectExperience> implements ProjectExperienceService {
     @Autowired
-    Project_experienceMapper dao;
+    ProjectExperienceMapper dao;
 
     @Override
-    public BaseMapper<Integer, Project_experience> getDao() {
+    public BaseMapper<Integer, ProjectExperience> getDao() {
         // TODO Auto-generated method stub
         return dao;
     }
 
     @Override
-    public List<Project_experience> getAll() {
+    public List<ProjectExperience> getAll() {
         return dao.query();
     }
 

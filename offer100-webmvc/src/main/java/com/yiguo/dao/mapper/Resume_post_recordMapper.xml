@@ -48,7 +48,8 @@
             and state= #{arg3}
         </if>) p
         on j_id = p.job_id
-        JOIN resume r on p.resume_id = r.id;
+        JOIN resume r on p.resume_id = r.id
+        limit #{arg4},#{arg5}
     </select>
 
     <select id="selectCounts" resultType="java.lang.Integer">

@@ -1,6 +1,8 @@
 package com.yiguo.mvc.controller;
 
 import com.yiguo.bean.Education;
+import com.yiguo.bean.Page;
+import com.yiguo.exception.ApiException;
 import com.yiguo.service.EducationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -52,15 +54,18 @@ public class EducationController {
 		return f;
 	}
 
-	@ApiOperation(value="查询教育经历", notes="根据url的id来获取教育详细信息")
+	@ApiOperation(value="查询教育经历", notes="根据条件获取教育详细信息")
 	@ResponseBody
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Education getEducation(@PathVariable Integer id) {
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public List<Education> getEducation(@ModelAttribute() Education education) {
 		// 处理"/Educations/{id}"的GET请求，用来获取url中id值的Education信息
 		// url中的id可通过@PathVariable绑定到函数的参数中
-		Education Education=new Education();
-		Education=educationService.selectByPrimaryKey(id);
-		return Education;
+		if(education==null)
+			throw new ApiException("筛选条件不能为null");
+		Page page = new Page();
+		page.setPageNumber(1);
+		page.setPageSize(99);
+		return educationService.select(education,page);
 	}
 
 	@ApiOperation(value="更新教育经历", notes="根据url的id来指定更新对象，并根据传过来的Education信息来更新教育详细信息")

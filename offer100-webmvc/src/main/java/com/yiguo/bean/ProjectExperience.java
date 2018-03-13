@@ -2,7 +2,7 @@ package com.yiguo.bean;
 
 import java.util.Date;
 
-public class Project_experience {
+public class ProjectExperience {
 
     private Integer id;
 
@@ -106,7 +106,7 @@ public class Project_experience {
 
     @Override
     public String toString() {
-        return "Project_experience{" +
+        return "ProjectExperience{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", job='" + job + '\'' +

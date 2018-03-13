@@ -29,37 +29,34 @@ public class ReceiveController {
     ReceiveService receiveService;
 
 
-
-    @ApiOperation(value = "创建收藏",notes = "根据Receive对象创建Receive")
-  @ResponseBody
+    @ApiOperation(value = "创建收藏", notes = "根据Receive对象创建Receive")
+    @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String buildReceive(@RequestBody Receive receive) {
         // 处理"/Receives/"的POST请求，用来创建Receive
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
-        String f="false";
-        Integer count=  receiveService.selectByIds(receive);
-        if(count==0) {
+        String f = "false";
+        Integer count = receiveService.selectByIds(receive);
+        if (count == 0) {
             receiveService.insert(receive);
-            f="true";
+            f = "true";
         }
         return f;
     }
 
-    @ApiOperation(value="获取收藏信息列表（id）", notes="根据url的id来获取收藏详细信息")
+    @ApiOperation(value = "获取收藏信息列表", notes = "根据筛选条件获取收藏详细信息")
     @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public PageInfo<Receive> getReceive(@PathVariable Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public PageInfo<Receive> getReceive(@ModelAttribute Receive receive, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
         // 处理"/Receives/{id}"的GET请求，用来获取url中id值的Receive信息
         // url中的id可通过@PathVariable绑定到函数的参数中
-     Receive receive =new Receive();
-     receive.setUserId(id);
-        Page page= new Page();
+        Page page = new Page();
         page.setPageNumber(pageNumber);
         page.setPageSize(pageSize);
-     PageInfo<Receive> pageInfo=new PageInfo<Receive>();
-     pageInfo.setRows(receiveService.select(receive,page));
-     pageInfo.setTotal(receiveService.selectCount(receive));
-     return pageInfo;
+        PageInfo<Receive> pageInfo = new PageInfo<Receive>();
+        pageInfo.setRows(receiveService.select(receive, page));
+        pageInfo.setTotal(receiveService.selectCount(receive));
+        return pageInfo;
 
     }
 
@@ -79,15 +76,15 @@ public class ReceiveController {
         return "this id does not exist";
     }*/
 
-    @ApiOperation(value="删除收藏信息", notes="根据url的id来指定删除对象")
+    @ApiOperation(value = "删除收藏信息", notes = "根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteReceive(@PathVariable Integer id) {
         // 处理"/Receives/{id}"的DELETE请求，用来删除Receive
         receiveService.deleteByPrimaryKey(id);
-        String f="true";
-        if(receiveService.selectByPrimaryKey(id)!=null)
-            f="false";
+        String f = "true";
+        if (receiveService.selectByPrimaryKey(id) != null)
+            f = "false";
         return f;
     }
 

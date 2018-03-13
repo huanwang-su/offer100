@@ -95,7 +95,7 @@ public class NotificationController {
     @ApiOperation(value = "获取通知列表",notes = "查询得出通知，加入了分页")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public PageInfo<Notification> selectNotifivation(@RequestParam(required = false) Notification notification, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+    public PageInfo<Notification> selectNotifivation(@ModelAttribute() Notification notification, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递=
         notification = notification==null?new Notification():notification;
