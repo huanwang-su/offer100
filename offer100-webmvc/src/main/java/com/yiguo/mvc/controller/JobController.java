@@ -34,21 +34,24 @@ public class JobController {
     public String postJob(@RequestBody Job job) {
         // 处理"/Zones/"的POST请求，用来创建Zone
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
-        String f="false";
+        String f=FAILURE;
         Enterprise enterprise= enterpriseService.selectByPrimaryKey(job.getEnterpriseId());
         if(enterprise!=null) {
-            org.springframework.beans.BeanUtils.copyProperties(enterprise, job);
             Integer count = jobService.selectByIds(job);
             if (count == 0) {
                 jobService.insert(job);
+                return SUCCESS;
             }
             else{
-                f="发布岗位失败，已经存在该岗位，不需要重新发布";
+                f="this id have exist";
+                return f;
             }
         }
-        else
-            f="您未注册，请先注册";
+        else {
+            f = "you don't have id";
         return f;
+        }
+
     }
 
     @ApiOperation(value="查询岗位信息", notes="根据url的id来获取岗位详细信息")
