@@ -17,13 +17,15 @@ public class IndustryVO {
 
     private String name;
 
+    private String label;
+
     private String description;
 
     private Integer parentId;
 
     private Integer level;
 
-    private List<IndustryVO> chird;
+    private List<IndustryVO> children;
 
     public Integer getId() {
         return id;
@@ -34,6 +36,10 @@ public class IndustryVO {
     }
 
     public String getName() {
+        return name;
+    }
+
+    public String getLabel() {
         return name;
     }
 
@@ -65,17 +71,17 @@ public class IndustryVO {
         this.level = level;
     }
 
-    public List<IndustryVO> getChird() {
-        return chird;
+    public List<IndustryVO> getchildren() {
+        return children;
     }
 
-    public void setChird(List<IndustryVO> chird) {
-        this.chird = chird;
+    public void setChildren(List<IndustryVO> children) {
+        this.children = children;
     }
 
     @Override
     public String toString() {
-        return "IndustryVO [id=" + id + ", name=" + name + ", chird=" + chird + "]";
+        return "IndustryVO [id=" + id + ", name=" + name + ", children=" + children + "]";
     }
 
 }

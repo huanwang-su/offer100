@@ -93,7 +93,7 @@ public class SearchJobServiceTest extends BaseServiceTest {
     public void testSolr() {
         Page page=new Page();
         page.setPageNumber(1);
-        page.setPageSize(37);
+        page.setPageSize(43);
         List<Job> jobs = jobService.select(new Job(),page);
         List<SearchJob> searchJobList = new ArrayList<>();
         jobs.forEach(job -> {
@@ -104,7 +104,7 @@ public class SearchJobServiceTest extends BaseServiceTest {
     @Test
     @Ignore
     public void selectJob() {
-        int pageSize=30;
+        int pageSize=99;
         int pageNumber =0;
         Job job=new Job();
         job.setEnterpriseId(1);

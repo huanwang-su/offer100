@@ -61,7 +61,7 @@ public class JobServiceImpl extends AbstractBaseServiceImpl<Integer, Job> implem
                         industrys.forEach(indu -> categorys.add(indu.getName()));
                     }));
             Optional.ofNullable(src.getZoneId()).ifPresent(id -> Optional.ofNullable(zoneService.getLevelZone(id, 2))
-                    .ifPresent(zone -> dest.setZone(zone.getName()+zone.getName().substring(0,zone.getName().length()-1))));
+                    .ifPresent(zone -> dest.setZone(zone.getName())));
             Optional.ofNullable(src.getEnterpriseId()).ifPresent(id -> Optional.ofNullable(enterpriseService.selectByPrimaryKey(id))
                     .ifPresent(enterprise -> {
                         dest.setEnterprise(enterprise.getName());

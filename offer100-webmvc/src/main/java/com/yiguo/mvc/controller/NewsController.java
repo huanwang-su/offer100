@@ -23,7 +23,7 @@ public class NewsController {
     NewsService newsService;
     @ApiOperation(value = "获取咨询列表",notes = "获取所有咨询列表，并且进行分页处理")
     @ResponseBody
-    @RequestMapping(value = "getNewsList", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public PageInfo<News> getNewsList(@RequestParam Integer pageSize,
                                   @RequestParam Integer pageNumber) {
 

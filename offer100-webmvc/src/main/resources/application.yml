@@ -45,4 +45,12 @@ mybatis.config-locations: classpath:mybatis-config.xml
 mybatis.mapper-locations: classpath:com/yiguo/dao/mapper/*.xml
 mybatis.configuration.mapUnderscoreToCamelCase: true
 
-
+# JWT 604800
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 10
+  tokenHead: Bearer
+  route.authentication.path: auth/login
+  route.authentication.refresh: auth/refresh
+  route.authentication.register: "auth/register"
