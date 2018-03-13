@@ -26,6 +26,7 @@
       <result column="resume_link" property="resumeLink" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+      <result column="age" property="age" jdbcType="INTEGER" />
   </resultMap>
   <!-- sql语句，调用now函数 -->
    <sql id="insert">
@@ -35,13 +36,13 @@
       graduated_school, profession, education, 
       major_course, score_rank, professinal_skill, 
       reward, self_evaluation, create_time, 
-      update_time,resume_Link)
+      update_time,resume_Link,age)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
       #{sex,jdbcType=TINYINT}, #{telephone,jdbcType=INTEGER}, #{nativePlace,jdbcType=VARCHAR}, 
       #{personPhoto,jdbcType=VARCHAR}, #{communicationAddress,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{graduatedSchool,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
       #{majorCourse,jdbcType=VARCHAR}, #{scoreRank,jdbcType=TINYINT}, #{professinalSkill,jdbcType=VARCHAR}, 
-      #{reward,jdbcType=VARCHAR}, #{selfEvaluation,jdbcType=VARCHAR},now(),now(),#{resumeLink,jdbcType=VARCHAR})
+      #{reward,jdbcType=VARCHAR}, #{selfEvaluation,jdbcType=VARCHAR},now(),now(),#{resumeLink,jdbcType=VARCHAR},#{age,jdbcType=INTEGER})
 
 </sql> 
 <!-- 查询数据 -->
@@ -100,7 +101,9 @@
       <if test="resumeLink!= null" >
           and  resume_link= #{resumeLink,jdbcType=VARCHAR}
       </if>
-
+      <if test="age != null" >
+          and  age = #{age,jdbcType=INTEGER}
+      </if>
   </select>
   <sql id="Base_Column_List" >
     <!--
@@ -109,7 +112,7 @@
     -->
     id, user_id, user_name, sex, telephone, native_place, person_photo, communication_address, 
     email, graduated_school, profession, education, major_course, score_rank, professinal_skill, 
-    reward, self_evaluation, create_time, update_time,resume_link
+    reward, self_evaluation, create_time, update_time,resume_link,age
   </sql>
   <!-- 主键查询数据 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -205,6 +208,9 @@
         <if test="resumeLink != null" >
             resume_link,
         </if>
+        <if test="age != null" >
+           age,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -267,7 +273,9 @@
       <if test="resumeLink!= null" >
          #{resumeLink,jdbcType=VARCHAR},
         </if>
-
+        <if test="age != null" >
+           #{age,jdbcType=INTEGER}
+        </if>
     </trim>
   </insert>
   <!-- 根据主键进行更新，部分更新 -->
@@ -335,6 +343,9 @@
         <if test="resumeLink != null" >
             resume_link = #{resumeLink,jdbcType=VARCHAR},
         </if>
+        <if test="age != null" >
+            age= #{age,jdbcType=INTEGER}
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -364,6 +375,8 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
           resume_link = #{resumeLink,jdbcType=VARCHAR},
+
+          age = #{age,jdbcType=INTEGER}
 
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -429,6 +442,9 @@
       <if test="resumeLink != null" >
         and  resume_link = #{resumeLink,jdbcType=VARCHAR}
       </if>
+      <if test="age != null" >
+          age = #{age,jdbcType=INTEGER}
+      </if>
   </select>
    <!-- 分页查詢 -->
   <select id="select" parameterType="com.yiguo.bean.Resume" resultMap="BaseResultMap">
@@ -491,6 +507,9 @@
       </if>
       <if test="resumeLink != null" >
        and   resume_link = #{resumeLink,jdbcType=VARCHAR}
+      </if>
+      <if test="age != null" >
+          and  age = #{age,jdbcType=INTEGER}
       </if>
       <if test="start != null and pageSize!=null">
       limit #{start},#{pageSize}
@@ -563,6 +582,9 @@
         </if>
         <if test="resumeLink != null" >
             and   resume_link = #{resumeLink,jdbcType=VARCHAR}
+        </if>
+        <if test="age != null" >
+           age = #{age,jdbcType=INTEGER}
         </if>
         <if test="start != null and pageSize!=null">
             limit #{start},#{pageSize}
