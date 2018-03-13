@@ -54,7 +54,7 @@ public class JobController {
     @ApiOperation(value="查询岗位信息", notes="根据url的id来获取岗位详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method ={RequestMethod.GET})
-    public Job getJob(@RequestParam Integer id ) {
+    public Job getJob(@PathVariable Integer id ) {
         // 处理"/Zones/{id}"的GET请求，用来获取url中id值的Zone信息
         // url中的id可通过@PathVariable绑定到函数的参数中
         return jobService.selectByPrimaryKey(id);
@@ -63,7 +63,7 @@ public class JobController {
     @ApiOperation(value="更新job" + "详细信息", notes="根据url的id来指定更新对象，并根据传过来的Job信息来更新岗位详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String updateJob(@RequestParam Integer id,@RequestBody Job job) {
+    public String updateJob(@PathVariable Integer id,@RequestBody Job job) {
         /* 处理"/Zones/{id}"的PUT请求，用来更新Zone信息 */
         if (jobService.findById(id) > 0) {
             job.setId(id);

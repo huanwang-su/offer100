@@ -62,7 +62,7 @@ public class NewsController {
     @ApiOperation(value="查询咨询信息", notes="根据url的id来获取通知详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public News getNews(@RequestParam Integer id) {
+    public News getNews(@PathVariable Integer id) {
 
         News news = new News();
         return newsService.selectByPrimaryKey(id);

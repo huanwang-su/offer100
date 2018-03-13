@@ -87,7 +87,7 @@ public class ResumeController {
     @ApiOperation(value="查询简历信息", notes="根据url的id来获取简历详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Resume getResume(@RequestParam Integer id) {
+    public Resume getResume(@PathVariable Integer id) {
         Resume resume=new Resume();
         resume=resumeService.selectByPrimaryKey(id);
         return resume;

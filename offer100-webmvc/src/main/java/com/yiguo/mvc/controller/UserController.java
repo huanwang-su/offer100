@@ -51,7 +51,7 @@ public class UserController {
     @ApiOperation(value="查询用户信息", notes="根据url的id来获取用户详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUser(@RequestParam Integer id) {
+    public User getUser(@PathVariable Integer id) {
         // 处理"/users/{id}"的GET请求，用来获取url中id值的User信息
         // url中的id可通过@PathVariable绑定到函数的参数中
         User user=new User();

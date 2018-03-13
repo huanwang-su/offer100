@@ -50,7 +50,7 @@ public class SchoolController {
     @ApiOperation(value="查询学校信息", notes="根据url的id来获取学校详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public School getSchool(@RequestParam Integer id) {
+    public School getSchool(@PathVariable Integer id) {
         // 处理"/Schools/{id}"的GET请求，用来获取url中id值的School信息
         // url中的id可通过@PathVariable绑定到函数的参数中
         School school=new School();

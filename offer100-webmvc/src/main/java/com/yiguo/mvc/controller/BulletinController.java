@@ -63,7 +63,7 @@ public class BulletinController {
 	@ApiOperation(value="查询公告", notes="根据url的id来获取公告详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Bulletin getBulletin(@RequestParam Integer id) {
+	public Bulletin getBulletin(@PathVariable Integer id) {
 
 		Bulletin bulletin=new Bulletin();
 		bulletin=bulletionService.selectByPrimaryKey(id);

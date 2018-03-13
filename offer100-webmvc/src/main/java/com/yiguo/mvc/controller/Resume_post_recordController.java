@@ -62,7 +62,7 @@ public class Resume_post_recordController {
             @ApiImplicitParam(name = "pageSize", value = "条数", dataType = "int", paramType = "query")
     })
     public PageInfo<Map> manageResume(@RequestParam(required = false) String title, @RequestParam(required = false) Integer enterpriseId, @RequestParam(required = false) Integer userId, @RequestParam(required = false) Integer state,
-                                      @RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+                                      @RequestParam(required = false) Integer pageNumber, @PathVariable(required = false) Integer pageSize) {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
         PageInfo<Map> pageinfo=new PageInfo<Map>();

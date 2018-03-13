@@ -44,17 +44,17 @@ public class IndustryController {
                                           @RequestParam Integer pageSize,
                                           @RequestParam Integer pageNumber) {
 
-        PageInfo<Industry> pageinfo = new PageInfo<Industry>();
-        Industry industry = new Industry();
-        industry.setParentId(id);
+    PageInfo<Industry> pageinfo =new PageInfo<Industry>();
+    Industry industry = new Industry();
+    industry.setParentId(id);
         pageinfo.setPageNum(pageNumber);
         pageinfo.setPageSize(pageSize);
-        Page page = new Page();
+        Page page= new Page();
         page.setPageNumber(pageNumber);
         page.setPageSize(pageSize);
-        pageinfo.setTotal(industryService.selectCount(industry));
-        pageinfo.setRows(industryService.select(industry, page));
-        return pageinfo;
+ pageinfo.setTotal(industryService.selectCount(industry));
+ pageinfo.setRows(industryService.select(industry,page));
+ return pageinfo;
     }
 
     @Cacheable(cacheNames = "offer100", keyGenerator = "cacheKeyGenerator")
