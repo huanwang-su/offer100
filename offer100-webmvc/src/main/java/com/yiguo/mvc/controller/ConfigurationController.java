@@ -15,7 +15,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 
 @RestController
-@Api(value = "API - ConfigurationController", description = "Configuration详情")
+@Api(value = "配置接口")
 @RequestMapping(value="/configuration")     // 通过这里配置使下面的映射都在/configuration下
 public class ConfigurationController {
 
@@ -32,7 +32,7 @@ public class ConfigurationController {
         return r;
     }*/
 
-    @ApiOperation(value = "创建配置信息",notes = "根据configuration对象创建configuration")
+    @ApiOperation(value = "创建配置",notes = "根据configuration对象创建configuration，创建一条新的配置")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String buildConfiguration(@RequestBody Configuration configuration) {
@@ -48,7 +48,7 @@ public class ConfigurationController {
     }
 
 
-    @ApiOperation(value="根据id获取配置详细信息", notes="根据url的id来获取配置详细信息")
+    @ApiOperation(value="根据id获取配置", notes="根据url的id来获取配置详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Object getConfiguration(@PathVariable Integer id) {
@@ -66,7 +66,7 @@ public class ConfigurationController {
     }
 
    
-    @ApiOperation(value="根据type获取配置详细信息", notes="根据url的type来获取配置详细信息")
+    @ApiOperation(value="根据type获取配置", notes="根据url的type来获取配置详细信息")
     @ResponseBody
     @RequestMapping(value = "/{type}" , method = RequestMethod.GET)
     //需要添加/type,否则运行时服务器不能正确辨别是本函数的url还是getConfigurationById方法的url
@@ -84,7 +84,7 @@ public class ConfigurationController {
         return "this type does not exist";
     }
 
-    @ApiOperation(value="更新配置详细信息", notes="根据url的id来指定更新对象，并根据传过来的configuration信息来更新用户详细信息")
+    @ApiOperation(value="更新配置", notes="根据url的id来指定更新对象，并根据传过来的configuration信息来更新用户详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String updatetConfiguration(@PathVariable Integer id, @RequestBody Configuration configuration) {
@@ -99,7 +99,7 @@ public class ConfigurationController {
         return "this id does not exist";
     }
 
-    @ApiOperation(value="根据id删除配置信息", notes="根据url的id来指定删除对象")
+    @ApiOperation(value="根据id删除配置", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteConfigurationById(@PathVariable Integer id) {
@@ -114,7 +114,7 @@ public class ConfigurationController {
         return "this id does not exist";
     }
 
-   @ApiOperation(value="根据type删除配置信息", notes="根据url的type来指定删除对象")
+   @ApiOperation(value="根据type删除配置", notes="根据url的type来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/deleteConfigurationByType/{type}", method = RequestMethod.DELETE)
     public String deleteConfigurationByType(@PathVariable String type) {

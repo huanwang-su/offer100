@@ -16,7 +16,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 
 @Controller
-@Api(value = "API - EnterpriseController", description = "企业详情")
+@Api(value = "企业接口")
 @RequestMapping("/enterprise")
 public class EnterpriseController {
     @Autowired

@@ -228,31 +228,31 @@
 		FROM project_experience
 		WHERE 1=1
 		<if test="userId != null">
-			user_id = #{userId,jdbcType=INTEGER}
+			and user_id = #{userId,jdbcType=INTEGER}
 		</if>
 		<if test="job != null">
-			job = #{job,jdbcType=VARCHAR}
+			and job = #{job,jdbcType=VARCHAR}
 		</if>
 		<if test="projectName != null">
-			project_name = #{projectName,jdbcType=VARCHAR}
+			and project_name = #{projectName,jdbcType=VARCHAR}
 		</if>
 		<if test="startTime != null">
-			start_time = #{startTime,jdbcType=TIMESTAMP}
+			and start_time = #{startTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="endTime != null">
-			end_time = #{endTime,jdbcType=TIMESTAMP}
+			and end_time = #{endTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="projectDesc != null">
-			project_desc = #{projectDesc,jdbcType=VARCHAR}
+			and project_desc = #{projectDesc,jdbcType=VARCHAR}
 		</if>
 		<if test="note != null">
-			note = #{note,jdbcType=VARCHAR}
+			and note = #{note,jdbcType=VARCHAR}
 		</if>
 		<if test="createTime != null">
-			create_time = #{createTime,jdbcType=TIMESTAMP}
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP}
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
 		</if>
 	</select>
 	<!-- 分页查詢 -->
@@ -261,31 +261,31 @@
 		FROM project_experience
 		WHERE 1=1
 		<if test="userId != null">
-			user_id = #{userId,jdbcType=INTEGER}
+			and user_id = #{userId,jdbcType=INTEGER}
 		</if>
 		<if test="job != null">
-			job = #{job,jdbcType=VARCHAR}
+			and job = #{job,jdbcType=VARCHAR}
 		</if>
 		<if test="projectName != null">
-			project_name = #{projectName,jdbcType=VARCHAR}
+			and project_name = #{projectName,jdbcType=VARCHAR}
 		</if>
 		<if test="startTime != null">
-			start_time = #{startTime,jdbcType=TIMESTAMP}
+			and start_time = #{startTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="endTime != null">
-			end_time = #{endTime,jdbcType=TIMESTAMP}
+			and end_time = #{endTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="projectDesc != null">
-			project_desc = #{projectDesc,jdbcType=VARCHAR}
+			and project_desc = #{projectDesc,jdbcType=VARCHAR}
 		</if>
 		<if test="note != null">
-			note = #{note,jdbcType=VARCHAR}
+			and note = #{note,jdbcType=VARCHAR}
 		</if>
 		<if test="createTime != null">
-			create_time = #{createTime,jdbcType=TIMESTAMP}
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP}
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
 		</if>
 		<if test="start != null and pageSize!=null">
 			limit #{start},#{pageSize}

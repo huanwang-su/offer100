@@ -19,7 +19,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 
 @Controller
-@Api(value = "API - JobController", description = "企业岗位详情")
+@Api(value = "岗位接口")
 @RequestMapping("/job")
 public class JobController {
 	@Autowired
@@ -82,7 +82,7 @@ public class JobController {
             f="删除失败";
         return f;
     }
-    @ApiOperation(value = "筛选岗位",notes = "查询得出岗位")
+    @ApiOperation(value = "筛选岗位",notes = "查询得出岗位，加入了分页")
     @ResponseBody
     @RequestMapping(value = "/selectJob", method = RequestMethod.GET)
     public PageInfo<Job> selectJob(@ModelAttribute Job job,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {

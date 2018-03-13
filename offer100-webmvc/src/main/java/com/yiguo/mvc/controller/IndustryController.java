@@ -19,7 +19,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
  * @author wanghuan
  * @date 2018-01-26
  */
-@Api("Industry")
+@Api(value = "行业接口")
 @Controller
 @RequestMapping("/industry")
 public class IndustryController {
@@ -32,7 +32,7 @@ public class IndustryController {
         return industryService.getAllIndustry(0);
     }*/
     @RequestMapping(value="/getParentId/{id}",method=RequestMethod.GET)
-    @ApiOperation("根据父id获取行业")
+    @ApiOperation(value = "根据父id找行业",notes = "通过传入的父id值进行找子行业")
     @ResponseBody
     public PageInfo<Industry> getParentId(@PathVariable Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
 
@@ -49,7 +49,7 @@ public class IndustryController {
  return pageinfo;
     }
     @RequestMapping(value="/{id}",method=RequestMethod.GET)
-    @ApiOperation("根据id获取industry信息")
+    @ApiOperation(value = "通过id找到行业详细信息",notes = "通过传入的id值，找到行业详细信息")
     @ResponseBody
     public Object getIndustry(@PathVariable Integer id) {
 

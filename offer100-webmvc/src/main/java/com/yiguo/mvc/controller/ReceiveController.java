@@ -22,7 +22,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 
 @Controller
-@Api(value = "API - ReceiveController", description = "Receive详情")
+@Api(value = "收藏接口")
 @RequestMapping(value = "/Receive")
 public class ReceiveController {
     @Autowired

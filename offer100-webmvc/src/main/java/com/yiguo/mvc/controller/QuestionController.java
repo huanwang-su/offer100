@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@Api(value = "API - QuestionController", description = "求职问答")
+@Api(value = "问答接口")
 @RequestMapping("/question")
 public class QuestionController {
 	@Autowired

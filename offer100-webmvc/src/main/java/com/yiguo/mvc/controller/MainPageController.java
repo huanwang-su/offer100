@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-@Api(value = "API - MainPageController", description = "首页API详情")
+@Api(value = "首页接口")
 @RequestMapping("/mainpage")
 @Controller
 public class MainPageController {

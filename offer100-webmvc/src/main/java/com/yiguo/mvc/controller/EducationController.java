@@ -19,7 +19,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 
 @Controller
-@Api(value = "API - EducationController", description = "Education详情")
+@Api(value = "教育接口")
 @RequestMapping(value = "/education")
 public class EducationController {
 	@Autowired

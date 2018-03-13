@@ -33,7 +33,7 @@ import java.util.UUID;
  * Created by liyue on 2018/3/5.
  */
 @Controller
-@Api(value = "API - EngineController", description = "找回密码接口")
+@Api(value = "邮件接口")
 public class EngineCotroller {
     @Value("${spring.mail.username}")
     private String Sender;
@@ -83,7 +83,7 @@ public class EngineCotroller {
         return f;
     }
 
-    @ApiOperation(value = "用户找回密码",notes = "")
+    @ApiOperation(value = "用户找回密码",notes = "通过发送邮件，进行重新设置密码操作")
     @ResponseBody
     @RequestMapping(value = "/getCodeMail", method = RequestMethod.GET)
     public void getCodeMail(@PathVariable  String email){
@@ -114,7 +114,7 @@ public class EngineCotroller {
         }
         mailSender.send(message);
     }
-    @ApiOperation(value = "发送录取简历通知",notes = "")
+    @ApiOperation(value = "发送录取简历通知",notes = "通过发送邮件通知，提醒用户录取简历")
     @ResponseBody
     @RequestMapping(value = "/getResumeMail", method = RequestMethod.GET)
     public void getResumeMail(@PathVariable  String email){
@@ -145,7 +145,7 @@ public class EngineCotroller {
         }
         mailSender.send(message);
     }
-    @ApiOperation(value = "发送打回简历通知",notes = "")
+    @ApiOperation(value = "发送打回简历通知",notes = "通过发送邮件，提醒用户简历未通过")
     @ResponseBody
     @RequestMapping(value = "/getReturnMail", method = RequestMethod.GET)
     public void getReturnMail(@PathVariable  String email){
@@ -176,7 +176,7 @@ public class EngineCotroller {
         }
         mailSender.send(message);
     }
-    @ApiOperation(value = "用户点击找回密码链接",notes = "")
+    @ApiOperation(value = "用户点击找回密码链接",notes = "通过点击链接，进行重新设置密码工作")
     @ResponseBody
     @RequestMapping(value = "/getLinkCode", method = RequestMethod.GET)
     public String getLinkCode(@PathVariable  String link ,@PathVariable Integer id ) throws Exception {

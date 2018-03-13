@@ -17,7 +17,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 
 @RestController
-@Api(value = "API - NotificationController", description = "Notification详情")
+@Api(value = "通知接口")
 @RequestMapping(value="/notification")
 public class NotificationController {
 
@@ -91,7 +91,7 @@ public class NotificationController {
         }
         return "this id does not exist";
     }
-    @ApiOperation(value = "查询通知",notes = "查询得出通知")
+    @ApiOperation(value = "查询通知",notes = "查询得出通知，加入了分页")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
     public PageInfo<Notification> selectNotifivation(@RequestParam(required = false) Notification notification, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {

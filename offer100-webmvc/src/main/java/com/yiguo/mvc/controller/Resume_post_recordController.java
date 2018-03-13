@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@Api(value = "API - Resume_post_recordController", description = "简历投递详情")
+@Api(value = "简历投递接口")
 @RequestMapping("/resume_post_record")
 
 public class Resume_post_recordController {

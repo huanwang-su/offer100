@@ -20,12 +20,12 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 
 @RestController
-@Api(value = "API - BulletinController", description = "Bulletin详情")
+@Api(value = "公告接口")
 @RequestMapping(value="/bulletin")
 public class BulletinController {
 	@Autowired
 	BulletinService bulletionService;
-	@ApiOperation(value = "获取公告列表",notes = "")
+	@ApiOperation(value = "获取公告列表",notes = "获取所有公告列表，并且进行分页处理")
 	@ResponseBody
 	@RequestMapping(value = "/getBulletinList", method = RequestMethod.GET)
 	public PageInfo<Bulletin> getBulletinList(@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
@@ -44,7 +44,7 @@ public class BulletinController {
 		return pageinfo;
 	}
 
-	@ApiOperation(value = "创建公告信息",notes = "根据bulletin对象创建bulletin")
+	@ApiOperation(value = "创建公告",notes = "根据bulletin对象创建bulletin，创建一条新的公告")
 	@ResponseBody
 
 	@RequestMapping(value = "/buildBulletin", method = RequestMethod.POST)
@@ -60,7 +60,7 @@ public class BulletinController {
 	}
 
 
-	@ApiOperation(value="根据id获取公告详细信息", notes="根据url的id来获取公告详细信息")
+	@ApiOperation(value="根据id获取公告", notes="根据url的id来获取公告详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Bulletin getBulletin(@PathVariable Integer id) {
@@ -70,7 +70,7 @@ public class BulletinController {
 		return bulletin;
 	}
 
-	@ApiOperation(value="更新公告详细信息", notes="根据url的id来指定更新对象，并根据传过来的bulletin信息来更新用户详细信息")
+	@ApiOperation(value="更新公告", notes="根据url的id来指定更新对象，并根据传过来的bulletin信息来更新用户详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public String updateBulletin(@PathVariable Integer id, @RequestBody Bulletin bulletin) {
@@ -85,7 +85,7 @@ public class BulletinController {
 		return "this id does not exist";
 	}
 
-	@ApiOperation(value="删除公告信息", notes="根据url的id来指定删除对象")
+	@ApiOperation(value="删除公告", notes="根据url的id来指定删除对象")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String deleteBulletin(@PathVariable Integer id) {

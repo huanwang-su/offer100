@@ -20,7 +20,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 
 @Controller
 @RestController
-@Api(value = "API - ResumeController", description = "Resume详情")
+@Api(value = "简历接口")
 @RequestMapping(value="/resume")     // 通过这里配置使下面的映射都在/resume下
 public class ResumeController {
     @Autowired

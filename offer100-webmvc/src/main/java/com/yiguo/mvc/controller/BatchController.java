@@ -31,15 +31,16 @@ import java.util.List;
  * Created by liyue on 2018/3/5.
  */
 @Controller
-@Api(value = "API - 图床", description = "图片上传详情")
+@Api(value = "上传文件接口")
 @RequestMapping("/picture")
 public class BatchController {
     @Autowired
     ResumeService resumeService;
-    @ApiOperation(value="上传文件", notes="上传文件")
+    @ApiOperation(value="上传文件", notes="可以上传图片、文件存储到数据库")
     @ResponseBody
     @RequestMapping(value = "/manageFile", method = {RequestMethod.POST})
     public String manageFile(@RequestParam("file") MultipartFile file) {
+        //判断是否大于5M
         if(file.getSize()<5*1048576) {
             String key = LocalDateTime.now().getNano() + file.getOriginalFilename();
             String keys = "http://7xsn1m.com1.z0.glb.clouddn.com/";
@@ -71,23 +72,8 @@ public class BatchController {
 
             return keys;
         }
+        //大于5M返回空
         return null;
     }
-    @ApiOperation(value="下载文件", notes="上传文件")
-    @ResponseBody
-    @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public PageInfo<Resume> downlomnFile(@PathVariable Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
-        PageInfo<Resume> pageinfo=new PageInfo<Resume>();
-        pageinfo.setPageNum(pageNumber);
-        pageinfo.setPageSize(pageSize);
-        Page page= new Page();
-        page.setPageNumber(pageNumber);
-        page.setPageSize(pageSize);
-        Resume resume=new Resume();
-        resume.setUserId(id);
-        pageinfo.setRows(resumeService.select(resume,page));
 
-        pageinfo.setTotal(resumeService.selectCount(resume));
-      return pageinfo;
-    }
 }

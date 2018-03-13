@@ -46,7 +46,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
  * @date 2018-01-06
  */
 @Controller
-@Api(value = "API - LoginController", description = "登录认证")
+@Api(value = "用户登录接口")
 @RequestMapping(value="/login")
 public class LoginController {
 	@Autowired

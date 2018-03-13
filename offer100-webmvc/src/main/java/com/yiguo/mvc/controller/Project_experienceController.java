@@ -1,6 +1,8 @@
 package com.yiguo.mvc.controller;
 
+import com.yiguo.bean.Page;
 import com.yiguo.bean.Project_experience;
+import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.Project_experienceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,19 +16,27 @@ import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 
 
 @RestController
-@Api(value = "API - Project_experienceController", description = "Project_experience详情")
+@Api(value = "项目经验接口")
 @RequestMapping(value="/project_experience")
 public class Project_experienceController {
 
     @Autowired
     Project_experienceService project_experienceService;
-    @ApiOperation(value = "获取项目经验列表",notes = "")
+    @ApiOperation(value = "获取id项目经验列表",notes = "根据传入的用户id获得用户所有经验，加入了分页")
     @ResponseBody
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Project_experience> getProjectEList() {
-
-        List<Project_experience> r = project_experienceService.getAll();
-        return r;
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public PageInfo<Project_experience> getProjectEList(@PathVariable Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+        Project_experience project_experience =new Project_experience();
+        PageInfo<Project_experience> pageinfo=new PageInfo<Project_experience>();
+        pageinfo.setPageNum(pageNumber);
+        pageinfo.setPageSize(pageSize);
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
+        project_experience.setId(id);
+        pageinfo.setRows(project_experienceService.select(project_experience,page));
+        pageinfo.setTotal(project_experienceService.selectCount(project_experience));
+        return  pageinfo;
     }
 
     @ApiOperation(value = "创建项目经验信息",notes = "根据project_experience对象创建project-experience")
@@ -45,7 +55,7 @@ public class Project_experienceController {
     }
 
 
-    @ApiOperation(value="根据id获取项目经验详细信息", notes="根据url的id来获取项目经验详细信息")
+ /*   @ApiOperation(value="根据id获取项目经验详细信息", notes="根据url的id来获取项目经验详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Project_experience getProjectE(@PathVariable Integer id) {
@@ -54,7 +64,7 @@ public class Project_experienceController {
         project_experience=project_experienceService.selectByPrimaryKey(id);
         return project_experience;
     }
-
+*/
     @ApiOperation(value="更新项目经验详细信息", notes="根据url的id来指定更新对象，并根据传过来的project_experience信息来更新项目经验详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
