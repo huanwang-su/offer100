@@ -34,7 +34,7 @@ public class ResumeController {
     @Autowired
     UserService userService;
 
-    @ApiOperation(value = "用户获取自己简历列表",notes = "")
+    @ApiOperation(value = "用户获取自己简历列表",notes = "通过用户id获取简历列表")
     @ResponseBody
     @RequestMapping(value = "/getResumeList/{id}", method = RequestMethod.GET)
     public PageInfo<Resume> getResumeList(@ PathVariable Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {

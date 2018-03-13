@@ -48,21 +48,7 @@ public class Resume_post_recordController {
 //     return jobs;
 //    }
 
-    @ApiOperation(value = "resumeid",notes = "企业管理自己的简历")
-    @ResponseBody
-    @RequestMapping(value = "/manageEnterpriseResume/{id}", method ={RequestMethod.GET})
-    public List<Resume_post_record> manageEnterpriseResume(@PathVariable Integer id) {
-        // 处理"/users/"的GET请求，用来获取用户列表
-        // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
 
-        Page page=new Page();
-        page.setPageSize(10);
-        Resume_post_record resume_post_record=new Resume_post_record();
-        resume_post_record.setJobId(id);
-        List<Resume_post_record> resume_post_records= resume_post_recordService.select(resume_post_record,page);
-
-        return resume_post_records;
-    }
 
     @ApiOperation(value = "企业或用户查看投递情况",notes = "企业或用户查看投递情况")
     @ResponseBody

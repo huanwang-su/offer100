@@ -3,8 +3,11 @@ package com.yiguo.mvc.controller;
 import com.yiguo.bean.Enterprise;
 import com.yiguo.bean.Job;
 import com.yiguo.bean.Page;
+import com.yiguo.bean.Resume_post_record;
 import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.EnterpriseService;
+import com.yiguo.service.JobService;
+import com.yiguo.service.Resume_post_recordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,10 @@ import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 public class EnterpriseController {
     @Autowired
     EnterpriseService enterpriseService;
+    @Autowired
+    JobService jobService;
+    @Autowired
+    Resume_post_recordService resume_post_recordService;
     /*@ApiOperation(value = "企业用户登录",notes = "")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -34,6 +41,42 @@ public class EnterpriseController {
         return f;
     }
 */
+    @ApiOperation(value = "获取发布岗位(enterpriseId)",notes = "企业管理自己的岗位")
+    @ResponseBody
+    @RequestMapping(value = "/manageEnterpriseJob/{id}", method ={RequestMethod.GET})
+    public PageInfo<Job> manageEnterpriseJob(@RequestParam Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+
+
+        Job job=new Job();
+        job.setEnterpriseId(id);
+        PageInfo<Job> pageinfo=new PageInfo<Job>();
+        pageinfo.setPageNum(pageNumber);
+        pageinfo.setPageSize(pageSize);
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
+        pageinfo.setRows( jobService.select(job,page));
+        pageinfo.setTotal(jobService.selectCount(job));
+        return pageinfo;
+    }
+    @ApiOperation(value = "获取投递简历(jobId)",notes = "企业管理自己的简历")
+    @ResponseBody
+    @RequestMapping(value = "/manageEnterpriseResume/{id}", method ={RequestMethod.GET})
+    public PageInfo<Resume_post_record> manageEnterpriseResume(@RequestParam Integer id, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+
+
+        Resume_post_record resume_post_record=new Resume_post_record();
+        resume_post_record.setJobId(id);
+        PageInfo<Resume_post_record> pageinfo=new PageInfo<Resume_post_record>();
+        pageinfo.setPageNum(pageNumber);
+        pageinfo.setPageSize(pageSize);
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
+        pageinfo.setRows( resume_post_recordService.select(resume_post_record,page));
+        pageinfo.setTotal(resume_post_recordService.selectCount(resume_post_record));
+        return pageinfo;
+    }
     @ApiOperation(value = "创建企业",notes = "根据Enterprise对象创建Enterprise")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)

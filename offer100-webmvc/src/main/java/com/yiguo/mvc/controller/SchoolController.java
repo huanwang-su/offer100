@@ -22,7 +22,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 
 @Controller
-@Api(value = "API - SchoolController", description = "School详情")
+@Api(value = "学校接口")
 @RequestMapping("/school")
 public class SchoolController {
 

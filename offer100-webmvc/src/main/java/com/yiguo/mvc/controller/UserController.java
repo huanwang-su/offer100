@@ -13,7 +13,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 
 @RestController
-@Api(value = "API - UserController", description = "User详情")
+@Api(value = "用户接口")
 @RequestMapping(value="/users")     // 通过这里配置使下面的映射都在/users下
 public class UserController {
 
