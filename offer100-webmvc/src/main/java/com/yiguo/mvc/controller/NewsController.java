@@ -59,7 +59,7 @@ public class NewsController {
     }
 
 
-    @ApiOperation(value="根据id获取咨询详细信息", notes="根据url的id来获取通知详细信息")
+    @ApiOperation(value="查询咨询信息", notes="根据url的id来获取通知详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public News getNews(@RequestParam Integer id) {
@@ -69,7 +69,7 @@ public class NewsController {
 
     }
 
-    @ApiOperation(value="更新咨询详细信息", notes="根据url的id来指定更新对象，并根据传过来的news信息来更新咨询详细信息")
+    @ApiOperation(value="更新咨询信息", notes="根据url的id来指定更新对象，并根据传过来的news信息来更新咨询详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String putNews(@PathVariable Integer id, @RequestBody News news) {

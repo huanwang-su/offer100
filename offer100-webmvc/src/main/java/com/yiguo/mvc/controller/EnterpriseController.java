@@ -41,7 +41,7 @@ public class EnterpriseController {
         return f;
     }
 */
-    @ApiOperation(value = "获取发布岗位(enterpriseId)",notes = "企业管理自己的岗位")
+    @ApiOperation(value = "获取企业列表",notes = "企业管理自己的岗位")
     @ResponseBody
     @RequestMapping(value = "/manageEnterpriseJob/{id}", method ={RequestMethod.GET})
     public PageInfo<Job> manageEnterpriseJob(@RequestParam Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
@@ -77,7 +77,7 @@ public class EnterpriseController {
         pageinfo.setTotal(resume_post_recordService.selectCount(resume_post_record));
         return pageinfo;
     }
-    @ApiOperation(value = "创建企业",notes = "根据Enterprise对象创建Enterprise")
+    @ApiOperation(value = "创建企业信息",notes = "根据Enterprise对象创建Enterprise")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String buildEnterprise(@RequestBody Enterprise  enterprise) {
@@ -96,7 +96,7 @@ public class EnterpriseController {
     }
 
 
-    @ApiOperation(value="获取企业详细信息", notes="根据url的id来获取企业详细信息")
+    @ApiOperation(value="查询企业信息", notes="根据url的id来获取企业详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method ={RequestMethod.GET})
     public Object getEnterprise(@RequestParam Integer id ) {
@@ -112,19 +112,10 @@ public class EnterpriseController {
     }
 
 
-    @ApiOperation(value="更新Enterprise" + "详细信息", notes="根据url的id来指定更新对象，并根据传过来的Enterprise信息来更新企业详细信息")
+    @ApiOperation(value="更新企业信息", notes="根据url的id来指定更新对象，并根据传过来的Enterprise信息来更新企业详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String updateEnterprise(@PathVariable Integer id,@RequestBody Enterprise enterprise) {
-        // 处理"/Zones/{id}"的PUT请求，用来更新Zone信息
-        /*String f="修改成功";
-        Enterprise enterprise1=new Enterprise();
-        enterpriseService.updateByPrimaryKeySelective(enterprise);
-        enterprise1=enterpriseService.selectByPrimaryKey(enterprise.getId());
-        if(enterprise.equals(enterprise1))
-            f="未修改成功";
-        return f;*/
-
 
         if (enterpriseService.findById(id) > 0) {
             enterprise.setId(id);
@@ -138,7 +129,7 @@ public class EnterpriseController {
 
 
     }
-    @ApiOperation(value="删除企业", notes="根据url的id来指定删除对象")
+    @ApiOperation(value="删除企业信息", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteEnterprise(@PathVariable Integer id) {
@@ -150,7 +141,7 @@ public class EnterpriseController {
         return f;
     }
 
-    @ApiOperation(value = "审核企业",notes = "审核企业的资质")
+    @ApiOperation(value = "审核企业信息",notes = "审核企业的资质")
     @ResponseBody
     @RequestMapping(value = "/{id}/{flag}", method = RequestMethod.GET)
     public String checkEnterprise(@PathVariable Integer id,@PathVariable Integer flag) {
@@ -168,7 +159,7 @@ public class EnterpriseController {
         }
         return f;
     }
-    @ApiOperation(value = "筛选企业",notes = "查询得出企业")
+    @ApiOperation(value = "筛选企业信息",notes = "查询得出企业")
     @ResponseBody
     @RequestMapping(value = "/selectEnterprise", method = RequestMethod.GET)
     public PageInfo<Enterprise> selectEnterprise(@ModelAttribute Enterprise enterprise,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {

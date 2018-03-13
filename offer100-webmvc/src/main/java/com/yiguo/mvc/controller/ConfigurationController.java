@@ -66,7 +66,7 @@ public class ConfigurationController {
     }
 
    
-    @ApiOperation(value="根据type获取配置", notes="根据url的type来获取配置详细信息")
+    @ApiOperation(value="查询配置(type)", notes="根据url的type来获取配置详细信息")
     @ResponseBody
     @RequestMapping(value = "/{type}" , method = RequestMethod.GET)
     //需要添加/type,否则运行时服务器不能正确辨别是本函数的url还是getConfigurationById方法的url
@@ -99,7 +99,7 @@ public class ConfigurationController {
         return "this id does not exist";
     }
 
-    @ApiOperation(value="根据id删除配置", notes="根据url的id来指定删除对象")
+    @ApiOperation(value="删除配置(id)", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteConfigurationById(@PathVariable Integer id) {
@@ -114,7 +114,7 @@ public class ConfigurationController {
         return "this id does not exist";
     }
 
-   @ApiOperation(value="根据type删除配置", notes="根据url的type来指定删除对象")
+   @ApiOperation(value="删除配置(type)", notes="根据url的type来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/deleteConfigurationByType/{type}", method = RequestMethod.DELETE)
     public String deleteConfigurationByType(@PathVariable String type) {

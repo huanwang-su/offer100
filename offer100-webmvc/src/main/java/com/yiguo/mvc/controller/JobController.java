@@ -26,7 +26,9 @@ public class JobController {
     JobService jobService;
 	@Autowired
     EnterpriseService enterpriseService;
-    @ApiOperation(value = "创建岗位",notes = "根据Job对象创建Job")
+
+
+    @ApiOperation(value = "创建岗位信息",notes = "根据Job对象创建Job")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String postJob(@RequestBody Job job) {
@@ -48,7 +50,8 @@ public class JobController {
             f="您未注册，请先注册";
         return f;
     }
-    @ApiOperation(value="获取岗位详细信息", notes="根据url的id来获取岗位详细信息")
+
+    @ApiOperation(value="查询岗位信息", notes="根据url的id来获取岗位详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method ={RequestMethod.GET})
     public Job getJob(@RequestParam Integer id ) {
@@ -56,10 +59,11 @@ public class JobController {
         // url中的id可通过@PathVariable绑定到函数的参数中
         return jobService.selectByPrimaryKey(id);
     }
+
     @ApiOperation(value="更新job" + "详细信息", notes="根据url的id来指定更新对象，并根据传过来的Job信息来更新岗位详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String updateJob(@PathVariable Integer id,@RequestBody Job job) {
+    public String updateJob(@RequestParam Integer id,@RequestBody Job job) {
         /* 处理"/Zones/{id}"的PUT请求，用来更新Zone信息 */
         if (jobService.findById(id) > 0) {
             job.setId(id);
@@ -71,7 +75,7 @@ public class JobController {
         }
         return "this id does not exist";
     }
-    @ApiOperation(value="删除岗位", notes="根据url的id来指定删除对象")
+    @ApiOperation(value="删除岗位信息", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteJob(@PathVariable Integer id) {
@@ -82,7 +86,7 @@ public class JobController {
             f="删除失败";
         return f;
     }
-    @ApiOperation(value = "筛选岗位",notes = "查询得出岗位，加入了分页")
+    @ApiOperation(value = "筛选岗位信息",notes = "查询得出岗位，加入了分页")
     @ResponseBody
     @RequestMapping(value = "/selectJob", method = RequestMethod.GET)
     public PageInfo<Job> selectJob(@ModelAttribute Job job,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {

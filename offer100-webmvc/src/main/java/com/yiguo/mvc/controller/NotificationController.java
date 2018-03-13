@@ -47,7 +47,7 @@ public class NotificationController {
     }
 
 
-    @ApiOperation(value="根据id获取通知详细信息", notes="根据url的id来获取通知详细信息")
+    @ApiOperation(value="查询通知信息", notes="根据url的id来获取通知详细信息")
     @ResponseBody
     @RequestMapping(value = "/getNotification/{id}", method = RequestMethod.GET)
     public Notification getNotification(@PathVariable Integer id) {
@@ -57,7 +57,7 @@ public class NotificationController {
 
     }
 
-    @ApiOperation(value="更新通知详细信息", notes="根据url的id来指定更新对象，并根据传过来的notification信息来更新通知详细信息")
+    @ApiOperation(value="更新通知信息", notes="根据url的id来指定更新对象，并根据传过来的notification信息来更新通知详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String updateNotification(@PathVariable Integer id, @RequestBody Notification notification) {
@@ -91,7 +91,8 @@ public class NotificationController {
         }
         return "this id does not exist";
     }
-    @ApiOperation(value = "查询通知",notes = "查询得出通知，加入了分页")
+
+    @ApiOperation(value = "获取通知列表",notes = "查询得出通知，加入了分页")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
     public PageInfo<Notification> selectNotifivation(@RequestParam(required = false) Notification notification, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {

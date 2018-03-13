@@ -46,7 +46,7 @@ public class ZoneController {
         return f;
     }
 
-    @ApiOperation(value="获取地区详细信息", notes="根据url的id来获取地区详细信息")
+    @ApiOperation(value="查询地区信息", notes="根据url的id来获取地区详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method ={RequestMethod.GET})
     public Zone getZone(@RequestParam Integer id ) {
@@ -55,7 +55,7 @@ public class ZoneController {
         return zoneService.selectByPrimaryKey(id);
     }
 
-    @ApiOperation(value="更新地区详细信息", notes="根据url的id来指定更新对象，并根据传过来的Zone信息来更新地区详细信息")
+    @ApiOperation(value="更新地区信息", notes="根据url的id来指定更新对象，并根据传过来的Zone信息来更新地区详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String putZone(@PathVariable Integer id, @RequestBody Zone zone) {
@@ -71,7 +71,7 @@ public class ZoneController {
         return "this id does not exist";
     }
 
-    @ApiOperation(value="删除地区", notes="根据url的id来指定删除对象")
+    @ApiOperation(value="删除地区信息", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteZone(@PathVariable Integer id) {
@@ -83,7 +83,7 @@ public class ZoneController {
         return f;
     }
 
-    @ApiOperation(value="获取子地区详细信息", notes="根据父id来获取地区详细信息")
+    @ApiOperation(value="获取子地区信息", notes="根据父id来获取地区详细信息")
     @ResponseBody
     @RequestMapping(value = "getZoneByParentId/{id}", method ={RequestMethod.GET})
     public PageInfo<Zone> getZoneByParentId(@PathVariable Integer id, @RequestParam Integer pageSize,@RequestParam Integer pageNumber) {

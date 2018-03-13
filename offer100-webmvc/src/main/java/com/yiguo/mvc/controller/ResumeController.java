@@ -84,7 +84,7 @@ public class ResumeController {
     }
 
 
-    @ApiOperation(value="根据id获取简历详细信息", notes="根据url的id来获取简历详细信息")
+    @ApiOperation(value="查询简历信息", notes="根据url的id来获取简历详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Resume getResume(@RequestParam Integer id) {
@@ -94,7 +94,7 @@ public class ResumeController {
     }
 
 
-    @ApiOperation(value="更新简历详细信息", notes="根据url的id来指定更新对象，并根据传过来的resume信息来更新简历详细信息")
+    @ApiOperation(value="更新简历信息", notes="根据url的id来指定更新对象，并根据传过来的resume信息来更新简历详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String updateResume(@PathVariable Integer id, @RequestBody Resume resume) {

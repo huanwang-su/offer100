@@ -48,7 +48,7 @@ public class UserController {
         return f;
     }
 
-    @ApiOperation(value="获取用户详细信息", notes="根据url的id来获取用户详细信息")
+    @ApiOperation(value="查询用户信息", notes="根据url的id来获取用户详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public User getUser(@RequestParam Integer id) {
@@ -59,7 +59,7 @@ public class UserController {
         return user;
     }
 
-    @ApiOperation(value="更新用户详细信息", notes="根据url的id来指定更新对象，并根据传过来的user信息来更新用户详细信息")
+    @ApiOperation(value="更新用户信息", notes="根据url的id来指定更新对象，并根据传过来的user信息来更新用户详细信息")
    @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String updateUser(@PathVariable Integer id, @RequestBody User user) {
@@ -77,7 +77,7 @@ public class UserController {
         return "this id does not exist";
     }
 
-    @ApiOperation(value="删除用户", notes="根据url的id来指定删除对象")
+    @ApiOperation(value="删除用户信息", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String  deleteUser(@PathVariable Integer id) {

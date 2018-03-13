@@ -25,15 +25,18 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 public class IndustryController {
     
     @Autowired private IndustryService industryService;
+
     /*@RequestMapping(value="/getAll",method=RequestMethod.GET)
     @ApiOperation("获取所有行业")
     @ResponseBody
     public IndustryVO getAllIndustry() {
         return industryService.getAllIndustry(0);
     }*/
-    @RequestMapping(value="/getParentId/{id}",method=RequestMethod.GET)
+
+
     @ApiOperation(value = "根据父id找行业",notes = "通过传入的父id值进行找子行业")
     @ResponseBody
+    @RequestMapping(value="/getParentId/{id}",method=RequestMethod.GET)
     public PageInfo<Industry> getParentId(@RequestParam Integer id,
                                           @RequestParam Integer pageSize,
                                           @RequestParam Integer pageNumber) {
@@ -50,8 +53,10 @@ public class IndustryController {
  pageinfo.setRows(industryService.select(industry,page));
  return pageinfo;
     }
+
+
     @RequestMapping(value="/{id}",method=RequestMethod.GET)
-    @ApiOperation(value = "通过id找到行业详细信息",notes = "通过传入的id值，找到行业详细信息")
+    @ApiOperation(value = "查询行业信息",notes = "通过传入的id值，找到行业详细信息")
     @ResponseBody
     public Object getIndustry(@RequestParam Integer id) {
 

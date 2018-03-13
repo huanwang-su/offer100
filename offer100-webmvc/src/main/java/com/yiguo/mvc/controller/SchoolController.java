@@ -32,7 +32,7 @@ public class SchoolController {
     ZoneService zoneService;
   
 
-    @ApiOperation(value = "创建学校",notes = "根据School对象创建School")
+    @ApiOperation(value = "创建学校信息",notes = "根据School对象创建School")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String postSchool(@RequestBody School school) {
@@ -47,7 +47,7 @@ public class SchoolController {
         return f;
     }
 
-    @ApiOperation(value="获取学校详细信息", notes="根据url的id来获取学校详细信息")
+    @ApiOperation(value="查询学校信息", notes="根据url的id来获取学校详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public School getSchool(@RequestParam Integer id) {

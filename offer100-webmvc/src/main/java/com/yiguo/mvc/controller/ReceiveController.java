@@ -45,7 +45,7 @@ public class ReceiveController {
         return f;
     }
 
-    @ApiOperation(value="获取收藏详细信息", notes="根据url的id来获取收藏详细信息")
+    @ApiOperation(value="获取收藏信息列表（id）", notes="根据url的id来获取收藏详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public PageInfo<Receive> getReceive(@RequestParam Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
@@ -79,7 +79,7 @@ public class ReceiveController {
         return "this id does not exist";
     }*/
 
-    @ApiOperation(value="删除收藏", notes="根据url的id来指定删除对象")
+    @ApiOperation(value="删除收藏信息", notes="根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteReceive(@PathVariable Integer id) {

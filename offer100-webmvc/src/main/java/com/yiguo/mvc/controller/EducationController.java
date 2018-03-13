@@ -24,7 +24,8 @@ import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 public class EducationController {
 	@Autowired
 	EducationService educationService;
-	@ApiOperation(value = "获取个人教育经历",notes = "根据User的id来查询受教育程度")
+
+	/*@ApiOperation(value = "查询教育经历",notes = "根据User的id来查询受教育程度")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public List<Education> getEducationByUserId(@PathVariable Integer id) {
@@ -33,10 +34,10 @@ public class EducationController {
 		List<Education> educations=new ArrayList<Education>();
 		educations =educationService.getEducationByUserId(id);
 		return  educations;
-	}
+	}*/
 
 
-	@ApiOperation(value = "创建教育",notes = "根据Education对象创建Education")
+	@ApiOperation(value = "创建教育经历",notes = "根据Education对象创建Education")
 	@ResponseBody
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String buildEducation(@RequestBody Education education) {
@@ -51,7 +52,7 @@ public class EducationController {
 		return f;
 	}
 
-	@ApiOperation(value="获取教育详细信息", notes="根据url的id来获取教育详细信息")
+	@ApiOperation(value="查询教育经历", notes="根据url的id来获取教育详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Education getEducation(@RequestParam Integer id) {
@@ -62,7 +63,7 @@ public class EducationController {
 		return Education;
 	}
 
-	@ApiOperation(value="更新教育详细信息", notes="根据url的id来指定更新对象，并根据传过来的Education信息来更新教育详细信息")
+	@ApiOperation(value="更新教育经历", notes="根据url的id来指定更新对象，并根据传过来的Education信息来更新教育详细信息")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public String updateEducation(@PathVariable Integer id,@RequestBody Education education) {
@@ -78,7 +79,7 @@ public class EducationController {
 		return "this id does not exist";
 	}
 
-	@ApiOperation(value="删除教育", notes="根据url的id来指定删除对象")
+	@ApiOperation(value="删除教育经历", notes="根据url的id来指定删除对象")
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String deleteEducation(@PathVariable Integer id) {
