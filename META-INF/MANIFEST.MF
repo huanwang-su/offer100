@@ -1,0 +1,56 @@
+Manifest-Version: 1.0
+Class-Path: thymeleaf-spring4-2.1.5.RELEASE.jar druid-1.1.8.jar tomcat
+ -embed-core-8.5.15.jar shiro-web-1.4.0.jar mail-1.4.jar activation-1.
+ 1.jar commons-pool2-2.4.2.jar spring-core-4.3.9.RELEASE.jar spring-da
+ ta-rest-webmvc-2.6.4.RELEASE.jar classmate-1.3.3.jar commons-dbcp2-2.
+ 1.1.jar solr-solrj-5.5.4.jar springfox-spi-2.2.2.jar jackson-core-2.8
+ .8.jar jjwt-0.9.0.jar log4j-over-slf4j-1.7.25.jar spring-boot-starter
+ -thymeleaf-1.5.4.RELEASE.jar shiro-lang-1.4.0.jar mybatis-3.4.2.jar s
+ pring-expression-4.3.9.RELEASE.jar spring-data-keyvalue-1.2.4.RELEASE
+ .jar swagger-annotations-1.5.3.jar jedis-2.9.0.jar ognl-3.0.8.jar spr
+ ing-webmvc-4.3.9.RELEASE.jar jcl-over-slf4j-1.7.25.jar spring-boot-st
+ arter-aop-1.5.4.RELEASE.jar shiro-crypto-hash-1.4.0.jar jul-to-slf4j-
+ 1.7.25.jar javassist-3.21.0-GA.jar springfox-swagger-ui-2.2.2.jar asp
+ ectjweaver-1.8.10.jar aspectjrt-1.8.10.jar tomcat-embed-websocket-8.5
+ .15.jar commons-logging-1.2.jar springfox-core-2.2.2.jar guava-19.0.j
+ ar tomcat-jdbc-8.5.15.jar shiro-core-1.4.0.jar spring-plugin-metadata
+ -1.2.0.RELEASE.jar groovy-2.4.11.jar spring-boot-starter-1.5.4.RELEAS
+ E.jar commons-io-2.6.jar spring-data-commons-1.13.4.RELEASE.jar sprin
+ g-boot-starter-cache-1.5.4.RELEASE.jar spring-boot-starter-data-redis
+ -1.5.4.RELEASE.jar noggit-0.6.jar spring-boot-starter-data-rest-1.5.4
+ .RELEASE.jar httpclient-4.5.3.jar spring-tx-4.3.9.RELEASE.jar happy-d
+ ns-java-0.1.4.jar okio-1.8.0.jar httpcore-4.4.6.jar spring-boot-start
+ er-mail-1.5.4.RELEASE.jar thymeleaf-layout-dialect-1.4.0.jar gson-2.6
+ .2.jar spring-boot-starter-jdbc-1.5.4.RELEASE.jar spring-security-cor
+ e-4.2.3.RELEASE.jar logback-classic-1.1.11.jar shiro-crypto-cipher-1.
+ 4.0.jar shiro-config-ogdl-1.4.0.jar commons-lang3-3.7.jar shiro-confi
+ g-core-1.4.0.jar shiro-cache-1.4.0.jar jackson-databind-2.8.8.jar jav
+ ax.mail-1.5.6.jar httpmime-4.5.3.jar netty-3.2.5.Final.jar commons-io
+ -2.4.jar spring-hateoas-0.23.0.RELEASE.jar jboss-logging-3.3.1.Final.
+ jar swagger-models-1.5.3.jar thymeleaf-2.1.5.RELEASE.jar spring-plugi
+ n-core-1.2.0.RELEASE.jar spring-data-rest-core-2.6.4.RELEASE.jar okht
+ tp-3.3.1.jar stax2-api-3.1.4.jar spring-boot-starter-security-1.5.4.R
+ ELEASE.jar spring-beans-4.3.9.RELEASE.jar tomcat-embed-el-8.5.15.jar 
+ spring-boot-starter-data-solr-1.5.4.RELEASE.jar spring-boot-starter-w
+ eb-1.5.4.RELEASE.jar spring-data-solr-2.1.4.RELEASE.jar jackson-annot
+ ations-2.8.0.jar spring-oxm-4.3.9.RELEASE.jar mysql-connector-java-5.
+ 1.42.jar freemarker-2.3.26-incubating.jar springfox-swagger2-2.2.2.ja
+ r mybatis-spring-boot-autoconfigure-1.2.0.jar spring-context-support-
+ 4.3.9.RELEASE.jar hibernate-validator-5.3.5.Final.jar logback-core-1.
+ 1.11.jar qiniu-java-sdk-7.2.6.jar zookeeper-3.4.6.jar spring-boot-sta
+ rter-logging-1.5.4.RELEASE.jar spring-boot-autoconfigure-1.5.4.RELEAS
+ E.jar spring-web-4.3.9.RELEASE.jar evo-inflector-1.2.2.jar unbescape-
+ 1.1.0.RELEASE.jar mybatis-spring-boot-starter-1.2.0.jar spring-securi
+ ty-web-4.2.3.RELEASE.jar spring-jdbc-4.3.9.RELEASE.jar spring-boot-st
+ arter-tomcat-1.5.4.RELEASE.jar validation-api-1.1.0.Final.jar spring-
+ boot-1.5.4.RELEASE.jar spring-boot-starter-freemarker-1.5.4.RELEASE.j
+ ar spring-aop-4.3.9.RELEASE.jar mapstruct-1.0.0.CR1.jar springfox-sch
+ ema-2.2.2.jar spring-security-config-4.2.3.RELEASE.jar commons-beanut
+ ils-1.9.3.jar shiro-crypto-core-1.4.0.jar springfox-spring-web-2.2.2.
+ jar slf4j-api-1.7.5.jar snakeyaml-1.17.jar spring-context-4.3.9.RELEA
+ SE.jar spring-data-redis-1.8.4.RELEASE.jar woodstox-core-asl-4.4.1.ja
+ r shiro-event-1.4.0.jar springfox-swagger-common-2.2.2.jar tomcat-jul
+ i-8.5.15.jar dubbo-2.5.3.jar mybatis-spring-1.3.1.jar commons-collect
+ ions-3.2.2.jar
+Main-Class: com.yiguo.Offer100WebmvcApplication
+
