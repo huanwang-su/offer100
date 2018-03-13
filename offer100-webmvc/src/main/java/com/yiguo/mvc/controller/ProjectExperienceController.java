@@ -20,10 +20,10 @@ public class ProjectExperienceController {
 
     @Autowired
     ProjectExperienceService project_experienceService;
-    @ApiOperation(value = "获取项目经验列表（id）",notes = "根据传入的用户id获得用户所有经验，加入了分页")
+    @ApiOperation(value = "获取项目经验列表",notes = "根据传入的用户id获得用户所有经验，加入了分页")
     @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public PageInfo<ProjectExperience> getProjectEList(@ModelAttribute ProjectExperience project_experience, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public PageInfo<ProjectExperience> getProjectEList(@ModelAttribute ProjectExperience project_experience, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
         PageInfo<ProjectExperience> pageinfo=new PageInfo<ProjectExperience>();
         pageinfo.setPageNum(pageNumber);
         pageinfo.setPageSize(pageSize);
