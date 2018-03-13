@@ -61,12 +61,13 @@ public class EnterpriseController {
     }
     @ApiOperation(value = "获取投递简历(jobId)",notes = "企业管理自己的简历")
     @ResponseBody
-    @RequestMapping(value = "/manageEnterpriseResume/{id}", method ={RequestMethod.GET})
-    public PageInfo<Resume_post_record> manageEnterpriseResume(@RequestParam Integer id, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+    @RequestMapping(value = "/manageEnterpriseResume", method ={RequestMethod.GET})
+    public PageInfo<Resume_post_record> manageEnterpriseResume(@RequestParam Integer id,@RequestParam Integer state, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
 
 
         Resume_post_record resume_post_record=new Resume_post_record();
         resume_post_record.setJobId(id);
+        resume_post_record.setState(state.byteValue());
         PageInfo<Resume_post_record> pageinfo=new PageInfo<Resume_post_record>();
         pageinfo.setPageNum(pageNumber);
         pageinfo.setPageSize(pageSize);
