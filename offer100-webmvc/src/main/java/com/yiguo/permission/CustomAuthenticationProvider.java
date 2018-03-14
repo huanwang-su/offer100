@@ -42,7 +42,7 @@ class CustomAuthenticationProvider implements AuthenticationProvider {
             // 生成令牌
             Authentication auth = new UsernamePasswordAuthenticationToken(name, password, authorities);
             return auth;
-        }else {
+        }else if(map2.get("msg").toString().startsWith("此用户不存在")){
             map.put("type","enterprise");
             map2 =loginController.loginUser(map);
             if(map2.get("msg").equals("登录成功")) {
@@ -55,7 +55,7 @@ class CustomAuthenticationProvider implements AuthenticationProvider {
                 return auth;
             }
         }
-        throw new BadCredentialsException(UtilJson.writeValueAsString(map2));
+        throw new BadCredentialsException(map2.get("msg").toString());
     }
 
     // 是否可以提供输入类型的认证服务

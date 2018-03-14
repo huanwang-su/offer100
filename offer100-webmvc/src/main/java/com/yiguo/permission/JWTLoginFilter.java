@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.yiguo.permission.TokenAuthenticationService.HEADER_STRING;
@@ -73,6 +74,7 @@ class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         authorities.remove(authorities.size() - 1);
         TokenAuthenticationService.addAuthentication(res, auth.getName(), authorities);
         Map<String,String> map = UtilJson.readValue(out,Map.class);
+        map.put("status","1");
         map.put("token",res.getHeader(HEADER_STRING));
         responseOutWithJson(res, map);
     }
@@ -82,8 +84,11 @@ class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
 
         response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        responseOutWithJson(response, failed.getMessage());
+        response.setStatus(HttpServletResponse.SC_OK);
+        Map<String,String> map = new HashMap<>();
+        map.put("status","0");
+        map.put("msg",failed.getMessage());
+        responseOutWithJson(response, map);
         //response.getOutputStream().println("Internal Server Error!!!");
     }
 
