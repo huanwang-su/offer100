@@ -106,7 +106,7 @@ public class LoginController {
 			}
 			if(f.equals("登录成功"))
 			{
-				m.put("user_name", enterprise.getUserName());
+				m.put("username", enterprise.getUserName());
 				m.put("id", enterprise.getId());
 				m.put("type", loginInfo.get("type").toString());
 				m.put("msg",f);

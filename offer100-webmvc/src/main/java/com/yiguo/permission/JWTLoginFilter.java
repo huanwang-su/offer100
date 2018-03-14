@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.rmi.CORBA.Util;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -20,6 +21,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
+
+import static com.yiguo.permission.TokenAuthenticationService.HEADER_STRING;
 
 class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -68,7 +72,9 @@ class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         String out = authorities.get(authorities.size() - 1).getAuthority();
         authorities.remove(authorities.size() - 1);
         TokenAuthenticationService.addAuthentication(res, auth.getName(), authorities);
-        responseOutWithJson(res, out);
+        Map<String,String> map = UtilJson.readValue(out,Map.class);
+        map.put("token",res.getHeader(HEADER_STRING));
+        responseOutWithJson(res, map);
     }
 
 
