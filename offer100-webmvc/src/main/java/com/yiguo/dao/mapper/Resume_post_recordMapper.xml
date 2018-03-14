@@ -19,7 +19,7 @@
       state, create_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{resumeId,jdbcType=INTEGER}, #{jobId,jdbcType=INTEGER}, 
-      #{state,jdbcType=TINYINT}, now(), now()
+      #{state,jdbcType=TINYINT},#{createTime,jdbcType=TIMESTAMP}, now()
       )
 
 </sql>
