@@ -27,24 +27,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 所有 / 的所有请求 都放行
 
-                // 所有 /login 的POST请求 都放行
-                .antMatchers(HttpMethod.POST, "/login/**").permitAll()
-                .antMatchers("/swagger-ui.html","/v2/api-docs","/swagger-resources","/configuration/security","/configuration/ui").permitAll()
-                // 角色检查
-                //用户拥有
-                .antMatchers("/Receive/**").hasRole(ROLE_USER)
-                .antMatchers(HttpMethod.PUT, "/users/**","/resume/**","/project_experience/**","/education/**").hasRole(ROLE_USER)
-                .antMatchers(HttpMethod.POST, "/resume/**","/project_experience/**","/education/**").hasRole(ROLE_USER)
-                .antMatchers(HttpMethod.DELETE, "/resume/**","/project_experience/**","/education/**").hasRole(ROLE_USER)
-                //企业拥有
-                .antMatchers("/enterprise/**").hasRole(ROLE_ENTERPRISE)
-                .antMatchers(HttpMethod.PUT, "/enterprise/**","/job/**").hasRole(ROLE_USER)
-                .antMatchers(HttpMethod.POST, "/enterprise/**","/job/**").hasRole(ROLE_USER)
-                .antMatchers(HttpMethod.DELETE, "/enterprise/**","/job/**").hasRole(ROLE_USER)
-                //公有
-                .antMatchers("/notification/**","/resume_post_record/**").hasAnyRole(ROLE_ENTERPRISE,ROLE_USER,ROLE_ADMIN)
-                //管理员
-                .antMatchers("/configuration/**").hasRole(ROLE_ADMIN)
+//                // 所有 /login 的POST请求 都放行
+//                .antMatchers(HttpMethod.POST, "/login/**").permitAll()
+//                .antMatchers("/swagger-ui.html","/v2/api-docs","/swagger-resources","/configuration/security","/configuration/ui").permitAll()
+//                // 角色检查
+//                //用户拥有
+//                .antMatchers("/Receive/**").hasRole(ROLE_USER)
+//                .antMatchers(HttpMethod.PUT, "/users/**","/resume/**","/project_experience/**","/education/**").hasRole(ROLE_USER)
+//                .antMatchers(HttpMethod.POST, "/resume/**","/project_experience/**","/education/**").hasRole(ROLE_USER)
+//                .antMatchers(HttpMethod.DELETE, "/resume/**","/project_experience/**","/education/**").hasRole(ROLE_USER)
+//                //企业拥有
+//                .antMatchers("/enterprise/**").hasRole(ROLE_ENTERPRISE)
+//                .antMatchers(HttpMethod.PUT, "/enterprise/**","/job/**").hasRole(ROLE_USER)
+//                .antMatchers(HttpMethod.POST, "/enterprise/**","/job/**").hasRole(ROLE_USER)
+//                .antMatchers(HttpMethod.DELETE, "/enterprise/**","/job/**").hasRole(ROLE_USER)
+//                //公有
+//                .antMatchers("/notification/**","/resume_post_record/**").hasAnyRole(ROLE_ENTERPRISE,ROLE_USER,ROLE_ADMIN)
+//                //管理员
+//                .antMatchers("/configuration/**").hasRole(ROLE_ADMIN)
                 .antMatchers("/**").permitAll()
                 // 所有请求需要身份认证
                 .anyRequest().authenticated()
