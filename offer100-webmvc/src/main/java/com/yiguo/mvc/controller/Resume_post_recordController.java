@@ -212,7 +212,7 @@ private String Sender;
     @ApiOperation(value = "简历发送成功通知",notes = "通过发送邮件，提醒用户简历发送成功")
     @ResponseBody
     @RequestMapping(value = "/{id}/{resumeId}/{jobId}", method = RequestMethod.GET)
-    public void getSuccessMail(@PathVariable  Integer id,@PathVariable Integer resumeId,@PathVariable Integer jobId){
+    public String getSuccessMail(@PathVariable  Integer id,@PathVariable Integer resumeId,@PathVariable Integer jobId){
 
         Resume_post_record resume_post_record1 = new Resume_post_record();
         byte is=(byte)1;
@@ -220,8 +220,10 @@ private String Sender;
         resume_post_record1.setResumeId(resumeId);
         resume_post_record1.setJobId(jobId);
         resume_post_record1.setCreateTime(new Date());
+        if(resume_post_recordService.select(resume_post_record1,null)==null)
         resume_post_recordService.insert(resume_post_record1);
-
+       else
+           return "this have exist";
         Resume_post_record resume_post_record =new Resume_post_record();
         resume_post_record.setResumeId(resumeId);
         int count =resume_post_recordService.selectCount(resume_post_record);
@@ -295,7 +297,7 @@ private String Sender;
             }
             mailSender.send(message);
         }
-
+return "success";
     }
 
     @ApiOperation(value = "简历正在筛选通知",notes = "通过发送邮件，提醒用户简历正在筛选")
@@ -312,7 +314,18 @@ private String Sender;
         byte i=(byte)2;
         resume_post_records.get(0).setState(i);
         resume_post_recordService.updateByPrimaryKeySelective(resume_post_records.get(0));
-
+        List <Resume_post_record> resume_post_recordss=resume_post_recordService.select(resume_post_record,null);
+        if(resume_post_recordss.get(0).getState()==2){
+            Notification notification=new Notification();
+            notification.setTitle("简历投递");
+            notification.setContext("简历正在筛选");
+            notification.setRecieverId(user.getId());
+            notification.setSenderId(enterpriseId);
+            byte is=(byte)2;
+            notification.setType(is);
+            notification.setSendTime(new Date());
+            notificationService.insert(notification);
+        }
         MimeMessage message = null;
         try {
             message = mailSender.createMimeMessage();
