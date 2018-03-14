@@ -1,6 +1,8 @@
 package com.yiguo.mvc.controller;
 
 import com.sun.javafx.fxml.expression.Expression;
+import com.yiguo.bean.User;
+import com.yiguo.service.UserService;
 import freemarker.template.Template;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,6 +43,8 @@ public class EngineCotroller {
     private FreeMarkerConfigurer freeMarkerConfigurer;
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private UserService userService;
     public final static String MD5(String s) {
         char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                 'A', 'B', 'C', 'D', 'E', 'F' };
@@ -85,9 +89,10 @@ public class EngineCotroller {
 
     @ApiOperation(value = "用户找回密码",notes = "通过发送邮件，进行重新设置密码操作")
     @ResponseBody
-    @RequestMapping(value = "/getCodeMail", method = RequestMethod.GET)
-    public void getCodeMail(@PathVariable  String email){
-        String emailencode=MD5(email)+"&";
+    @RequestMapping(value = "/getCodeMail/{id}", method = RequestMethod.GET)
+    public void getCodeMail(@PathVariable  Integer id){
+        User user= userService.selectByPrimaryKey(id);
+        String emailencode=MD5(user.getEmail())+"&";
         String url="https://yiguo.com/password/reset?";
 
         MimeMessage message = null;
@@ -96,12 +101,12 @@ public class EngineCotroller {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(Sender);
             helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
-            helper.setTo(email);
+            helper.setTo(user.getEmail());
             helper.setSubject("找回密码邮件");
             helper.setText(url+emailencode+"email="+"286311613@qq.com");
             Map<String, Object> model = new HashedMap();
             model.put("username", "尊敬的用户，");
-            model.put("text",url+emailencode+"email="+email);
+            model.put("text",url+emailencode+"email="+user.getEmail());
             //修改 application.properties 文件中的读取路径
             FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
             configurer.setTemplateLoaderPath("classpath:templates");
@@ -114,68 +119,8 @@ public class EngineCotroller {
         }
         mailSender.send(message);
     }
-    @ApiOperation(value = "发送录取简历通知",notes = "通过发送邮件通知，提醒用户录取简历")
-    @ResponseBody
-    @RequestMapping(value = "/getResumeMail", method = RequestMethod.GET)
-    public void getResumeMail(@PathVariable  String email){
-        String emailencode=MD5(email)+"&";
-        String url="https://yiguo.com/password/reset?";
 
-        MimeMessage message = null;
-        try {
-            message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(Sender);
-            helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
-            helper.setTo(email);
-            helper.setSubject("简历通过邮件");
-            helper.setText("恭喜您，您的简历已经通过，请等待面试通知");
-            Map<String, Object> model = new HashedMap();
-            model.put("username", "你好，");
-            model.put("text","恭喜您，您的简历已经通过，请等待面试通知");
-            //修改 application.properties 文件中的读取路径
-            FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-            configurer.setTemplateLoaderPath("classpath:templates");
-            //读取 html 模板
-            Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail1.html");
-            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
-            helper.setText(html, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        mailSender.send(message);
-    }
-    @ApiOperation(value = "发送打回简历通知",notes = "通过发送邮件，提醒用户简历未通过")
-    @ResponseBody
-    @RequestMapping(value = "/getReturnMail", method = RequestMethod.GET)
-    public void getReturnMail(@PathVariable  String email){
-        String emailencode=MD5(email)+"&";
-        String url="https://yiguo.com/password/reset?";
 
-        MimeMessage message = null;
-        try {
-            message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(Sender);
-            helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
-            helper.setTo(email);
-            helper.setSubject("简历通过邮件");
-            helper.setText("您的简历没有通过，不好意思");
-            Map<String, Object> model = new HashedMap();
-            model.put("username", "你好，");
-            model.put("text","您的简历没有通过，不好意思");
-            //修改 application.properties 文件中的读取路径
-            FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-            configurer.setTemplateLoaderPath("classpath:templates");
-            //读取 html 模板
-            Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail1.html");
-            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
-            helper.setText(html, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        mailSender.send(message);
-    }
     @ApiOperation(value = "用户点击找回密码链接",notes = "通过点击链接，进行重新设置密码工作")
     @ResponseBody
     @RequestMapping(value = "/getLinkCode", method = RequestMethod.GET)

@@ -105,9 +105,9 @@ Date  date=new Date();
         System.out.print(f);
 }
 @Test
-@Ignore
+
     public void sendTemplateMail(){
-    String emailencode=MD5("286311613@qq.com")+"&";
+    String emailencode=MD5("13633413801@163.com")+"&";
     String url="https://yiguo.com/password/reset?";
 
     MimeMessage message = null;
@@ -116,7 +116,7 @@ Date  date=new Date();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(Sender);
             helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
-            helper.setTo("286311613@qq.com");
+            helper.setTo("13633413801@163.com");
             helper.setSubject("找回密码邮件");
             helper.setText(url+emailencode+"email="+"286311613@qq.com");
             Map<String, Object> model = new HashedMap();
