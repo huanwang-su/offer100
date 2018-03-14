@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 所有 / 的所有请求 都放行
                 .antMatchers("/**").permitAll()
                 // 所有 /login 的POST请求 都放行
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/login/**").permitAll()
                 .antMatchers("/swagger-ui.html","/v2/api-docs","/swagger-resources","/configuration/security","/configuration/ui").permitAll()
                 // 角色检查
                 //用户拥有
