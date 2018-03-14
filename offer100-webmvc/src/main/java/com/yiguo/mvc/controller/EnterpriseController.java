@@ -173,7 +173,7 @@ public class EnterpriseController {
         Page page= new Page();
         page.setPageNumber(pageNumber);
         page.setPageSize(pageSize);
-        enterprise.setStage(1);
+        //enterprise.setStage(1);
         pageinfo.setRows( enterpriseService.select(enterprise,page));
         int count=enterpriseService.selectCount(enterprise);
         pageinfo.setTotal(count);

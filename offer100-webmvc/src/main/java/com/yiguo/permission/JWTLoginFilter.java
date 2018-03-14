@@ -32,8 +32,14 @@ class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         if(((HttpServletRequest)req).getMethod().toLowerCase().equals("options"))
             chain.doFilter(req,res);
-        else
+        else {
             super.doFilter(req, res, chain);
+            HttpServletResponse response = (HttpServletResponse) res;
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, HEAD, OPTIONS, DELETE");
+            response.setHeader("Access-Control-Max-Age", "3600");
+            response.setHeader("Access-Control-Allow-Headers", "Content-Type,Access-Token");
+        }
     }
 
     @Override

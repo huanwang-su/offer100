@@ -47,7 +47,7 @@
     <!--<logger name="org.apache.ibatis" level="DEBUG" />-->
     <!--<logger name="java.sql" level="DEBUG"/>-->
 
-    <root level="Info">
+    <root level="debug">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ROLLING"/>
         <!--<appender-ref ref="SIFT"/>-->
