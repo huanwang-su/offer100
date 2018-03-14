@@ -160,7 +160,7 @@ private String Sender;
     }
     @ApiOperation(value = "发送打回简历通知",notes = "通过发送邮件，提醒用户简历未通过")
     @ResponseBody
-    @RequestMapping(value = "/{resumeid}/{enterpriseId}", method = RequestMethod.GET)
+    @RequestMapping(value = "rejectMailNotify/{resumeid}/{enterpriseId}", method = RequestMethod.GET)
     public void getReturnMail(@PathVariable  Integer resumeid,@PathVariable Integer enterpriseId){
         Resume resume = resumeService.selectByPrimaryKey(resumeid);
        User user =  userService.selectByPrimaryKey(resume.getUserId());
