@@ -89,10 +89,11 @@ public class JobController {
             f="删除失败";
         return f;
     }
-    @ApiOperation(value = "筛选岗位信息",notes = "查询得出岗位，加入了分页")
+    @ApiOperation(value = "筛选岗位信息",notes = "查询得出岗位，加入了分页" +
+            "state: 0 未上线 , 1 在线中, 2, 已下线")
     @ResponseBody
-    @RequestMapping(value = "/selectJob", method = RequestMethod.GET)
-    public PageInfo<Job> selectJob(@ModelAttribute Job job,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public PageInfo<Job> selectJob(@ModelAttribute Job job ,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递=
         job =job==null?new Job():job;

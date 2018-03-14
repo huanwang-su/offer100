@@ -405,6 +405,17 @@
 		<if test="email != null">
 			and email = #{email,jdbcType=VARCHAR}
 		</if>
+        <if test="state != null">
+            <if test="state == 0">
+                <![CDATA[ and now() < effective_time]]>
+            </if>
+            <if test="state == 2">
+                <![CDATA[ and now() > expiration_time]]>
+            </if>
+            <if test="state == 1">
+                <![CDATA[ and now() > effective_time and now() < expiration_time]]>
+            </if>
+        </if>
 		<if test="creatTime != null">
 			and creat_time = #{creatTime,jdbcType=TIMESTAMP}
 		</if>
@@ -462,6 +473,17 @@
 		<if test="email != null">
 			and email = #{email,jdbcType=VARCHAR}
 		</if>
+        <if test="state != null">
+            <if test="state == 0">
+                <![CDATA[ and now() < effective_time]]>
+            </if>
+            <if test="state == 2">
+                <![CDATA[ and now() > expiration_time]]>
+            </if>
+            <if test="state == 1">
+                <![CDATA[ and now() > effective_time and now() < expiration_time]]>
+            </if>
+        </if>
 		<if test="creatTime != null">
 			and creat_time = #{creatTime,jdbcType=TIMESTAMP}
 		</if>

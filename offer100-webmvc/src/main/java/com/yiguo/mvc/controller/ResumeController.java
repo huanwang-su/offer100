@@ -1,17 +1,17 @@
 package com.yiguo.mvc.controller;
 
-import com.yiguo.bean.Notification;
-import com.yiguo.bean.Page;
-import com.yiguo.bean.Resume;
-import com.yiguo.bean.Resume_post_record;
+import com.yiguo.bean.*;
+import com.yiguo.mvc.vo.ResumeVO;
 import com.yiguo.offer100.common.page.PageInfo;
 import com.yiguo.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +25,10 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 public class ResumeController {
     @Autowired
     ResumeService resumeService;
+    @Autowired
+    EducationService educationService;
+    @Autowired
+    ProjectExperienceService projectExperienceService;
     @Autowired
     JobService jobService;
     @Autowired
@@ -51,6 +55,29 @@ public class ResumeController {
         pageinfo.setTotal(resumeService.selectCount(resume));
         return pageinfo;
     }
+
+    @ApiOperation(value = "用户获取自己简历列表(包括教育，项目经历)")
+    @ResponseBody
+    @RequestMapping(value = "/getResumeVO/{id}", method = RequestMethod.GET)
+    public PageInfo<ResumeVO> getResumeVoList(@ PathVariable Integer id, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+        //List<User> r = new ArrayList<User>(users.values());
+        PageInfo<ResumeVO> pageinfo=new PageInfo<>();
+        pageinfo.setPageNum(pageNumber);
+        pageinfo.setPageSize(pageSize);
+        Page page= new Page();
+        page.setPageNumber(pageNumber);
+        page.setPageSize(pageSize);
+        Resume resume=new Resume();
+        resume.setUserId(id);
+        List<ResumeVO> vos=new ArrayList<>();
+        pageinfo.setRows(vos);
+        resumeService.select(resume,page).forEach(r->{
+            vos.add(resumeToVO(r));
+        });
+        pageinfo.setTotal(resumeService.selectCount(resume));
+        return pageinfo;
+    }
+
     @ApiOperation(value="下载简历文件", notes="上传文件")
     @ResponseBody
     @RequestMapping(value = "/downlownFile/{id}", method = {RequestMethod.GET})
@@ -125,6 +152,18 @@ public class ResumeController {
             return FAILURE;
         }
         return "this id does not exist";
+    }
+
+    private ResumeVO resumeToVO(Resume resume){
+        ResumeVO resumeVO = new ResumeVO();
+        BeanUtils.copyProperties(resume,resumeVO);
+        Education education =new Education();
+        education.setUserId(resume.getUserId());
+        resumeVO.setEducations(educationService.select(education,new Page()));
+        ProjectExperience projectExperience=new ProjectExperience();
+        projectExperience.setUserId(resume.getUserId());
+        resumeVO.setProjectExperiences(projectExperienceService.select(projectExperience,new Page()));
+        return resumeVO;
     }
 
     /*@ApiOperation(value = "resumeid",notes = "用户管理自己的简历")
