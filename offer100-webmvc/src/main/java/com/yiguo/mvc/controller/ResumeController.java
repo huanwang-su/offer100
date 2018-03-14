@@ -78,6 +78,13 @@ public class ResumeController {
         return pageinfo;
     }
 
+    @ApiOperation(value = "根据简历id简历(包括教育，项目经历)")
+    @ResponseBody
+    @RequestMapping(value = "/getResumeVOByResumeId/{id}", method = RequestMethod.GET)
+    public ResumeVO getResumeVoById(@ PathVariable Integer id) {
+        return resumeToVO(resumeService.selectByPrimaryKey(id));
+    }
+
     @ApiOperation(value="下载简历文件", notes="上传文件")
     @ResponseBody
     @RequestMapping(value = "/downlownFile/{id}", method = {RequestMethod.GET})
@@ -155,6 +162,8 @@ public class ResumeController {
     }
 
     private ResumeVO resumeToVO(Resume resume){
+        if(resume==null)
+            return null;
         ResumeVO resumeVO = new ResumeVO();
         BeanUtils.copyProperties(resume,resumeVO);
         Education education =new Education();
