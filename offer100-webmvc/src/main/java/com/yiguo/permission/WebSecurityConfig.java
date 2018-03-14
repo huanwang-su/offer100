@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 对请求进行认证
                 .authorizeRequests()
                 // 所有 / 的所有请求 都放行
-                .antMatchers("/**").permitAll()
+
                 // 所有 /login 的POST请求 都放行
                 .antMatchers(HttpMethod.POST, "/login/**").permitAll()
                 .antMatchers("/swagger-ui.html","/v2/api-docs","/swagger-resources","/configuration/security","/configuration/ui").permitAll()
@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/notification/**","/resume_post_record/**").hasAnyRole(ROLE_ENTERPRISE,ROLE_USER,ROLE_ADMIN)
                 //管理员
                 .antMatchers("/configuration/**").hasRole(ROLE_ADMIN)
+                .antMatchers("/**").permitAll()
                 // 所有请求需要身份认证
                 .anyRequest().authenticated()
                 .and()
