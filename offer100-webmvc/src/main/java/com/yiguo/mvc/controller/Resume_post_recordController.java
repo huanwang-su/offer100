@@ -111,18 +111,20 @@ private String Sender;
 
     @ApiOperation(value = "发送录取简历通知",notes = "通过发送邮件通知，提醒用户录取简历")
     @ResponseBody
-    @RequestMapping(value = "/getResumeMail/{resumeid}/{enterpriseId}", method = RequestMethod.GET)
-    public void getResumeMail(@PathVariable Integer resumeid,@PathVariable Integer enterpriseId){
+    @RequestMapping(value = "/getResumeMail/{resumeid}/{enterpriseId}/{jobid}", method = RequestMethod.GET)
+    public void getResumeMail(@PathVariable Integer resumeid,@PathVariable Integer enterpriseId,@PathVariable Integer jobid){
         Resume resume = resumeService.selectByPrimaryKey(resumeid);
         User user =  userService.selectByPrimaryKey(resume.getUserId());
         String emailencode=MD5(user.getEmail())+"&";
         String url="https://yiguo.com/password/reset?";
         Resume_post_record resume_post_record =new Resume_post_record();
         resume_post_record.setResumeId(resumeid);
+        resume_post_record.setJobId(jobid);
         List<Resume_post_record> resume_post_records= resume_post_recordService.select(resume_post_record,null);
         byte i=(byte)3;
         resume_post_records.get(0).setState(i);
         resume_post_recordService.updateByPrimaryKeySelective(resume_post_records.get(0));
+
         if(resume_post_recordService.select(resume_post_record,null).get(0).getState()==3) {
             Notification notification = new Notification();
             notification.setTitle("简历通知");
@@ -160,19 +162,19 @@ private String Sender;
     }
     @ApiOperation(value = "发送打回简历通知",notes = "通过发送邮件，提醒用户简历未通过")
     @ResponseBody
-    @RequestMapping(value = "rejectMailNotify/{resumeid}/{enterpriseId}", method = RequestMethod.GET)
-    public void getReturnMail(@PathVariable  Integer resumeid,@PathVariable Integer enterpriseId){
+    @RequestMapping(value = "/getReturnMail/{resumeid}/{enterpriseId}/{jobid}", method = RequestMethod.GET)
+    public void getReturnMail(@PathVariable  Integer resumeid,@PathVariable Integer enterpriseId,@PathVariable Integer jobid){
         Resume resume = resumeService.selectByPrimaryKey(resumeid);
        User user =  userService.selectByPrimaryKey(resume.getUserId());
         String emailencode=MD5(user.getEmail())+"&";
         String url="https://yiguo.com/password/reset?";
         Resume_post_record resume_post_record =new Resume_post_record();
         resume_post_record.setResumeId(resumeid);
+        resume_post_record.setJobId(jobid);
        List<Resume_post_record> resume_post_records= resume_post_recordService.select(resume_post_record,null);
        byte i=(byte)4;
        resume_post_records.get(0).setState(i);
         resume_post_recordService.updateByPrimaryKeySelective(resume_post_records.get(0));
-
 
        if(resume_post_recordService.select(resume_post_record,null).get(0).getState()==4) {
            Notification notification = new Notification();
@@ -211,63 +213,86 @@ private String Sender;
     }
     @ApiOperation(value = "简历发送成功通知",notes = "通过发送邮件，提醒用户简历发送成功")
     @ResponseBody
-    @RequestMapping(value = "/{id}/{resumeId}/{jobId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getSuccessMail/{id}/{resumeId}/{jobId}", method = RequestMethod.GET)
     public String getSuccessMail(@PathVariable  Integer id,@PathVariable Integer resumeId,@PathVariable Integer jobId){
 
         Resume_post_record resume_post_record1 = new Resume_post_record();
         byte is=(byte)1;
-        resume_post_record1.setState(is);
+
         resume_post_record1.setResumeId(resumeId);
         resume_post_record1.setJobId(jobId);
+
+        List <Resume_post_record> resume_post_record2=resume_post_recordService.select(resume_post_record1,null);
+        int countss=0;
+        for(int j=0;j<resume_post_record2.size();j++){
+            if(resume_post_record2.get(j).getState()==1&&resume_post_record2.get(j).getResumeId()==resumeId&&resume_post_record2.get(j).getJobId()==jobId)
+                countss++;
+        }
+        resume_post_record1.setState(is);
         resume_post_record1.setCreateTime(new Date());
-        if(resume_post_recordService.select(resume_post_record1,null)==null)
+        if(countss==0)
         resume_post_recordService.insert(resume_post_record1);
        else
            return "this have exist";
+
         Resume_post_record resume_post_record =new Resume_post_record();
         resume_post_record.setResumeId(resumeId);
         int count =resume_post_recordService.selectCount(resume_post_record);
+
         if(count!=0) {
             List <Resume_post_record> resume_post_records=resume_post_recordService.select(resume_post_record,null);
-           if(resume_post_records.get(0).getState()==1){
-               Notification notification=new Notification();
+           int state=0;
+            for(int j=0;j<resume_post_records.size();j++){
+                if(resume_post_records.get(j).getState()==1&&resume_post_records.get(j).getResumeId()==resumeId&&resume_post_records.get(j).getJobId()==jobId)
+                   state=1;
+            }
+
+           if(state==1) {
+               Notification notification = new Notification();
                notification.setTitle("简历投递");
                notification.setContext("简历投递成功");
                notification.setRecieverId(id);
                notification.setSenderId(0);
-               byte i=(byte)3;
+               byte i = (byte) 3;
                notification.setType(i);
                notification.setSendTime(new Date());
                notificationService.insert(notification);
-           }
-            User user = userService.selectByPrimaryKey(id);
-            String emailencode = MD5(user.getEmail()) + "&";
-            String url = "https://yiguo.com/password/reset?";
 
-            MimeMessage message = null;
-            try {
-                message = mailSender.createMimeMessage();
-                MimeMessageHelper helper = new MimeMessageHelper(message, true);
-                helper.setFrom(Sender);
-                helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
-                helper.setTo(user.getEmail());
-                helper.setSubject("来自于offer100");
-                helper.setText("简历通知");
-                Map<String, Object> model = new HashedMap();
-                model.put("username", "你好，");
-                model.put("text", "您的简历已经发送成功");
-                //修改 application.properties 文件中的读取路径
-                FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-                configurer.setTemplateLoaderPath("classpath:templates");
-                //读取 html 模板
-                Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail1.html");
-                String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
-                helper.setText(html, true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            mailSender.send(message);
+               User user = userService.selectByPrimaryKey(id);
+               String emailencode = MD5(user.getEmail()) + "&";
+               String url = "https://yiguo.com/password/reset?";
+
+               MimeMessage message = null;
+               try {
+                   message = mailSender.createMimeMessage();
+                   MimeMessageHelper helper = new MimeMessageHelper(message, true);
+                   helper.setFrom(Sender);
+                   helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
+                   helper.setTo(user.getEmail());
+                   helper.setSubject("来自于offer100");
+                   helper.setText("简历通知");
+                   Map<String, Object> model = new HashedMap();
+                   model.put("username", "你好，");
+                   model.put("text", "您的简历已经发送成功");
+                   //修改 application.properties 文件中的读取路径
+                   FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+                   configurer.setTemplateLoaderPath("classpath:templates");
+                   //读取 html 模板
+                   Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail1.html");
+                   String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+                   helper.setText(html, true);
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+               mailSender.send(message);
+
+           }
+           else
+               return "this resumepost haven't exist";
+            return "success";
         }
+
+
         else{
             User user = userService.selectByPrimaryKey(id);
             String emailencode = MD5(user.getEmail()) + "&";
@@ -297,58 +322,61 @@ private String Sender;
             }
             mailSender.send(message);
         }
-return "success";
+return "b n m m m , , ,";
     }
 
     @ApiOperation(value = "简历正在筛选通知",notes = "通过发送邮件，提醒用户简历正在筛选")
     @ResponseBody
-    @RequestMapping(value = "/{resumeid}/{enterpriseId}", method = RequestMethod.GET)
-    public void getCheckMail(@PathVariable  Integer resumeid,@PathVariable Integer enterpriseId){
+    @RequestMapping(value = "/getChecMail/{resumeid}/{enterpriseId}/{jobId}", method = RequestMethod.GET)
+    public void getCheckMail(@PathVariable  Integer resumeid,@PathVariable Integer enterpriseId,@PathVariable Integer jobId){
         Resume resume = resumeService.selectByPrimaryKey(resumeid);
         User user =  userService.selectByPrimaryKey(resume.getUserId());
         String emailencode=MD5(user.getEmail())+"&";
         String url="https://yiguo.com/password/reset?";
         Resume_post_record resume_post_record =new Resume_post_record();
         resume_post_record.setResumeId(resumeid);
+        resume_post_record.setJobId(jobId);
         List<Resume_post_record> resume_post_records= resume_post_recordService.select(resume_post_record,null);
         byte i=(byte)2;
         resume_post_records.get(0).setState(i);
         resume_post_recordService.updateByPrimaryKeySelective(resume_post_records.get(0));
-        List <Resume_post_record> resume_post_recordss=resume_post_recordService.select(resume_post_record,null);
-        if(resume_post_recordss.get(0).getState()==2){
-            Notification notification=new Notification();
+
+        if(resume_post_recordService.select(resume_post_record,null).get(0).getState()==2) {
+            Notification notification = new Notification();
             notification.setTitle("简历投递");
             notification.setContext("简历正在筛选");
             notification.setRecieverId(user.getId());
             notification.setSenderId(enterpriseId);
-            byte is=(byte)2;
+            byte is = (byte) 2;
             notification.setType(is);
             notification.setSendTime(new Date());
             notificationService.insert(notification);
+
+            MimeMessage message = null;
+            try {
+                message = mailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(message, true);
+                helper.setFrom(Sender);
+                helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
+                helper.setTo(user.getEmail());
+                helper.setSubject("来自于offer100");
+                helper.setText("简历通知");
+                Map<String, Object> model = new HashedMap();
+                model.put("username", "你好，");
+                model.put("text", "您的简历正在筛选");
+                //修改 application.properties 文件中的读取路径
+                FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+                configurer.setTemplateLoaderPath("classpath:templates");
+                //读取 html 模板
+                Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail1.html");
+                String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+                helper.setText(html, true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mailSender.send(message);
         }
-        MimeMessage message = null;
-        try {
-            message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(Sender);
-            helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
-            helper.setTo(user.getEmail());
-            helper.setSubject("来自于offer100");
-            helper.setText("简历通知");
-            Map<String, Object> model = new HashedMap();
-            model.put("username", "你好，");
-            model.put("text","您的简历正在筛选");
-            //修改 application.properties 文件中的读取路径
-            FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-            configurer.setTemplateLoaderPath("classpath:templates");
-            //读取 html 模板
-            Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail1.html");
-            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
-            helper.setText(html, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        mailSender.send(message);
+
     }
     @ApiOperation(value = "企业或用户查看投递情况",notes = "企业或用户查看投递情况")
     @ResponseBody
