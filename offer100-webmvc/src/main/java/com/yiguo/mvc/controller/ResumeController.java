@@ -21,7 +21,7 @@ import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 @Controller
 @RestController
 @Api(value = "简历接口")
-@RequestMapping(value="/resume")     // 通过这里配置使下面的映射都在/resume下
+@RequestMapping(value = "/resume")     // 通过这里配置使下面的映射都在/resume下
 public class ResumeController {
     @Autowired
     ResumeService resumeService;
@@ -38,20 +38,20 @@ public class ResumeController {
     @Autowired
     UserService userService;
 
-    @ApiOperation(value = "用户获取自己简历列表",notes = "通过用户id获取简历列表")
+    @ApiOperation(value = "用户获取自己简历列表", notes = "通过用户id获取简历列表")
     @ResponseBody
     @RequestMapping(value = "/getResumeList/{id}", method = RequestMethod.GET)
-    public PageInfo<Resume> getResumeList(@ PathVariable Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+    public PageInfo<Resume> getResumeList(@PathVariable Integer id, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
         //List<User> r = new ArrayList<User>(users.values());
-        PageInfo<Resume> pageinfo=new PageInfo<Resume>();
+        PageInfo<Resume> pageinfo = new PageInfo<Resume>();
         pageinfo.setPageNum(pageNumber);
         pageinfo.setPageSize(pageSize);
-        Page page= new Page();
+        Page page = new Page();
         page.setPageNumber(pageNumber);
         page.setPageSize(pageSize);
-        Resume resume=new Resume();
+        Resume resume = new Resume();
         resume.setUserId(id);
-        pageinfo.setRows(resumeService.select(resume,page));
+        pageinfo.setRows(resumeService.select(resume, page));
         pageinfo.setTotal(resumeService.selectCount(resume));
         return pageinfo;
     }
@@ -59,19 +59,19 @@ public class ResumeController {
     @ApiOperation(value = "用户获取自己简历列表(包括教育，项目经历)")
     @ResponseBody
     @RequestMapping(value = "/getResumeVO/{id}", method = RequestMethod.GET)
-    public PageInfo<ResumeVO> getResumeVoList(@ PathVariable Integer id, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+    public PageInfo<ResumeVO> getResumeVoList(@PathVariable Integer id, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
         //List<User> r = new ArrayList<User>(users.values());
-        PageInfo<ResumeVO> pageinfo=new PageInfo<>();
+        PageInfo<ResumeVO> pageinfo = new PageInfo<>();
         pageinfo.setPageNum(pageNumber);
         pageinfo.setPageSize(pageSize);
-        Page page= new Page();
+        Page page = new Page();
         page.setPageNumber(pageNumber);
         page.setPageSize(pageSize);
-        Resume resume=new Resume();
+        Resume resume = new Resume();
         resume.setUserId(id);
-        List<ResumeVO> vos=new ArrayList<>();
+        List<ResumeVO> vos = new ArrayList<>();
         pageinfo.setRows(vos);
-        resumeService.select(resume,page).forEach(r->{
+        resumeService.select(resume, page).forEach(r -> {
             vos.add(resumeToVO(r));
         });
         pageinfo.setTotal(resumeService.selectCount(resume));
@@ -81,36 +81,37 @@ public class ResumeController {
     @ApiOperation(value = "根据简历id简历(包括教育，项目经历)")
     @ResponseBody
     @RequestMapping(value = "/getResumeVOByResumeId/{id}", method = RequestMethod.GET)
-    public ResumeVO getResumeVoById(@ PathVariable Integer id) {
+    public ResumeVO getResumeVoById(@PathVariable Integer id) {
         return resumeToVO(resumeService.selectByPrimaryKey(id));
     }
 
-    @ApiOperation(value="下载简历文件", notes="上传文件")
+    @ApiOperation(value = "下载简历文件", notes = "上传文件")
     @ResponseBody
     @RequestMapping(value = "/downlownFile/{id}", method = {RequestMethod.GET})
-    public PageInfo<String> downlownFile(@PathVariable Integer id,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
-        PageInfo<String> pageinfo=new PageInfo<String>();
+    public PageInfo<String> downlownFile(@PathVariable Integer id, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+        PageInfo<String> pageinfo = new PageInfo<String>();
         pageinfo.setPageNum(pageNumber);
         pageinfo.setPageSize(pageSize);
-        Page page= new Page();
+        Page page = new Page();
         page.setPageNumber(pageNumber);
         page.setPageSize(pageSize);
-        Resume resume=new Resume();
+        Resume resume = new Resume();
         resume.setUserId(id);
-        pageinfo.setRows(resumeService.selectByUserId(resume,page));
+        pageinfo.setRows(resumeService.selectByUserId(resume, page));
 
         pageinfo.setTotal(resumeService.selectCount(resume));
         return pageinfo;
     }
-    @ApiOperation(value = "创建简历信息",notes = "根据resume对象创建resume")
+
+    @ApiOperation(value = "创建简历信息", notes = "根据resume对象创建resume")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String buildResume(@RequestBody Resume resume) {
 
-         //数据库对多数字段有长度限制，超出长度应提示错误（）
+        //数据库对多数字段有长度限制，超出长度应提示错误（）
         // String f=FAILURE;
-        Integer count=  resumeService.insert(resume);
-        if(count > 0) {
+        Integer count = resumeService.insert(resume);
+        if (count > 0) {
             return SUCCESS;
         }
         //System.out.println(f);
@@ -118,60 +119,56 @@ public class ResumeController {
     }
 
 
-    @ApiOperation(value="查询简历信息", notes="根据url的id来获取简历详细信息")
+    @ApiOperation(value = "查询简历信息", notes = "根据url的id来获取简历详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Resume getResume(@PathVariable Integer id) {
-        Resume resume=new Resume();
-        resume=resumeService.selectByPrimaryKey(id);
+        Resume resume = new Resume();
+        resume = resumeService.selectByPrimaryKey(id);
         return resume;
     }
 
 
-    @ApiOperation(value="更新简历信息", notes="根据url的id来指定更新对象，并根据传过来的resume信息来更新简历详细信息")
+    @ApiOperation(value = "更新简历信息", notes = "根据url的id来指定更新对象，并根据传过来的resume信息来更新简历详细信息")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String updateResume(@PathVariable Integer id, @RequestBody Resume resume) {
-        if(resumeService.findById(id) > 0) {
+        if (resumeService.findById(id) > 0) {
             resume.setId(id);
-            if(userService.findById(resume.getUserId()) > 0 ) {
-                int num = resumeService.updateByPrimaryKeySelective(resume);
-                if (num > 0) {
-                    return SUCCESS;
-                } else
-                    return FAILURE;
-
-            }
-            return "this user_id does not exist";
+            int num = resumeService.updateByPrimaryKeySelective(resume);
+            if (num > 0) {
+                return SUCCESS;
+            } else
+                return FAILURE;
         }
         return "this id does not exist";
     }
 
-    @ApiOperation(value="删除简历信息", notes="根据url的id来指定删除对象")
+    @ApiOperation(value = "删除简历信息", notes = "根据url的id来指定删除对象")
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteResume(@PathVariable Integer id) {
-        if(resumeService.findById(id) > 0) {
-        int num = resumeService.deleteByPrimaryKey(id);
-        if(num > 0) {
-            return SUCCESS;
-        }else
-            return FAILURE;
+        if (resumeService.findById(id) > 0) {
+            int num = resumeService.deleteByPrimaryKey(id);
+            if (num > 0) {
+                return SUCCESS;
+            } else
+                return FAILURE;
         }
         return "this id does not exist";
     }
 
-    private ResumeVO resumeToVO(Resume resume){
-        if(resume==null)
+    private ResumeVO resumeToVO(Resume resume) {
+        if (resume == null)
             return null;
         ResumeVO resumeVO = new ResumeVO();
-        BeanUtils.copyProperties(resume,resumeVO);
-        Education education =new Education();
+        BeanUtils.copyProperties(resume, resumeVO);
+        Education education = new Education();
         education.setUserId(resume.getUserId());
-        resumeVO.setEducations(educationService.select(education,new Page()));
-        ProjectExperience projectExperience=new ProjectExperience();
+        resumeVO.setEducations(educationService.select(education, new Page()));
+        ProjectExperience projectExperience = new ProjectExperience();
         projectExperience.setUserId(resume.getUserId());
-        resumeVO.setProjectExperiences(projectExperienceService.select(projectExperience,new Page()));
+        resumeVO.setProjectExperiences(projectExperienceService.select(projectExperience, new Page()));
         return resumeVO;
     }
 
@@ -190,8 +187,6 @@ public class ResumeController {
         return resumes;
     }
 */
-
-
 
 
     //求职者投递简历成功后，企业向求职者发送通知
@@ -229,7 +224,6 @@ public class ResumeController {
             return "resume is fail to deliver";
         }
 */
-
 
 
 }

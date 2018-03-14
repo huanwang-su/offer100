@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.sun.net.httpserver.Authenticator;
 import com.yiguo.bean.Enterprise;
 import com.yiguo.bean.User;
+import com.yiguo.exception.ApiException;
+import com.yiguo.permission.TokenAuthenticationService;
 import com.yiguo.service.EnterpriseService;
 import com.yiguo.service.UserService;
 import io.swagger.annotations.Api;
@@ -81,6 +83,7 @@ public class LoginController {
 				m.put("id", user.getId());
 				m.put("type", loginInfo.get("type").toString());
 				m.put("msg",f);
+                m.put("photo",user.getPhone());
 			}
 			return m;
 		}
@@ -110,6 +113,7 @@ public class LoginController {
 				m.put("id", enterprise.getId());
 				m.put("type", loginInfo.get("type").toString());
 				m.put("msg",f);
+                m.put("photo",enterprise.getPhone());
 			}
 			return m;
 		}
@@ -122,16 +126,16 @@ public class LoginController {
 	@ApiOperation(value = "用户注销",notes = "用户注销账户" )
 	@ResponseBody
 	@RequestMapping(value = "/exit/{username}", method = RequestMethod.POST)
-	public String exitUser(@PathVariable String username) {
+	public String exitUser(HttpServletRequest request ,@PathVariable String username) {
 		// 处理"/users/"的POST请求，用来创建User
 		// 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
-		String f= SUCCESS;
-		User user= userService.findByUsername(username);
-		userService.deleteByPrimaryKey(user.getId());
-		if(userService.selectByPrimaryKey(user.getId())!=null) {
-			f = FAILURE;
-		}
-		return f;
+        Map<String,String> map = TokenAuthenticationService.getTokenInfo(request);
+        if(map.get("token")==null)
+            throw new ApiException("用户未登录");
+        if(!map.get("user").equals(username))
+            throw new ApiException("非本用户注销");
+        request.getSession().removeAttribute(map.get("token"));
+		return SUCCESS;
 	}
 
 }

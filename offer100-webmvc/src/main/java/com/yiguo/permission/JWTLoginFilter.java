@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -72,10 +73,13 @@ class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         ArrayList<GrantedAuthority> authorities = new ArrayList<>(auth.getAuthorities());
         String out = authorities.get(authorities.size() - 1).getAuthority();
         authorities.remove(authorities.size() - 1);
-        TokenAuthenticationService.addAuthentication(res, auth.getName(), authorities);
+        //info用于防止伪造token
+        String info = ""+LocalTime.now().getNano();
+        TokenAuthenticationService.addAuthentication(res, auth.getName(), authorities, info);
         Map<String,String> map = UtilJson.readValue(out,Map.class);
         map.put("status","1");
         map.put("token",res.getHeader(HEADER_STRING));
+        req.getSession().setAttribute(res.getHeader(HEADER_STRING), info);
         responseOutWithJson(res, map);
     }
 

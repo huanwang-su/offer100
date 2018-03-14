@@ -21,16 +21,6 @@ public class ConfigurationController {
 
     @Autowired
     ConfigurationService configurationService;
-  /*  @ApiOperation(value = "获取配置列表",notes = "")
-    @ResponseBody
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Configuration> getConfigurationList() {
-        // 处理"/configuration/"的GET请求，用来获取用户列表
-        // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
-        //List<User> r = new ArrayList<User>(users.values());
-        List<Configuration> r = configurationService.getAll();
-        return r;
-    }*/
 
     @ApiOperation(value = "创建配置",notes = "根据configuration对象创建configuration，创建一条新的配置")
     @ResponseBody
@@ -55,10 +45,7 @@ public class ConfigurationController {
         // 处理"/configuration/{id}"的GET请求，用来获取url中id值的User信息
         // url中的id可通过@PathVariable绑定到函数的参数中
         if( configurationService.findById(id) > 0) {
-
-
-            Configuration configuration = new Configuration();
-            configuration = configurationService.selectByPrimaryKey(id);
+            Configuration configuration = configurationService.selectByPrimaryKey(id);
             return configuration;
 
         }
@@ -68,7 +55,7 @@ public class ConfigurationController {
    
     @ApiOperation(value="查询配置(type)", notes="根据url的type来获取配置详细信息")
     @ResponseBody
-    @RequestMapping(value = "/{type}" , method = RequestMethod.GET)
+    @RequestMapping(value = "getByType/{type}" , method = RequestMethod.GET)
     //需要添加/type,否则运行时服务器不能正确辨别是本函数的url还是getConfigurationById方法的url
     public Object getConfigurationByType(@PathVariable String type){
 
