@@ -1,9 +1,11 @@
 package com.yiguo.mvc.controller;
 
+import com.yiguo.bean.Job;
 import com.yiguo.bean.Page;
 import com.yiguo.bean.Receive;
 import com.yiguo.bean.Receive;
 import com.yiguo.offer100.common.page.PageInfo;
+import com.yiguo.service.JobService;
 import com.yiguo.service.ReceiveService;
 import com.yiguo.service.ReceiveService;
 import io.swagger.annotations.Api;
@@ -14,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static com.alibaba.dubbo.monitor.MonitorService.FAILURE;
 import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
@@ -27,8 +27,8 @@ import static com.alibaba.dubbo.monitor.MonitorService.SUCCESS;
 public class ReceiveController {
     @Autowired
     ReceiveService receiveService;
-
-
+    @Autowired
+    JobService jobService;
     @ApiOperation(value = "创建收藏", notes = "根据Receive对象创建Receive")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -47,15 +47,21 @@ public class ReceiveController {
     @ApiOperation(value = "获取收藏信息列表", notes = "根据筛选条件获取收藏详细信息")
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public PageInfo<Receive> getReceive(@ModelAttribute Receive receive, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
+    public PageInfo<Job> getReceive(@ModelAttribute Receive receive, @RequestParam Integer pageSize, @RequestParam Integer pageNumber) {
         // 处理"/Receives/{id}"的GET请求，用来获取url中id值的Receive信息
         // url中的id可通过@PathVariable绑定到函数的参数中
         Page page = new Page();
         page.setPageNumber(pageNumber);
         page.setPageSize(pageSize);
-        PageInfo<Receive> pageInfo = new PageInfo<Receive>();
-        pageInfo.setRows(receiveService.select(receive, page));
-        pageInfo.setTotal(receiveService.selectCount(receive));
+        PageInfo<Job> pageInfo = new PageInfo<Job>();
+        pageInfo.setPageSize(pageSize);
+        pageInfo.setPageNum(pageNumber);
+        List<Receive> receives =receiveService.select(receive,null);
+        List<Job> jobs=new ArrayList<Job>();
+        pageInfo.setRows(jobs);
+        for(int i=0;i<receives.size();i++)
+            jobs.add( jobService.selectByPrimaryKey(receives.get(i).getJobId()));
+        pageInfo.setTotal(receives.size());
         return pageInfo;
 
     }
