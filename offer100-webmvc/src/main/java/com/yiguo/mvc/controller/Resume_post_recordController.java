@@ -107,7 +107,57 @@ private String Sender;
 
         return f;
     }
+    @ApiOperation(value = "发送面试通过通知",notes = "通过发送邮件通知，提醒用户面试通过")
+    @ResponseBody
+    @RequestMapping(value = "/getPassMail/{resumeid}/{enterpriseId}/{jobid}", method = RequestMethod.GET)
+    public void getPassMail(@PathVariable Integer resumeid,@PathVariable Integer enterpriseId,@PathVariable Integer jobid){
+        Resume resume = resumeService.selectByPrimaryKey(resumeid);
+        User user =  userService.selectByPrimaryKey(resume.getUserId());
+        String emailencode=MD5(user.getEmail())+"&";
+        String url="https://yiguo.com/password/reset?";
+        Resume_post_record resume_post_record =new Resume_post_record();
+        resume_post_record.setResumeId(resumeid);
+        resume_post_record.setJobId(jobid);
+        List<Resume_post_record> resume_post_records= resume_post_recordService.select(resume_post_record,null);
+        byte i=(byte)5;
+        resume_post_records.get(0).setState(i);
+        resume_post_recordService.updateByPrimaryKeySelective(resume_post_records.get(0));
 
+        if(resume_post_recordService.select(resume_post_record,null).get(0).getState()==5) {
+            Notification notification = new Notification();
+            notification.setTitle("简历通知");
+            notification.setContext("面试通过，请您尽快到公司确认");
+            notification.setRecieverId(resume.getUserId());
+            notification.setSenderId(enterpriseId);
+            byte is = (byte) 2;
+            notification.setType(is);
+            notification.setSendTime(new Date());
+            notificationService.insert(notification);
+            MimeMessage message = null;
+            try {
+                message = mailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(message, true);
+                helper.setFrom(Sender);
+                helper.setFrom(new InternetAddress(Sender, "offer100", "UTF-8"));
+                helper.setTo(user.getEmail());
+                helper.setSubject("来自offer100");
+                helper.setText("简历通知");
+                Map<String, Object> model = new HashedMap();
+                model.put("username", "你好，");
+                model.put("text", "面试通过，请尽快到公司确认");
+                //修改 application.properties 文件中的读取路径
+                FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+                configurer.setTemplateLoaderPath("classpath:templates");
+                //读取 html 模板
+                Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail1.html");
+                String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+                helper.setText(html, true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mailSender.send(message);
+        }
+    }
 
     @ApiOperation(value = "发送录取简历通知",notes = "通过发送邮件通知，提醒用户录取简历")
     @ResponseBody
