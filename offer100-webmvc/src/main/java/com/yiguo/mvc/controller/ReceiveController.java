@@ -84,10 +84,15 @@ public class ReceiveController {
 
     @ApiOperation(value = "删除收藏信息", notes = "根据url的id来指定删除对象")
     @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String deleteReceive(@PathVariable Integer id) {
+    @RequestMapping(value = "/{userid}/{jobid}", method = RequestMethod.DELETE)
+    public String deleteReceive(@PathVariable Integer userid,@PathVariable Integer jobid) {
         // 处理"/Receives/{id}"的DELETE请求，用来删除Receive
-        receiveService.deleteByPrimaryKey(id);
+        Receive receive=new Receive();
+        receive.setUserId(userid);
+        receive.setJobId(jobid);
+       List<Receive> receives=receiveService.select(receive,null);
+       int id=receives.get(0).getId();
+       receiveService.deleteByPrimaryKey(id);
         String f = "true";
         if (receiveService.selectByPrimaryKey(id) != null)
             f = "false";
