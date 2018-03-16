@@ -91,6 +91,8 @@ public class ReceiveController {
         receive.setUserId(userid);
         receive.setJobId(jobid);
        List<Receive> receives=receiveService.select(receive,null);
+       if(receives.size()==0)
+           return "this have not exist";
        int id=receives.get(0).getId();
        receiveService.deleteByPrimaryKey(id);
         String f = "true";
